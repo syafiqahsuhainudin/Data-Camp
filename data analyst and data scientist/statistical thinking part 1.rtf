@@ -1,0 +1,421 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 # Import plotting modules\par
+import numpy as np\par
+import matplotlib.pyplot as plt\par
+import seaborn as sns\par
+\par
+# Set default Seaborn style\par
+sns.set()\par
+\par
+# Plot histogram of versicolor petal lengths\par
+_ = plt.hist(versicolor_petal_length)\par
+\par
+# Show histogram\par
+plt.show()\par
+---\par
+# Plot histogram of versicolor petal lengths\par
+_ = plt.hist(versicolor_petal_length)\par
+\par
+# Label axes\par
+_ = plt.xlabel('petal length (cm)')\par
+_ = plt.ylabel('count')\par
+\par
+# Show histogram\par
+plt.show()\par
+\par
+# Import numpy\par
+import numpy as np\par
+import matplotlib.pyplot as plt\par
+import seaborn as sns\par
+\par
+\par
+\par
+# Compute number of data points: n_data\par
+n_data = len(versicolor_petal_length)\par
+\par
+# Number of bins is the square root of number of data points: n_bins\par
+n_bins = np.sqrt(n_data)\par
+\par
+# Convert number of bins to integer: n_bins\par
+n_bins = int(n_bins)\par
+\par
+# Plot the histogram\par
+_ = plt.hist(versicolor_petal_length, bins=n_bins)\par
+\par
+# Label axes\par
+_ = plt.xlabel('petal length (cm)')\par
+_ = plt.ylabel('count')\par
+\par
+# Show histogram\par
+plt.show()\par
+\par
+----\par
+# Create bee swarm plot with Seaborn's default settings\par
+sns.swarmplot(x='species', y='petal length (cm)', data=df)\par
+\par
+# Label the axes\par
+plt.xlabel('species')\par
+plt.ylabel('petal length (cm)')\par
+\par
+# Show the plot\par
+plt.show()\par
+----\par
+def ecdf(data):\par
+    """Compute ECDF for a one-dimensional array of measurements."""\par
+\par
+    # Number of data points: n\par
+    n = len(data)\par
+\par
+    # x-data for the ECDF: x\par
+    x = np.sort(data)\par
+\par
+    # y-data for the ECDF: y\par
+    y = np.arange(1, n+1) / n\par
+\par
+    return x, y\par
+\par
+-----\par
+# Compute ECDF for versicolor data: x_vers, y_vers\par
+x_vers, y_vers = ecdf(versicolor_petal_length)\par
+\par
+# Generate plot\par
+_ = plt.plot(x_vers, y_vers, marker = '.', linestyle = 'none')\par
+\par
+# Make the margins nice\par
+plt.margins(0.02)\par
+\par
+# Label the axes\par
+_ = plt.xlabel('length')\par
+_ = plt.ylabel('ECDF')\par
+\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+----\par
+# Compute the mean: mean_length_vers\par
+mean_length_vers = np.mean(versicolor_petal_length)\par
+\par
+# Print the result with some nice formatting\par
+print('I. versicolor:', mean_length_vers, 'cm')\par
+\par
+# Specify array of percentiles: percentiles\par
+percentiles = np.array([2.5, 25, 50, 75, 97.5])\par
+\par
+# Compute percentiles: ptiles_vers\par
+ptiles_vers = np.percentile(versicolor_petal_length, percentiles)\par
+\par
+# Print the result\par
+print(ptiles_vers)\par
+----\par
+# Plot the ECDF\par
+_ = plt.plot(x_vers, y_vers, '.')\par
+plt.margins(0.02)\par
+_ = plt.xlabel('petal length (cm)')\par
+_ = plt.ylabel('ECDF')\par
+\par
+# Overlay percentiles as red diamonds.\par
+_ = plt.plot(ptiles_vers, percentiles / 100, marker='D', color='red',\par
+             linestyle='none')\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+# Create box plot with Seaborn's default settings\par
+_ = sns.boxplot(x='species', y='petal length (cm)', data=df)\par
+\par
+# Label the axes\par
+plt.xlabel('species')\par
+plt.ylabel('petal length (cm)')\par
+\par
+# Show the plot\par
+plt.show()\par
+-----\par
+--variance n std--\par
+# Array of differences to mean: differences\par
+differences = np.array(versicolor_petal_length -\par
+                       np.mean(versicolor_petal_length))\par
+\par
+# Square the differences: diff_sq\par
+diff_sq = differences ** 2\par
+\par
+# Compute the mean square difference: variance_explicit\par
+variance_explicit = np.mean(diff_sq)\par
+\par
+# Compute the variance using NumPy: variance_np\par
+variance_np = np.var(versicolor_petal_length)\par
+\par
+# Print the results\par
+print(variance_explicit, variance_np)\par
+\par
+\par
+# Compute the variance: variance\par
+variance = np.var(versicolor_petal_length)\par
+\par
+# Print the square root of the variance\par
+print(np.sqrt(variance))\par
+\par
+# Print the standard deviation\par
+print(np.std(versicolor_petal_length))\par
+-----\par
+# Make a scatter plot\par
+_ = plt.plot(versicolor_petal_length, versicolor_petal_width,\par
+             marker='.', linestyle='none')\par
+\par
+\par
+# Set margins\par
+_ = plt.margins(0.02)\par
+\par
+# Label the axes\par
+_ = plt.xlabel('versicolor petal length')\par
+_ = plt.ylabel('versicolor petal width')\par
+\par
+\par
+# Show the result\par
+plt.show()\par
+\par
+\par
+# Compute the covariance matrix: covariance_matrix\par
+covariance_matrix = np.cov(versicolor_petal_length, versicolor_petal_width)\par
+\par
+# Print covariance matrix\par
+print(covariance_matrix)\par
+\par
+# Extract covariance of length and width of petals: petal_cov\par
+petal_cov = covariance_matrix[0, 1]\par
+\par
+# Print the length/width covariance\par
+print(petal_cov)\par
+\par
+\par
+--\par
+def pearson_r(x, y):\par
+    """Compute Pearson correlation coefficient between two arrays."""\par
+    # Compute correlation matrix: corr_mat\par
+    corr_mat = np.corrcoef(x, y)\par
+\par
+    # Return entry [0,1]\par
+    return corr_mat[0, 1]\par
+\par
+\par
+# Compute Pearson correlation coefficient for I. versicolor: r\par
+r = pearson_r(versicolor_petal_length, versicolor_petal_width)\par
+\par
+# Print the result\par
+print(r)\par
+\par
+-----\par
+# Seed the random number generator\par
+np.random.seed(42)\par
+\par
+# Initialize random numbers: random_numbers\par
+random_numbers = np.empty(100000)\par
+\par
+# Generate random numbers by looping over range(100000)\par
+for i in range(100000):\par
+    random_numbers[i] = np.random.random()\par
+    print(random_numbers[i])\par
+\par
+\par
+# Plot a histogram\par
+_ = plt.hist(random_numbers)\par
+\par
+# Show the plot\par
+plt.show()\par
+---\par
+def perform_bernoulli_trials(n, p):\par
+    """Perform n Bernoulli trials with success probability p\par
+    and return number of successes."""\par
+    # Initialize number of successes: n_success\par
+    n_success = 0\par
+\par
+    # Perform trials\par
+    for i in range(n):\par
+        # Choose random number between zero and one: random_number\par
+        random_number = np.random.random()\par
+\par
+        # If less than p, it's a success so add one to n_success\par
+        if random_number < p:\par
+            n_success += 1\par
+\par
+    return n_success\par
+\par
+# Seed random number generator\par
+np.random.seed(42)\par
+\par
+# Initialize the number of defaults: n_defaults\par
+n_defaults = np.empty(1000)\par
+\par
+# Compute the number of defaults\par
+for i in range(1000):\par
+    n_defaults[i] = perform_bernoulli_trials(100, 0.05)\par
+\par
+\par
+# Plot the histogram with default number of bins; label your axes\par
+_ = plt.hist(n_defaults, normed=True)\par
+_ = plt.xlabel('number of defaults out of 100 loans')\par
+_ = plt.ylabel('probability')\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+------\par
+# Compute ECDF: x, y\par
+x, y = ecdf(n_defaults)\par
+\par
+# Plot the ECDF with labeled axes\par
+_ = plt.plot(x, y, marker='.', linestyle='none')\par
+_ = plt.xlabel('x')\par
+_ = plt.ylabel('y')\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+# Compute the number of 100-loan simulations with 10 or more defaults: n_lose_money\par
+n_lose_money = np.sum(n_defaults >= 10)\par
+\par
+# Compute and print probability of losing money\par
+print('Probability of losing money =', n_lose_money / len(n_defaults))\par
+\par
+--------Binomial Distribution--\par
+# Take 10,000 samples out of the binomial distribution: n_defaults\par
+n_defaults = np.random.binomial(n=100, p=0.05, size=10000)\par
+\par
+# Compute CDF: x, y\par
+\par
+x, y = ecdf(n_defaults)\par
+\par
+# Plot the CDF with axis labels\par
+_ = plt.plot(x, y, marker='.', linestyle='none')\par
+_ = plt.xlabel('Defaults out of 100')\par
+_ = plt.ylabel('CDF')\par
+\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+# Compute bin edges: bins\par
+bins = np.arange(min(n_defaults), max(n_defaults) + 1.5) - 0.5\par
+\par
+# Generate histogram\par
+_ = plt.hist(n_defaults, normed=True, bins=bins)\par
+\par
+# Set margins\par
+_ = plt.margins(0.02)\par
+\par
+# Label axes\par
+_ = plt.xlabel('x')\par
+_ = plt.ylabel('y')\par
+\par
+# Show the plot\par
+plt.show()\par
+-----pisson distribution----\par
+# Draw 10,000 samples out of Poisson distribution: samples_poisson\par
+samples_poisson = np.random.poisson(10, size=10000)\par
+\par
+# Print the mean and standard deviation\par
+print('Poisson:     ', np.mean(samples_poisson),\par
+      np.std(samples_poisson))\par
+\par
+# Specify values of n and p to consider for Binomial: n, p\par
+n = [20, 100, 1000]\par
+p = [0.5, 0.1, 0.01]\par
+\par
+# Draw 10,000 samples for each n,p pair: samples_binomial\par
+for i in range(3):\par
+    samples_binomial = np.random.binomial(n[i], p[i], 10000)\par
+\par
+    # Print results\par
+    print('n =', n[i], 'Binom:', np.mean(samples_binomial),\par
+          np.std(samples_binomial))\par
+\par
+# Draw 10,000 samples out of Poisson distribution: n_nohitters\par
+n_nohitters = np.random.poisson((251 / 115), size=10000)\par
+\par
+# Compute number of samples that are seven or greater: n_large\par
+n_large = np.sum(n_nohitters >= 7)\par
+\par
+# Compute probability of getting seven or more: p_large\par
+p_large = n_large / 10000\par
+\par
+# Print the result\par
+print('Probability of seven or more no-hitters:', p_large)\par
+\par
+----NOrmal distributution---\par
+mean,std\par
+std--how wide it is\par
+\par
+# Draw 100000 samples from Normal distribution with stds of interest: samples_std1, samples_std3, samples_std10\par
+samples_std1 = np.random.normal(20, 1, size=100000)\par
+samples_std3 = np.random.normal(20, 3, size=100000)\par
+samples_std10 = np.random.normal(20, 10, size=100000)\par
+\par
+# Make histograms\par
+_ = plt.hist(samples_std1, bins=100, normed=True, histtype='step')\par
+_ = plt.hist(samples_std3, bins=100, normed=True, histtype='step')\par
+_ = plt.hist(samples_std10, bins=100, normed=True, histtype='step')\par
+\par
+# Make a legend, set limits and show plot\par
+_ = plt.legend(('std = 1', 'std = 3', 'std = 10'))\par
+plt.ylim(-0.01, 0.42)\par
+plt.show()\par
+\par
+\par
+# Generate CDFs\par
+x_std1, y_std1 = ecdf(samples_std1)\par
+x_std3, y_std3 = ecdf(samples_std3)\par
+x_std10, y_std10 = ecdf(samples_std10)\par
+\par
+# Plot CDFs\par
+_ = plt.plot(x_std1, y_std1, marker='.', linestyle='none')\par
+_ = plt.plot(x_std3, y_std3, marker='.', linestyle='none')\par
+_ = plt.plot(x_std10, y_std10, marker='.', linestyle='none')\par
+\par
+# Make 2% margin\par
+plt.margins(0.02)\par
+\par
+# Make a legend and show the plot\par
+_ = plt.legend(('std = 1', 'std = 3', 'std = 10'), loc='lower right')\par
+plt.show()\par
+---\par
+# Compute mean and standard deviation: mu, sigma\par
+mu = np.mean(belmont_no_outliers)\par
+sigma = np.std(belmont_no_outliers)\par
+\par
+# Sample out of a normal distribution with this mu and sigma: samples\par
+samples = np.random.normal(mu, sigma, 10000)\par
+\par
+# Get the CDF of the samples and of the data\par
+x_theor, y_theor = ecdf(samples)\par
+x, y = ecdf(belmont_no_outliers)\par
+\par
+# Plot the CDFs and show the plot\par
+_ = plt.plot(x_theor, y_theor)\par
+_ = plt.plot(x, y, marker='.', linestyle='none')\par
+plt.margins(0.02)\par
+_ = plt.xlabel('Belmont winning time (sec.)')\par
+_ = plt.ylabel('CDF')\par
+plt.show()\par
+--\par
+# Take a million samples out of the Normal distribution: samples\par
+samples = np.random.normal(mu, sigma, 1000000)\par
+\par
+# Compute the fraction that are faster than 144 seconds: prob\par
+prob = len(samples[np.where(samples <= 144)]) / len(samples)\par
+\par
+# Print the result\par
+print('Probability of besting Secretariat:', prob)\par
+----Expenontial---\par
+def successive_poisson(tau1, tau2, size=1):\par
+    # Draw samples out of first exponential distribution: t1\par
+    t1 = np.random.exponential(tau1, size)\par
+\par
+    # Draw samples out of second exponential distribution: t2\par
+    t2 = np.random.exponential(tau2, size)\par
+\par
+    return t1 + t2\par
+\par
+\par
+}
+ 

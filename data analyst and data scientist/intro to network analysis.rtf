@@ -1,0 +1,538 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 # Use a list comprehension to get the nodes of interest: noi\par
+noi = [n for n, d in T.nodes(data=True) if d['occupation'] == 'scientist']\par
+\par
+# Use a list comprehension to get the edges of interest: eoi\par
+eoi = [(u, v) for u, v, d in T.edges(data=True) if d['date'] < date(2010, 1, 1)]\par
+\par
+--\par
+# Set the weight of the edge\par
+T[1][10]['weight'] = 2\par
+\par
+# Iterate over all the edges (with metadata)\par
+for u, v, d in T.edges(data=True):\par
+\par
+    # Check if node 293 is involved\par
+    if 293 in [u, v]:\par
+    \par
+        # Set the weight to 1.1\par
+        T[u][v]['weight'] = 1.1\par
+\par
+----\par
+# Define find_selfloop_nodes()\par
+def find_selfloop_nodes(G):\par
+    """\par
+    Finds all nodes that have self-loops in the graph G.\par
+    """\par
+    nodes_in_selfloops = []\par
+    \par
+    # Iterate over all the edges of G\par
+    for u, v in G.edges():\par
+    \par
+    # Check if node u and node v are the same\par
+        if u == v:\par
+        \par
+            # Append node u to nodes_in_selfloops\par
+            nodes_in_selfloops.append(u)\par
+            \par
+    return nodes_in_selfloops\par
+\par
+# Check whether number of self loops equals the number of nodes in self loops\par
+assert T.number_of_selfloops() == len(find_selfloop_nodes(T))\par
+----\par
+# Import nxviz\par
+import nxviz as nv\par
+\par
+# Create the MatrixPlot object: m\par
+m = nv.MatrixPlot(T)\par
+\par
+# Draw m to the screen\par
+m.draw()\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Convert T to a matrix format: A\par
+A = nx.to_numpy_matrix(T)\par
+\par
+# Convert A back to the NetworkX form as a directed graph: T_conv\par
+T_conv = nx.from_numpy_matrix(A, create_using=nx.DiGraph())\par
+\par
+# Check that the `category` metadata field is lost from each node\par
+for n, d in T_conv.nodes(data=True):\par
+    assert 'category' not in d.keys()\par
+----\par
+# Import necessary modules\par
+import matplotlib.pyplot as plt\par
+from nxviz import CircosPlot\par
+\par
+# Create the CircosPlot object: c\par
+c = CircosPlot(T)\par
+\par
+# Draw c to the screen\par
+c.draw()\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+----\par
+# Import necessary modules\par
+import matplotlib.pyplot as plt\par
+from nxviz import ArcPlot\par
+\par
+# Create the un-customized ArcPlot object: a\par
+a = ArcPlot(T)\par
+\par
+# Draw a to the screen\par
+a.draw()\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Create the customized ArcPlot object: a2\par
+a2 = ArcPlot(T, node_order= 'category', node_color= 'category')\par
+\par
+# Draw a2 to the screen\par
+a2.draw()\par
+\par
+# Display the plot\par
+plt.show()\par
+---\par
+# Define nodes_with_m_nbrs()\par
+def nodes_with_m_nbrs(G, m):\par
+    """\par
+    Returns all nodes in graph G that have m neighbors.\par
+    """\par
+    nodes = set()\par
+    \par
+    # Iterate over all nodes in G\par
+    for n in G.nodes():\par
+    \par
+        # Check if the number of neighbors of n matches m\par
+        if len(list(G.neighbors(n))) == m:\par
+        \par
+            # Add the node n to the set\par
+            nodes.add(n)\par
+            \par
+    # Return the nodes with m neighbors\par
+    return nodes\par
+\par
+# Compute and print all nodes in T that have 6 neighbors\par
+six_nbrs = nodes_with_m_nbrs(T, 6)\par
+print(six_nbrs)\par
+----\par
+# Define path_exists()\par
+def path_exists(G, node1, node2):\par
+    """\par
+    This function checks whether a path exists between two nodes (node1, node2) in graph G.\par
+    """\par
+    visited_nodes = set()\par
+    \par
+    # Initialize the queue of cells to visit with the first node: queue\par
+    queue = [node1]  \par
+    \par
+    # Iterate over the nodes in the queue\par
+    for node in queue:\par
+    \par
+        # Get neighbors of the node\par
+        neighbors = G.neighbors(node)\par
+        \par
+        # Check to see if the destination node is in the set of neighbors\par
+        if node2 in neighbors:\par
+            print('Path exists between nodes \{0\} and \{1\}'.format(node1, node2))\par
+            return True\par
+            break\par
+-----\par
+def path_exists(G, node1, node2):\par
+    """\par
+    This function checks whether a path exists between two nodes (node1, node2) in graph G.\par
+    """\par
+    visited_nodes = set()\par
+    queue = [node1]\par
+    \par
+    for node in queue:  \par
+        neighbors = G.neighbors(node)\par
+        if node2 in neighbors:\par
+            print('Path exists between nodes \{0\} and \{1\}'.format(node1, node2))\par
+            return True\par
+            break\par
+        \par
+        else:\par
+            # Add current node to visited nodes\par
+            visited_nodes.add(node)\par
+            \par
+            # Add neighbors of current node that have not yet been visited\par
+            queue.extend([n for n in neighbors if n not in visited_nodes])\par
+            ---\par
+def path_exists(G, node1, node2):\par
+    """\par
+    This function checks whether a path exists between two nodes (node1, node2) in graph G.\par
+    """\par
+    visited_nodes = set()\par
+    queue = [node1]\par
+    \par
+    for node in queue:  \par
+        neighbors = G.neighbors(node)\par
+        if node2 in neighbors:\par
+            print('Path exists between nodes \{0\} and \{1\}'.format(node1, node2))\par
+            return True\par
+            break\par
+\par
+        else:\par
+            visited_nodes.add(node)\par
+            queue.extend([n for n in neighbors if n not in visited_nodes])\par
+        \par
+        # Check to see if the final element of the queue has been reached\par
+        if node == queue[-1]:\par
+            print('Path does not exist between nodes \{0\} and \{1\}'.format(node1, node2))\par
+\par
+            # Place the appropriate return statement\par
+            return False\par
+----\par
+# Compute the betweenness centrality of T: bet_cen\par
+bet_cen = nx.betweenness_centrality(T)\par
+\par
+# Compute the degree centrality of T: deg_cen\par
+deg_cen = nx.degree_centrality(T)\par
+\par
+# Create a scatter plot of betweenness centrality and degree centrality\par
+plt.scatter(list(bet_cen.values()), list(deg_cen.values()))\par
+\par
+# Display the plot\par
+plt.show()\par
+----\par
+# Define find_nodes_with_highest_deg_cent()\par
+def find_nodes_with_highest_deg_cent(G):\par
+\par
+    # Compute the degree centrality of G: deg_cent\par
+    deg_cent = nx.degree_centrality(G)\par
+    \par
+    # Compute the maximum degree centrality: max_dc\par
+    max_dc = max(list(deg_cent.values()))\par
+    \par
+    nodes = set()\par
+    \par
+    # Iterate over the degree centrality dictionary\par
+    for k, v in deg_cent.items():\par
+    \par
+        # Check if the current value has the maximum degree centrality\par
+        if v == max_dc:\par
+        \par
+            # Add the current node to the set of nodes\par
+            nodes.add(k)\par
+            \par
+    return nodes\par
+    \par
+# Find the node(s) that has the highest degree centrality in T: top_dc\par
+top_dc = find_nodes_with_highest_deg_cent(T)\par
+print(top_dc)\par
+\par
+# Write the assertion statement\par
+for node in top_dc:\par
+    assert nx.degree_centrality(T)[node] == max(nx.degree_centrality(T).values())\par
+----\par
+# Define find_node_with_highest_bet_cent()\par
+def find_node_with_highest_bet_cent(G):\par
+\par
+    # Compute betweenness centrality: bet_cent\par
+    bet_cent = nx.betweenness_centrality(G)\par
+    \par
+    # Compute maximum betweenness centrality: max_bc\par
+    max_bc = max(list(bet_cent.values()))\par
+    \par
+    nodes = set()\par
+    \par
+    # Iterate over the betweenness centrality dictionary\par
+    for k, v in bet_cent.items():\par
+    \par
+        # Check if the current value has the maximum betweenness centrality\par
+        if v == max_bc:\par
+        \par
+            # Add the current node to the set of nodes\par
+            nodes.add(k)\par
+            \par
+    return nodes\par
+\par
+# Use that function to find the node(s) that has the highest betweenness centrality in the network: top_bc\par
+top_bc = find_node_with_highest_bet_cent(T)\par
+\par
+# Write an assertion statement that checks that the node(s) is/are correctly identified.\par
+for node in top_bc:\par
+    assert nx.betweenness_centrality(T)[node] == max(nx.betweenness_centrality(T).values())\par
+----\par
+from itertools import combinations\par
+\par
+# Define is_in_triangle() \par
+def is_in_triangle(G, n):\par
+    """\par
+    Checks whether a node `n` in graph `G` is in a triangle relationship or not. \par
+    \par
+    Returns a boolean.\par
+    """\par
+    in_triangle = False\par
+    \par
+    # Iterate over all possible triangle relationship combinations\par
+    for n1, n2 in combinations(G.neighbors(n),2):\par
+    \par
+        # Check if an edge exists between n1 and n2\par
+        if G.has_edge(n1, n2):\par
+            in_triangle = True\par
+            break\par
+    return in_triangle\par
+----\par
+from itertools import combinations\par
+\par
+# Write a function that identifies all nodes in a triangle relationship with a given node.\par
+def nodes_in_triangle(G, n):\par
+    """\par
+    Returns the nodes in a graph `G` that are involved in a triangle relationship with the node `n`.\par
+    """\par
+    triangle_nodes = set([n])\par
+    \par
+    # Iterate over all possible triangle relationship combinations\par
+    for n1, n2 in combinations(G.neighbors(n),2):\par
+    \par
+        # Check if n1 and n2 have an edge between them\par
+        if G.has_edge(n1, n2):\par
+        \par
+            # Add n1 to triangle_nodes\par
+            triangle_nodes.add(n1)\par
+            \par
+            # Add n2 to triangle_nodes\par
+            triangle_nodes.add(n2)\par
+            \par
+    return triangle_nodes\par
+    \par
+# Write the assertion statement\par
+assert len(nodes_in_triangle(T, 1)) == 35\par
+---\par
+from itertools import combinations\par
+\par
+# Define node_in_open_triangle()\par
+def node_in_open_triangle(G, n):\par
+    """\par
+    Checks whether pairs of neighbors of node `n` in graph `G` are in an 'open triangle' relationship with node `n`.\par
+    """\par
+    in_open_triangle = False\par
+    \par
+    # Iterate over all possible triangle relationship combinations\par
+    for n1, n2 in combinations(G.neighbors(n),2):\par
+    \par
+        # Check if n1 and n2 do NOT have an edge between them\par
+        if not G.has_edge(n1, n2):\par
+        \par
+            in_open_triangle = True\par
+            \par
+            break\par
+            \par
+    return in_open_triangle\par
+\par
+# Compute the number of open triangles in T\par
+num_open_triangles = 0\par
+\par
+# Iterate over all the nodes in T\par
+for n in T.nodes():\par
+\par
+    # Check if the current node is in an open triangle\par
+    if node_in_open_triangle(T, n):\par
+    \par
+        # Increment num_open_triangles\par
+        num_open_triangles += 1\par
+        \par
+print(num_open_triangles)\par
+---\par
+# Define maximal_cliques()\par
+def maximal_cliques(G, size):\par
+    """\par
+    Finds all maximal cliques in graph `G` that are of size `size`.\par
+    """\par
+    mcs = []\par
+    for clique in nx.find_cliques(G):\par
+        if len(clique) == size:\par
+            mcs.append(clique)\par
+    return mcs\par
+\par
+# Check that there are 33 maximal cliques of size 3 in the graph T\par
+assert len(maximal_cliques(T, 3)) == 33\par
+-----\par
+nodes_of_interest = [29, 38, 42]  # provided.\par
+\par
+# Define get_nodes_and_nbrs()\par
+def get_nodes_and_nbrs(G, nodes_of_interest):\par
+    """\par
+    Returns a subgraph of the graph `G` with only the `nodes_of_interest` and their neighbors.\par
+    """\par
+    nodes_to_draw = []\par
+    \par
+    # Iterate over the nodes of interest\par
+    for n in nodes_of_interest:\par
+    \par
+        # Append the nodes of interest to nodes_to_draw\par
+        nodes_to_draw.append(n)\par
+        \par
+        # Iterate over all the neighbors of node n\par
+        for nbr in G.neighbors(n):\par
+        \par
+            # Append the neighbors of n to nodes_to_draw\par
+            nodes_to_draw.append(nbr)\par
+            \par
+    return G.subgraph(nodes_to_draw)\par
+\par
+# Extract the subgraph with the nodes of interest: T_draw\par
+T_draw = get_nodes_and_nbrs(T, nodes_of_interest)\par
+\par
+# Draw the subgraph to the screen\par
+nx.draw(T_draw)\par
+plt.show()\par
+----\par
+# Extract the nodes of interest: nodes\par
+nodes = [n for n, d in T.nodes(data=True) if d['occupation'] == 'celebrity']\par
+\par
+# Create the set of nodes: nodeset\par
+nodeset = set(nodes)\par
+\par
+# Iterate over nodes\par
+for n in nodes:\par
+\par
+    # Compute the neighbors of n: nbrs\par
+    nbrs = T.neighbors(n)\par
+    \par
+    # Compute the union of nodeset and nbrs: nodeset\par
+    nodeset = nodeset.union(nbrs)\par
+\par
+# Compute the subgraph using nodeset: T_sub\par
+T_sub = T.subgraph(nodeset)\par
+\par
+# Draw T_sub to the screen\par
+nx.draw(T_sub)\par
+plt.show()\par
+----\par
+# Import necessary modules\par
+import matplotlib.pyplot as plt\par
+import networkx as nx \par
+\par
+# Plot the degree distribution of the GitHub collaboration network\par
+plt.hist(list(nx.degree_centrality(G).values()))\par
+plt.show()\par
+---\par
+# Import necessary modules\par
+import matplotlib.pyplot as plt\par
+import networkx as nx\par
+\par
+# Plot the degree distribution of the GitHub collaboration network\par
+plt.hist(list(nx.betweenness_centrality(G).values()))\par
+plt.show()\par
+----\par
+# Import necessary modules\par
+from nxviz import MatrixPlot\par
+import matplotlib.pyplot as plt\par
+\par
+# Calculate the largest connected component subgraph: largest_ccs\par
+largest_ccs = sorted(nx.connected_component_subgraphs(G), key=lambda x: len(x))[-1]\par
+\par
+# Create the customized MatrixPlot object: h\par
+h = MatrixPlot(graph=largest_ccs, node_grouping='grouping')\par
+\par
+# Draw the MatrixPlot to the screen\par
+h.draw()\par
+plt.show()\par
+----\par
+# Import necessary modules\par
+from nxviz.plots import ArcPlot\par
+import matplotlib.pyplot as plt\par
+\par
+# Iterate over all the nodes in G, including the metadata\par
+for n, d in G.nodes(data=True):\par
+\par
+    # Calculate the degree of each node: G.node[n]['degree']\par
+    G.node[n]['degree'] = nx.degree(G, n)\par
+    \par
+# Create the ArcPlot object: a\par
+a = ArcPlot(graph=G, node_order='degree')\par
+\par
+# Draw the ArcPlot to the screen\par
+a.draw()\par
+plt.show()\par
+----\par
+\par
+# Import necessary modules\par
+from nxviz import ArcPlot\par
+import matplotlib.pyplot as plt\par
+ \par
+# Identify the largest maximal clique: largest_max_clique\par
+largest_max_clique = set(sorted(nx.find_cliques(G), key=lambda x: len(x))[-1])\par
+\par
+# Create a subgraph from the largest_max_clique: G_lmc\par
+G_lmc = G.subgraph(largest_max_clique).copy()\par
+\par
+# Go out 1 degree of separation\par
+for node in list(G.nodes()):\par
+    G_lmc.add_nodes_from(G.neighbors(node))\par
+    G_lmc.add_edges_from(zip([node]*len(list(G.neighbors(node))), G.neighbors(node)))\par
+\par
+# Record each node's degree centrality score\par
+for n in G_lmc.nodes():\par
+    G_lmc.node[n]['degree centrality'] = nx.degree_centrality(G_lmc)[n]\par
+        \par
+# Create the ArcPlot object: a\par
+a = ArcPlot(G_lmc, node_order='degree centrality')\par
+\par
+# Draw the ArcPlot to the screen\par
+a.draw()\par
+plt.show()\par
+----\par
+# Import necessary modules\par
+from nxviz import CircosPlot\par
+import matplotlib.pyplot as plt\par
+\par
+# Iterate over all the nodes, including the metadata\par
+for n, d in G.nodes(data=True):\par
+\par
+    # Calculate the degree of each node: G.node[n]['degree']\par
+    G.node[n]['degree'] = nx.degree(G, n)\par
+\par
+# Create the CircosPlot object: c\par
+c = CircosPlot(G, node_order='degree', node_grouping='grouping', node_color='grouping')\par
+\par
+# Draw the CircosPlot object to the screen\par
+c.draw()\par
+plt.show()\par
+-------\par
+# Calculate the maximal cliques in G: cliques\par
+cliques = nx.find_cliques(G)\par
+\par
+# Count and print the number of maximal cliques in G\par
+print(len(list(cliques)))\par
+-----\par
+# Import necessary modules\par
+import networkx as nx\par
+from nxviz import CircosPlot\par
+import matplotlib.pyplot as plt\par
+\par
+# Find the author(s) that are part of the largest maximal clique: largest_clique\par
+largest_clique = sorted(nx.find_cliques(G), key=lambda x:len(x))[-1]\par
+\par
+# Create the subgraph of the largest_clique: G_lc\par
+G_lc = G.subgraph(largest_clique)\par
+\par
+# Create the CircosPlot object: c\par
+c = CircosPlot(G_lc)\par
+\par
+# Draw the CircosPlot to the screen\par
+c.draw()\par
+plt.show()\par
+----\par
+# Compute the degree centralities of G: deg_cent\par
+deg_cent = nx.degree_centrality(G)\par
+\par
+# Compute the maximum degree centrality: max_dc\par
+max_dc = max(deg_cent.values())\par
+\par
+# Find the user(s) that have collaborated the most: prolific_collaborators\par
+prolific_collaborators = [n for n, dc in deg_cent.items() if dc == max_dc]\par
+\par
+# Print the most prolific collaborator(s)\par
+print(prolific_collaborators)\par
+}
+ 

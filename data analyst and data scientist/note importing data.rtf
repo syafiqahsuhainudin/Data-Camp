@@ -1,0 +1,332 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang17417{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 import data\par
+filename=" dh.txt"\par
+file= open(filename,mode='r')\par
+text=file.read()\par
+file.close()\par
+print(text)\par
+\par
+r---read\par
+w--write\par
+--------------\par
+import numpy as np\par
+filename='nm.txt'\par
+data=np.loadtxt(filename,delimiter=',',skiprows=1)\par
+print(data)\par
+\par
+data=np.loadtxt(filename,delimiter=',',dtype=str)\par
+\par
+-------------\par
+import pandas as pd\par
+filename='hjddjsk.csv'\par
+data=pd.read_csv(filename)\par
+data.head()\par
+\par
+------------\par
+import pickle\par
+with open('pickled.pkl','rb') as file:\par
+   data=pickle.load(file)\par
+\par
+import panda as pd\par
+file='urbanpop.xslx'\par
+data=pd.ExcelFile(file)\par
+print(data.sheet_names)\par
+\par
+\par
+df1=data.parse('1960-1966')\par
+\par
+# Import pickle package\par
+import pickle\par
+\par
+# Open pickle file and load data: d\par
+with open('data.pkl', 'rb') as file:\par
+    d = pickle.load(file)\par
+\par
+# Print d\par
+print(d)\par
+\par
+# Print datatype of d\par
+print(type(d))\par
+\par
+# Load a sheet into a DataFrame by name: df1\par
+df1 = xls.parse('2004')\par
+\par
+# Print the head of the DataFrame df1\par
+print(df1.head())\par
+\par
+# Load a sheet into a DataFrame by index: df2\par
+df2=xls.parse(0)\par
+\par
+# Print the head of the DataFrame df2\par
+print(df2.head())\par
+\par
+\par
+import pandas as pd\par
+from sas7bdat import SAS7BDAT\par
+with SAS7BDAT('urbanpop.sas7bdat')as file:\par
+df_sas=file.to_data_frame()\par
+ data=pd.read_stata(' dd.dta')\par
+-------------\par
+import h5py\par
+filename='HJJDJD.hdf5'\par
+data=h5py.File(filename,'r')\par
+\par
+for key in data.keys():\par
+print(type(data[meta]))\par
+\par
+-------------\par
+import scipy.io\par
+filename='workspace.mat'\par
+mat=scipy.io.loadmat(filename)\par
+print(type(mat[x]))\par
+\par
+# Print the keys of the MATLAB dictionary\par
+print(mat.keys())\par
+\par
+# Print the type of the value corresponding to the key 'CYratioCyt'\par
+print(type(mat['CYratioCyt']))\par
+\par
+# Print the shape of the value corresponding to the key 'CYratioCyt'\par
+print(np.shape(mat['CYratioCyt']))\par
+\par
+# Subset the array and plot it\par
+data = mat['CYratioCyt'][25, 5:]\par
+fig = plt.figure()\par
+plt.plot(data)\par
+plt.xlabel('time (min.)')\par
+plt.ylabel('normalized fluorescence (measure of expression)')\par
+plt.show()\par
+------------\par
+sqlite,sqlalchemy\par
+\par
+from sqlalchemy mport create_engine\par
+engine=create_engine('sqlite:///Northwind.sqlite')\par
+table_names=engine.table_names()\par
+\par
+# Import necessary module\par
+from sqlalchemy import create_engine\par
+\par
+# Import necessary module\par
+from sqlalchemy import create_engine\par
+\par
+\par
+# Create engine: engine\par
+engine = create_engine('sqlite:///Chinook.sqlite')\par
+\par
+# Save the table names to a list: table_names\par
+table_names=engine.table_names()\par
+\par
+# Print the table names to the shell\par
+print(table_names)\par
+--------------\par
+from sqlalchemy import create_engine\par
+import panda as pd\par
+engine = create_engine('sqlite:///Chinook.sqlite')\par
+con=engine.connect()\par
+rs=con.execute("SELECT*FROM Orders")\par
+df=pd.DataFrame(rs.fetchall())\par
+df.columns=rs.keys()\par
+con.close()\par
+\par
+print(df.head())\par
+\par
+with engine.connect() as con:\par
+rs=con.execute("SELECT orderid FROM Orders")\par
+df=pd.DataFrame(rs.fetchmany(size=5))\par
+\par
+# Import packages\par
+from sqlalchemy import create_engine\par
+import pandas as pd\par
+\par
+# Create engine: engine\par
+engine = create_engine('sqlite:///Chinook.sqlite')\par
+\par
+\par
+# Execute query and store records in DataFrame: df\par
+df = pd.read_sql_query("SELECT * FROM Album", engine)\par
+\par
+# Print head of DataFrame\par
+print(df.head())\par
+\par
+# Open engine in context manager and store query result in df1\par
+with engine.connect() as con:\par
+    rs = con.execute("SELECT * FROM Album")\par
+    df1 = pd.DataFrame(rs.fetchall())\par
+    df1.columns = rs.keys()\par
+\par
+# Confirm that both methods yield the same result\par
+print(df.equals(df1))\par
+\par
+\par
+# Execute query and store records in DataFrame: df\par
+df = pd.read_sql_query("SELECT * FROM Employee where EmployeeId>=6 ORDER BY BirthDate", engine)\par
+\par
+# Open engine in context manager\par
+# Perform query and save results to DataFrame: df\par
+with engine.connect() as con:\par
+    rs=con.execute("SELECT Title,Name FROM Album INNER JOIN Artist on Album.ArtistID =Artist.ArtistID")\par
+    df=pd.DataFrame(rs.fetchall())\par
+    df.columns=rs.keys()\par
+   \par
+# Print head of DataFrame df\par
+print(df.head())\par
+------------------------------\par
+\b twitter\b0\par
+from urllib.request import urlretrieve\par
+url='http://archieve.ics.uci.edu//ml/machine-learning-database/wine-quality/jjfjf.csv'\par
+urlretrieve(url,'jjfjf.csv')\par
+\par
+# Import package\par
+from urllib.request import urlretrieve\par
+\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Assign url of file: url\par
+url='https://s3.amazonaws.com/assets.datacamp.com/production/course_1606/datasets/winequality-red.csv'\par
+\par
+\par
+# Save file locally\par
+urlretrieve(url,'winequality-red.csv')\par
+\par
+# Read file into a DataFrame and print its head\par
+df = pd.read_csv('winequality-red.csv', sep=';')\par
+print(df.head())\par
+\par
+# Read in all sheets of Excel file: xl\par
+xl = pd.read_excel(url, sheetname=None)\par
+\par
+# Print the sheetnames to the shell\par
+print(xl.keys())\par
+\par
+# Print the head of the first sheet (using its name, NOT its index)\par
+print(xl['1700'].head())\par
+\par
+from urllib.request import urlopen,Request\par
+url='https://wwww'\par
+request=Request(url)\par
+response=urlopen(request)\par
+html=response.read()\par
+response.close()\par
+\par
+import requests\par
+url="htt"\par
+r=request.get(url)\par
+text=r.text\par
+--------------\par
+from bs4 import BeautifulSoup\par
+import request\par
+url='https://'\par
+r=request.get(url)\par
+html_doc=r.text\par
+soup=BeautifulSoup(html_doc)\par
+print(soup.title)\par
+for link in soup.find_all('a'):\par
+print(link.get('href'))\par
+\par
+\par
+# Import packages\par
+import requests\par
+from bs4 import BeautifulSoup\par
+\par
+# Specify url: url\par
+url = '{{\field{\*\fldinst{HYPERLINK https://www.python.org/~guido/ }}{\fldrslt{https://www.python.org/~guido/\ul0\cf0}}}}\f0\fs22 '\par
+\par
+# Package the request, send the request and catch the response: r\par
+r = requests.get(url)\par
+\par
+# Extract the response as html: html_doc\par
+html_doc = r.text\par
+\par
+# Create a BeautifulSoup object from the HTML: soup\par
+soup=BeautifulSoup(html_doc)\par
+\par
+# Get the title of Guido's webpage: guido_title\par
+guido_title=soup.title\par
+\par
+# Print the title of Guido's webpage to the shell\par
+print(guido_title)\par
+\par
+# Get Guido's text: guido_text\par
+\par
+guido_text=soup.get_text()\par
+# Print Guido's text to the shell\par
+print(guido_text)\par
+----------------------\par
+javascript object notation(json)\par
+import json\par
+with open('snakes.json','r')as json_file:\par
+     json_data=json.load(json_file)\par
+\par
+for k in json_data.keys():\par
+...     print(k + ': ',json_data[k])\par
+-------------------------\par
+import requests\par
+url='http'\par
+r=requests.get(url)\par
+json_data=r.json()\par
+for key,value in json_data.items():\par
+   print(key+':',value)\par
+\par
+# Import requests package\par
+import requests\par
+\par
+\par
+# Assign URL to variable: url\par
+url='http://www.omdbapi.com/?apikey=72bc447a&t=the+social+network'\par
+\par
+# Package the request, send the request and catch the response: r\par
+r = requests.get(url)\par
+\par
+# Print the text of the response\par
+print(r.text)\par
+\par
+# Import package\par
+import requests\par
+\par
+# Assign URL to variable: url\par
+url = '{{\field{\*\fldinst{HYPERLINK http://www.omdbapi.com/?apikey=72bc447a&t=social+network }}{\fldrslt{http://www.omdbapi.com/?apikey=72bc447a&t=social+network\ul0\cf0}}}}\f0\fs22 '\par
+\par
+# Package the request, send the request and catch the response: r\par
+r = requests.get(url)\par
+\par
+\par
+# Decode the JSON data into a dictionary: json_data\par
+json_data=r.json()\par
+\par
+# Print each key-value pair in json_data\par
+for k in json_data.keys():\par
+    print(k + ': ', json_data[k])\par
+\par
+# Print the Wikipedia page extract\par
+pizza_extract = json_data['query']['pages']['24768']['extract']\par
+print(pizza_extract)\par
+\par
+-----------------\par
+import tweepy, json\par
+access_tokens="..."\par
+access_token_secret=".."\par
+consumer_key="..."\par
+consumer_secret=".."\par
+auth=tweepy.0aUTHandler(consumer_key,consumer_secret)\par
+auth.set_access_tokens(access_tokens,access_tokens_secret)\par
+ \par
+class MyStreamListener(tweepy.StreamListener):\par
+\par
+l=MyStreamListener()\par
+stream=tweepy.Stream(auth,1)\par
+\par
+\par
+# Import package\par
+import pandas as pd\par
+\par
+# Build DataFrame of tweet texts and languages\par
+df = pd.DataFrame(tweets_data, columns=['text'])\par
+\par
+# Print head of DataFrame\par
+print(df.head())\par
+}
+ 

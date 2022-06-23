@@ -1,0 +1,570 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 from glob import glob\par
+filenames=glob('sales*.csv)\par
+dataframes=[pd.read_csv(f) for f in filenames]\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Create the list of file names: filenames\par
+filenames = ['Gold.csv', 'Silver.csv', 'Bronze.csv']\par
+\par
+# Create the list of three DataFrames: dataframes\par
+dataframes = []\par
+for filename in filenames:\par
+    dataframes.append(pd.read_csv(filename))\par
+\par
+# Print top 5 rows of 1st DataFrame in dataframes\par
+print(dataframes[0].head())\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Make a copy of gold: medals\par
+medals = gold.copy()\par
+\par
+# Create list of new column labels: new_labels\par
+new_labels = ['NOC', 'Country', 'Gold']\par
+\par
+# Rename the columns of medals using new_labels\par
+medals.columns = new_labels\par
+\par
+# Add columns 'Silver' & 'Bronze' to medals\par
+medals['Silver'] = silver['Total']\par
+medals['Bronze'] = bronze['Total']\par
+\par
+# Print the head of medals\par
+print(medals.head())\par
+\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Read 'monthly_max_temp.csv' into a DataFrame: weather1\par
+weather1 = pd.read_csv('monthly_max_temp.csv', index_col='Month')\par
+\par
+# Print the head of weather1\par
+print(weather1.head())\par
+\par
+# Sort the index of weather1 in alphabetical order: weather2\par
+weather2 = weather1.sort_index()\par
+\par
+# Print the head of weather2\par
+print(weather2.head())\par
+\par
+# Sort the index of weather1 in reverse alphabetical order: weather3\par
+weather3 = weather1.sort_index(ascending=False)\par
+\par
+# Print the head of weather3\par
+print(weather3.head())\par
+\par
+# Sort weather1 numerically using the values of 'Max TemperatureF': weather4\par
+weather4 = weather1.sort_values('Max TemperatureF')\par
+\par
+# Print the head of weather4\par
+print(weather4.head())\par
+\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Reindex weather1 using the list year: weather2\par
+weather2 = weather1.reindex(year)\par
+\par
+# Print weather2\par
+print(weather2)\par
+\par
+# Reindex weather1 using the list year with forward-fill: weather3\par
+weather3 = weather1.reindex(year).ffill()\par
+\par
+# Print weather3\par
+print(weather3)\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Reindex names_1981 with index of names_1881: common_names\par
+common_names = names_1981.reindex(names_1881.index)\par
+\par
+# Print shape of common_names\par
+print(common_names.shape)\par
+\par
+# Drop rows with null counts: common_names\par
+common_names = common_names.dropna()\par
+\par
+# Print shape of new common_names\par
+print(common_names.shape)\par
+\par
+weather.loc['2013-07-01':'2013-07-07','precipitation']*2.54\par
+\par
+weather.loc['2013-07-01':'2013-07-07','precipitation','Max']]*2.54\par
+\par
+week1_range.divide(week1_mean,axis='rows')\par
+week1_mean.pct_change()*100\par
+bronze.add(silver,fill_value=0)\par
+\par
+\par
+# Extract selected columns from weather as new DataFrame: temps_f\par
+temps_f = weather[['Min TemperatureF', 'Mean TemperatureF', 'Max TemperatureF']]\par
+\par
+# Convert temps_f to celsius: temps_c\par
+temps_c = (temps_f - 32) * 5/9\par
+\par
+# Rename 'F' in column names with 'C': temps_c.columns\par
+temps_c.columns = temps_c.columns.str.replace('F', 'C')\par
+\par
+# Print first 5 rows of temps_c\par
+print(temps_c.head())\par
+\par
+import pandas as pd\par
+# Read 'GDP.csv' into a DataFrame: gdp\par
+gdp = pd.read_csv('GDP.csv', parse_dates=True, index_col='DATE')\par
+\par
+# Slice all the gdp data from 2008 onward: post2008\par
+post2008 = gdp.loc['2008':]\par
+\par
+# Print the last 8 rows of post2008\par
+print(post2008.tail(8))\par
+\par
+# Resample post2008 by year, keeping last(): yearly\par
+yearly = post2008.resample('A').last()\par
+\par
+# Print yearly\par
+print(yearly)\par
+\par
+# Compute percentage growth of yearly: yearly['growth']\par
+yearly['growth'] = yearly.pct_change() * 100\par
+\par
+# Print yearly again\par
+print(yearly)\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Read 'sp500.csv' into a DataFrame: sp500\par
+sp500 = pd.read_csv('sp500.csv', parse_dates=True, index_col='Date')\par
+\par
+# Read 'exchange.csv' into a DataFrame: exchange\par
+exchange = pd.read_csv('exchange.csv', parse_dates=True, index_col='Date')\par
+\par
+# Subset 'Open' & 'Close' columns from sp500: dollars\par
+dollars = sp500[['Open', 'Close']]\par
+\par
+# Print the head of dollars\par
+print(dollars.head())\par
+\par
+# Convert dollars to pounds: pounds\par
+pounds = dollars.multiply(exchange['GBP/USD'],axis='rows')\par
+\par
+# Print the head of pounds\par
+print(pounds.head())\par
+\par
+\par
+\par
+pd.series([])\par
+northesat.append(south)\par
+\par
+pd.concat([northeast,south],ignore_index=True)\par
+\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Load 'sales-jan-2015.csv' into a DataFrame: jan\par
+jan = pd.read_csv('sales-jan-2015.csv', parse_dates=True, index_col='Date')\par
+\par
+# Load 'sales-feb-2015.csv' into a DataFrame: feb\par
+feb = pd.read_csv('sales-feb-2015.csv', parse_dates=True, index_col='Date')\par
+\par
+# Load 'sales-mar-2015.csv' into a DataFrame: mar\par
+mar = pd.read_csv('sales-mar-2015.csv', parse_dates=True, index_col='Date')\par
+\par
+# Extract the 'Units' column from jan: jan_units\par
+jan_units = jan['Units']\par
+\par
+# Extract the 'Units' column from feb: feb_units\par
+feb_units = feb['Units']\par
+\par
+# Extract the 'Units' column from mar: mar_units\par
+mar_units = mar['Units']\par
+\par
+# Append feb_units and then mar_units to jan_units: quarter1\par
+quarter1 = jan_units.append(feb_units).append(mar_units)\par
+\par
+# Print the first slice from quarter1\par
+print(quarter1.loc['jan 27, 2015':'feb 2, 2015'])\par
+\par
+# Print the second slice from quarter1\par
+print(quarter1.loc['feb 26, 2015':'mar 7, 2015'])\par
+\par
+# Compute & print total sales in quarter1\par
+print(quarter1.sum())\par
+\par
+# Initialize empty list: units\par
+units = []\par
+\par
+# Build the list of Series\par
+for month in [jan, feb, mar]:\par
+    units.append(month['Units'])\par
+\par
+# Concatenate the list: quarter1\par
+quarter1 = pd.concat(units, axis='rows')\par
+\par
+# Print slices from quarter1\par
+print(quarter1.loc['jan 27, 2015':'feb 2, 2015'])\par
+print(quarter1.loc['feb 26, 2015':'mar 7, 2015'])\par
+\par
+# Create a list of weather_max and weather_mean\par
+weather_list = [weather_max,weather_mean]\par
+\par
+# Concatenate weather_max and weather_mean horizontally: weather\par
+weather = pd.concat([weather_max, weather_mean], axis=1)\par
+\par
+# Print weather\par
+print(weather)\par
+\par
+\par
+for medal in medal_types:\par
+\par
+    # Create the file name: file_name\par
+    file_name = "%s_top5.csv" % medal\par
+    \par
+    # Create list of column names: columns\par
+    columns = ['Country', medal]\par
+    \par
+    # Read file_name into a DataFrame: df\par
+    medal_df = pd.read_csv(file_name, header=0, index_col='Country', names=columns)\par
+\par
+    # Append medal_df to medals\par
+    medals.append(medal_df)\par
+\par
+# Concatenate medals horizontally: medals\par
+medals = pd.concat(medals, axis='columns')\par
+\par
+# Print medals\par
+print(medals)\par
+\par
+for medal in medal_types:\par
+\par
+    file_name = "%s_top5.csv" % medal\par
+\par
+    # Read file_name into a DataFrame: medal_df\par
+    medal_df = pd.read_csv(file_name, index_col='Country')\par
+    \par
+    # Append medal_df to medals\par
+    medals.append(medal_df)\par
+\par
+# Concatenate medals: medals\par
+medals = pd.concat(medals, keys=['bronze', 'silver', 'gold'])\par
+\par
+# Print medals\par
+print(medals)\par
+\par
+# Sort the entries of medals\par
+medals_sorted = medals.sort_index(level=0)\par
+\par
+# Print the number of Bronze medals won by Germany\par
+print(medals_sorted.loc[('bronze','Germany')])\par
+\par
+# Print data about silver medals\par
+print(medals_sorted.loc['silver'])\par
+\par
+# Create alias for pd.IndexSlice: idx\par
+idx = pd.IndexSlice\par
+\par
+# Print all the data on medals won by the United Kingdom\par
+print(medals_sorted.loc[idx[:,'United Kingdom'], :])\par
+\par
+# Concatenate dataframes: february\par
+february = pd.concat(dataframes, axis=1, keys=['Hardware', 'Software', 'Service'])\par
+\par
+# Print february.info()\par
+print(february.info())\par
+\par
+# Assign pd.IndexSlice: idx\par
+idx = pd.IndexSlice\par
+\par
+# Create the slice: slice_2_8\par
+slice_2_8 = february.loc['2015-2-2':'2015-2-8', idx[:, 'Company']]\par
+\par
+# Print slice_2_8\par
+print(slice_2_8)\par
+\par
+# Make the list of tuples: month_list\par
+month_list = [('january', jan), ('february', feb), ('march', mar)]\par
+\par
+# Create an empty dictionary: month_dict\par
+month_dict = \{\}\par
+\par
+for month_name, month_data in month_list:\par
+\par
+    # Group month_data: month_dict[month_name]\par
+    month_dict[month_name] = month_data.groupby('Company').sum()\par
+\par
+# Concatenate data in month_dict: sales\par
+sales = pd.concat(month_dict)\par
+\par
+# Print sales\par
+print(sales)\par
+\par
+# Print all sales by Mediacore\par
+idx = pd.IndexSlice\par
+print(sales.loc[idx[:, 'Mediacore'], :])\par
+\par
+\par
+np.arange(8).reshape(2,4)+0.1\par
+np.hstack([B,A])\par
+np.concatenate([B,A],axis=1)\par
+np.vstack([B,A])\par
+\par
+\par
+# Create the list of DataFrames: medal_list\par
+medal_list = [bronze, silver, gold]\par
+\par
+# Concatenate medal_list horizontally using an inner join: medals\par
+medals = pd.concat(medal_list, keys=['bronze', 'silver', 'gold'], axis=1, join='inner')\par
+\par
+# Print medals\par
+print(medals)\par
+\par
+# Resample and tidy china: china_annual\par
+china_annual = china.resample('A').last().pct_change(10).dropna()\par
+\par
+# Resample and tidy us: us_annual\par
+us_annual = us.resample('A').last().pct_change(10).dropna()\par
+\par
+# Concatenate china_annual and us_annual: gdp\par
+gdp = pd.concat([china_annual, us_annual], join='inner', axis=1)\par
+\par
+# Resample gdp and print\par
+print(gdp.resample('10A').last())\par
+\par
+# Merge revenue with managers on 'city': merge_by_city\par
+merge_by_city = pd.merge(revenue, managers, on='city')\par
+\par
+# Print merge_by_city\par
+print(merge_by_city)\par
+\par
+# Merge revenue with managers on 'branch_id': merge_by_id\par
+merge_by_id = pd.merge(revenue, managers, on='branch_id')\par
+\par
+# Print merge_by_id\par
+print(merge_by_id)\par
+\par
+# Merge revenue & managers on 'city' & 'branch': combined\par
+combined = pd.merge(revenue,managers,left_on='city',right_on='branch')\par
+\par
+# Print combined\par
+print(combined)\par
+\par
+# Add 'state' column to revenue: revenue['state']\par
+revenue['state'] = ['TX','CO','IL','CA']\par
+\par
+# Add 'state' column to managers: managers['state']\par
+managers['state'] = ['TX','CO','CA','MO']\par
+\par
+# Merge revenue & managers on 'branch_id', 'city', & 'state': combined\par
+combined = pd.merge(revenue, managers, on=['branch_id', 'city', 'state'])\par
+\par
+# Print combined\par
+print(combined)\par
+\par
+------------\par
+pd.merge(bronze,gold,on=['NOC','Country'],suffixes=['_bronze','_gold'],how='inner')\par
+\par
+population.join(unemployment,how='outer')\par
+\par
+# Merge revenue and sales: revenue_and_sales\par
+revenue_and_sales = pd.merge(revenue, sales, how='right', on=['city', 'state'])\par
+\par
+# Print revenue_and_sales\par
+print(revenue_and_sales)\par
+\par
+# Merge sales and managers: sales_and_managers\par
+sales_and_managers = pd.merge(sales, managers, how='left', left_on=['city', 'state'], right_on=['branch', 'state'])\par
+\par
+# Print sales_and_managers\par
+print(sales_and_managers)\par
+\par
+#Perform the first merge: merge_default\par
+merge_default = pd.merge(sales_and_managers, revenue_and_sales)\par
+\par
+# Print merge_default\par
+print(merge_default)\par
+\par
+# Perform the second merge: merge_outer\par
+merge_outer = pd.merge(sales_and_managers, revenue_and_sales, how='outer')\par
+\par
+# Print merge_outer\par
+print(merge_outer)\par
+\par
+# Perform the third merge: merge_outer_on\par
+merge_outer_on = pd.merge(sales_and_managers, revenue_and_sales, on=['city', 'state'], how='outer')\par
+\par
+# Print merge_outer_on\par
+print(merge_outer_on)\par
+\par
+pd.merge_ordered(hardware,software)\par
+\par
+pd.merge_ordered(hardware,software,on=['date','company'],suffixes=['_hardware','_software']).head()\par
+\par
+pd.merge_ordered(hardware,software,on='date',fill_method='ffill')\par
+\par
+# Merge auto and oil: merged\par
+merged = pd.merge_asof(auto, oil, left_on='yr', right_on='Date')\par
+\par
+# Print the tail of merged\par
+print(merged.tail())\par
+\par
+# Resample merged: yearly\par
+yearly = merged.resample('A',on='Date')[['mpg','Price']].mean()\par
+\par
+# Print yearly\par
+print(yearly)\par
+\par
+# Print yearly.corr()\par
+print(yearly.corr())\par
+\par
+#Import pandas\par
+import pandas as pd\par
+\par
+# Create file path: file_path\par
+file_path = 'Summer Olympic medallists 1896 to 2008 - EDITIONS.tsv'\par
+\par
+# Load DataFrame from file_path: editions\par
+editions = pd.read_csv(file_path, sep='\\t')\par
+\par
+# Extract the relevant columns: editions\par
+editions = editions[['Edition', 'Grand Total', 'City', 'Country']]\par
+\par
+# Print editions DataFrame\par
+print(editions)\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Create the file path: file_path\par
+file_path = 'Summer Olympic medallists 1896 to 2008 - IOC COUNTRY CODES.csv'\par
+\par
+# Load DataFrame from file_path: ioc_codes\par
+ioc_codes = pd.read_csv(file_path)\par
+\par
+# Extract the relevant columns: ioc_codes\par
+ioc_codes = ioc_codes[['Country', 'NOC']]\par
+\par
+# Print first and last 5 rows of ioc_codes\par
+print(ioc_codes.head())\par
+print(ioc_codes.tail())\par
+\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Create empty dictionary: medals_dict\par
+medals_dict = \{\}\par
+\par
+for year in editions['Edition']:\par
+\par
+    # Create the file path: file_path\par
+    file_path = 'summer_\{:d\}.csv'.format(year)\par
+    \par
+    # Load file_path into a DataFrame: medals_dict[year]\par
+    medals_dict[year] = pd.read_csv(file_path)\par
+    \par
+    # Extract relevant columns: medals_dict[year]\par
+    medals_dict[year] = medals_dict[year][['Athlete', 'NOC', 'Medal']]\par
+    \par
+    # Assign year to column 'Edition' of medals_dict\par
+    medals_dict[year]['Edition'] = year \par
+    \par
+# Concatenate medals_dict: medals\par
+medals = pd.concat(medals_dict, ignore_index=True)\par
+\par
+# Print first and last 5 rows of medals\par
+print(medals.head())\par
+print(medals.tail())\par
+\par
+# Set Index of editions: totals\par
+totals = editions.set_index('Edition')\par
+\par
+# Reassign totals['Grand Total']: totals\par
+totals = totals['Grand Total']\par
+\par
+# Divide medal_counts by totals: fractions\par
+fractions = medal_counts.divide(totals, axis='rows')\par
+\par
+# Print first & last 5 rows of fractions\par
+print(fractions.head())\par
+print(fractions.tail())\par
+\par
+# Apply the expanding mean: mean_fractions\par
+mean_fractions = fractions.expanding().mean()\par
+\par
+# Compute the percentage change: fractions_change\par
+fractions_change = mean_fractions.pct_change() * 100\par
+\par
+# Reset the index of fractions_change: fractions_change\par
+fractions_change = fractions_change.reset_index()\par
+\par
+# Print first & last 5 rows of fractions_change\par
+print(fractions_change.head())\par
+print(fractions_change.tail())\par
+\par
+\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Left join editions and ioc_codes: hosts\par
+hosts = pd.merge(editions, ioc_codes, how='left')\par
+\par
+# Extract relevant columns and set index: hosts\par
+hosts = hosts[['Edition','NOC']].set_index('Edition')\par
+\par
+# Fix missing 'NOC' values of hosts\par
+print(hosts.loc[hosts.NOC.isnull()])\par
+hosts.loc[1972, 'NOC'] = 'FRG'\par
+hosts.loc[1980, 'NOC'] = 'URS'\par
+hosts.loc[1988, 'NOC'] = 'KOR'\par
+\par
+# Reset Index of hosts: hosts\par
+hosts = hosts.reset_index()\par
+\par
+# Print hosts\par
+print(hosts)\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Merge reshaped and hosts: merged\par
+merged = pd.merge(reshaped, hosts, how='inner')\par
+\par
+# Print first 5 rows of merged\par
+print(merged.head())\par
+\par
+# Set Index of merged and sort it: influence\par
+influence = merged.set_index('Edition').sort_index()\par
+# Print first 5 rows of influence\par
+print(influence.head())\par
+\par
+\par
+# Import pyplot\par
+import matplotlib.pyplot as plt\par
+\par
+# Extract influence['Change']: change\par
+change = influence['Change']\par
+\par
+\par
+# Make bar plot of change: ax\par
+ax = change.plot(kind='bar')\par
+\par
+# Customize the plot to improve readability\par
+ax.set_ylabel("% Change of Host Country Medal Count")\par
+ax.set_title("Is there a Host Country Advantage?")\par
+ax.set_xticklabels(editions['City'])\par
+\par
+# Display the plot\par
+plt.show()\par
+}
+ 

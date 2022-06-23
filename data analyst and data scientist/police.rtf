@@ -1,0 +1,301 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 insert into organizations\par
+select distinct organization,organization_sector from university_proffesors\par
+\par
+insert into table_name(column\par
+_a) VALUES("value_a","value_b")\par
+\par
+create table affliations(\par
+firstname text,\par
+lastname text,\par
+university_shortname text, \par
+function text,\par
+organization text);\par
+\par
+ALTER TABLE table_name\par
+RENAME column OLD_NAME to new_name;\par
+\par
+ALTER TABLE table\par
+DROP CLOLUMN column;\par
+\par
+-- Rename the organisation column\par
+ALTER TABLE affiliations\par
+RENAME COLUMN organisation TO organization;\par
+\par
+-- Delete the university_shortname column\par
+ALTER TABLE affiliations\par
+DROP COLUMN university_shortname;\par
+\par
+-- Insert unique professors into the new table\par
+INSERT INTO professors \par
+SELECT DISTINCT firstname, lastname, university_shortname \par
+FROM university_professors;\par
+\par
+-- Doublecheck the contents of professors\par
+SELECT * \par
+FROM professors;\par
+\par
+-- Insert unique affiliations into the new table\par
+INSERT INTO affiliations \par
+SELECT DISTINCT firstname, lastname, function, organization \par
+FROM university_professors;\par
+\par
+-- Doublecheck the contents of affiliations\par
+SELECT * \par
+FROM affiliations;\par
+\par
+-- Delete the university_professors table\par
+DROP TABLE university_professors;\par
+\par
+CREATE TABLE weather(\par
+temperature integer,\par
+wind_speed text);\par
+\par
+select temperature*CAST(wind_speed AS integer ) AS wind_chill\par
+FROM weather;\par
+\par
+-- Let's add a record to the table\par
+INSERT INTO transactions (transaction_date, amount, fee) \par
+VALUES ('2018-09-24', 5454, '30');\par
+\par
+-- Doublecheck the contents\par
+SELECT *\par
+FROM transactions;\par
+\par
+-- Calculate the net amount as amount + fee\par
+SELECT transaction_date, amount + CAST(fee AS integer) AS net_amount \par
+FROM transactions;\par
+\par
+most common types\par
+text\par
+varchar[(x)]\par
+char[(x)]\par
+boolean\par
+date,time,timestamp\par
+numeric\par
+integer\par
+\par
+\par
+name varchar(64),\par
+average numeric(3,2)--5.54\par
+\par
+ALTER TABLE STUDENTS\par
+ALTER COLUMN name\par
+TYPE varchar(128);\par
+\par
+ALTER TABLE STUDENTS\par
+ALTER COLUMN average\par
+TYPE integer\par
+USING ROUND(average);\par
+\par
+-- Convert the values in firstname to a max. of 16 characters\par
+ALTER TABLE professors \par
+ALTER COLUMN firstname \par
+TYPE varchar(16) USING SUBSTRING(firstname FROM 1 FOR 16)\par
+\par
+create table students(\par
+ssn integer not null,\par
+lastname varchar(64) not null,\par
+home_phone integer,\par
+office_phone integer);\par
+\par
+alter table students\par
+alter column home_phone\par
+set not null;\par
+\par
+alter table students\par
+alter column home_phone\par
+drop not null;\par
+\par
+create table table(\par
+column unique);\par
+\par
+alter table table_name\par
+add constraint some_name unique(column_name);\par
+\par
+ALTER TABLE professors \par
+ALTER COLUMN firstname SET NOT NULL;\par
+\par
+\par
+-- Disallow NULL values in lastname\par
+ALTER TABLE professors \par
+ALTER COLUMN lastname SET NOT NULL;\par
+\par
+-- Make universities.university_shortname unique\par
+ALTER TABLE universities \par
+ADD CONSTRAINT university_shortname_unq UNIQUE(university_shortname);\par
+\par
+-- Count the number of distinct values in the university_city column\par
+SELECT COUNT(DISTINCT(university_city)) \par
+FROM universities;\par
+\par
+-- Try out different combinations\par
+SELECT COUNT(DISTINCT(firstname, lastname))\par
+FROM professors;\par
+\par
+primary key\par
+product_no integer UNIQUE NOT NULL,\par
+product_no integer PRIMARY KEY\par
+\par
+\par
+CREATE TABLE example(\par
+a integr,\par
+b integer,\par
+c integer,\par
+PRIMARY KEY (a,c));\par
+\par
+ALTER TABLE table_name\par
+ADD CONSTRAINT some_name PRIMARY KEY(column_name)\par
+\par
+-- Rename the organization column to id\par
+ALTER TABLE organizations\par
+RENAME COLUMN organization TO id;\par
+\par
+-- Make id a primary key\par
+ALTER TABLE organizations\par
+ADD CONSTRAINT organization_pk PRIMARY KEY (id);\par
+\par
+-- Rename the university_shortname column to id\par
+ALTER TABLE universities\par
+RENAME COLUMN university_shortname TO id;\par
+\par
+-- Make id a primary key\par
+ALTER TABLE universities\par
+ADD CONSTRAINT university_pk PRIMARY KEY (id);\par
+\par
+ALTER TABLE cars\par
+ADD COLUMN id serial PRIMARY key;\par
+\par
+ALTER TABLE cars\par
+ADD COLUMN column_c varchar(256);\par
+ \par
+update table_name\par
+SET column_c= CONCAT(column_a,column_b);\par
+\par
+ALTER TABLE cars\par
+ADD CONSTRAINST pk PRIMARY key(column_c);\par
+\par
+-- Add the new column to the table\par
+ALTER TABLE professors \par
+ADD COLUMN id serial;\par
+ \par
+-- Add the new column to the table\par
+ALTER TABLE professors \par
+ADD COLUMN id serial;\par
+\par
+-- Make id a primary key\par
+ALTER TABLE professors \par
+ADD CONSTRAINT professors_pkey PRIMARY KEY (id);\par
+\par
+-- Add the new column to the table\par
+ALTER TABLE professors \par
+ADD COLUMN id serial;\par
+\par
+-- Make id a primary key\par
+ALTER TABLE professors \par
+ADD CONSTRAINT professors_pkey PRIMARY KEY (id);\par
+\par
+-- Have a look at the first 10 rows of professors\par
+SELECT *FROM professors LIMIT 10;\par
+\par
+-- Count the number of distinct rows with columns make, model\par
+SELECT COUNT(DISTINCT(make, model)) \par
+FROM cars;\par
+\par
+-- Add the id column\par
+ALTER TABLE cars\par
+ADD COLUMN id varchar(128);\par
+\par
+-- Count the number of distinct rows with columns make, model\par
+SELECT COUNT(DISTINCT(make, model)) \par
+FROM cars;\par
+\par
+-- Add the id column\par
+ALTER TABLE cars\par
+ADD COLUMN id varchar(128);\par
+\par
+-- Update id with make + model\par
+UPDATE cars\par
+SET id = CONCAT(make, model);\par
+\par
+-- Count the number of distinct rows with columns make, model\par
+SELECT COUNT(DISTINCT(make, model)) \par
+FROM cars;\par
+\par
+-- Add the id column\par
+ALTER TABLE cars\par
+ADD COLUMN id varchar(128);\par
+\par
+-- Update id with make + model\par
+UPDATE cars\par
+SET id = CONCAT(make, model);\par
+\par
+-- Make id a primary key\par
+ALTER TABLE cars\par
+ADD CONSTRAINT id_pk PRIMARY KEY(id);\par
+\par
+-- Have a look at the table\par
+SELECT * FROM cars;\par
+\par
+-- Create the table\par
+CREATE TABLE students (\par
+  last_name varchar(128) NOT NULL,\par
+  ssn integer[9] UNIQUE,\par
+  phone_no char(12));\par
+\par
+-- Rename the university_shortname column\par
+ALTER TABLE professors\par
+RENAME COLUMN university_shortname TO university_id;\par
+\par
+-- Add a foreign key on professors referencing universities\par
+\par
+ALTER TABLE professors \par
+ADD CONSTRAINT professors_fkey FOREIGN KEY (university_id) REFERENCES universities (id);\par
+\par
+-- Select all professors working for universities in the city of Zurich\par
+SELECT professors.lastname, universities.id, universities.university_city\par
+from professors\par
+join universities\par
+ON professors.university_id = universities.id\par
+WHERE universities.university_city = 'Zurich';\par
+\par
+-- Add a professor_id column\par
+ALTER TABLE affiliations\par
+ADD COLUMN professor_id integer REFERENCES professors (id);\par
+\par
+-- Rename the organization column to organization_id\par
+ALTER TABLE affiliations\par
+RENAME organization TO organization_id;\par
+\par
+-- Add a professor_id column\par
+ALTER TABLE affiliations\par
+ADD COLUMN professor_id integer REFERENCES professors (id);\par
+\par
+-- Rename the organization column to organization_id\par
+ALTER TABLE affiliations\par
+RENAME organization TO organization_id;\par
+\par
+-- Add a foreign key on organization_id\par
+ALTER TABLE affiliations\par
+ADD CONSTRAINT affiliations_organization_fkey FOREIGN KEY (organization_id) REFERENCES organizations (id);\par
+\par
+-- Update professor_id to professors.id where firstname, lastname correspond to rows in professors\par
+UPDATE affiliations\par
+SET professor_id = professors.id\par
+FROM professors\par
+WHERE affiliations.firstname = professors.firstname AND affiliations.lastname = professors.lastname;\par
+\par
+-- Have a look at the 10 first rows of affiliations again\par
+SELECT *FROM affiliations LIMIT 10;\par
+\par
+-- Drop the firstname column\par
+ALTER TABLE affiliations\par
+DROP COLUMN firstname;\par
+\par
+-- Drop the lastname column\par
+ALTER TABLE affiliations\par
+DROP COLUMN lastname;\par
+\par
+}
+ 

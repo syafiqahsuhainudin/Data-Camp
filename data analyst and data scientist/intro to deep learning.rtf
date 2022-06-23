@@ -1,0 +1,425 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 # Calculate node 0 value: node_0_value\par
+node_0_value = (input_data * weights['node_0']).sum()\par
+\par
+# Calculate node 1 value: node_1_value\par
+node_1_value = (input_data * weights['node_1']).sum()\par
+\par
+# Put node values into array: hidden_layer_outputs\par
+hidden_layer_outputs = np.array([node_0_value, node_1_value])\par
+\par
+# Calculate output: output\par
+output = (hidden_layer_outputs * weights['output']).sum()\par
+\par
+# Print output\par
+print(output, 'is the basic FP output from model')\par
+----\par
+def relu(input):\par
+    '''Define relu activation function here'''\par
+    # Calculate the value for the output of the relu function: output\par
+    output = max(input, 0)\par
+\par
+    # Return the value just calculated\par
+    return(output)\par
+\par
+# Calculate node 0 value: node_0_output\par
+node_0_input = (input_data * weights['node_0']).sum()\par
+node_0_output = relu(node_0_input)\par
+\par
+# Calculate node 1 value: node_1_output\par
+node_1_input = (input_data * weights['node_1']).sum()\par
+node_1_output = relu(node_1_input)\par
+\par
+# Put node values into array: hidden_layer_outputs\par
+hidden_layer_outputs = np.array([node_0_output, node_1_output])\par
+\par
+# Calculate model output (do not apply relu)\par
+model_output = (hidden_layer_outputs * weights['output']).sum()\par
+\par
+# Print model output\par
+print(model_output, 'is the FP_ReLU predicted quantity of transactions')\par
+----\par
+# Define predict_with_network()\par
+def predict_with_network(input_data_row, weights):\par
+\par
+    # Calculate node 0 value\par
+    node_0_input = (input_data_row * weights['node_0']).sum()\par
+    node_0_output = relu(node_0_input)\par
+\par
+    # Calculate node 1 value\par
+    node_1_input = (input_data_row * weights['node_1']).sum()\par
+    node_1_output = relu(node_1_input)\par
+\par
+    # Put node values into array: hidden_layer_outputs\par
+    hidden_layer_outputs = np.array([node_0_output, node_1_output])\par
+\par
+    # Calculate model output\par
+    input_to_final_layer = (weights['output'] * hidden_layer_outputs).sum()\par
+    model_output = relu(input_to_final_layer)\par
+\par
+    # Return model output\par
+    return(model_output)\par
+\par
+\par
+# Create empty list to store prediction results\par
+results = []\par
+for input_data_row in input_data:\par
+    # Append prediction to results\par
+    results.append(predict_with_network(input_data_row, weights))\par
+\par
+# Print results\par
+print(results)\par
+----\par
+def predict_with_network(input_data):\par
+    # Calculate node 0 in the first hidden layer\par
+    node_0_0_input = (input_data * weights['node_0_0']).sum()\par
+    node_0_0_output = relu(node_0_0_input)\par
+\par
+    # Calculate node 1 in the first hidden layer\par
+    node_0_1_input = (input_data * weights['node_0_1']).sum()\par
+    node_0_1_output = relu(node_0_1_input)\par
+\par
+    # Put node values into array: hidden_0_outputs\par
+    hidden_0_outputs = np.array([node_0_0_output, node_0_1_output])\par
+\par
+    # Calculate node 0 in the second hidden layer\par
+    node_1_0_input = (hidden_0_outputs * weights['node_1_0']).sum()\par
+    node_1_0_output = relu(node_1_0_input)\par
+\par
+    # Calculate node 1 in the second hidden layer\par
+    node_1_1_input = (hidden_0_outputs * weights['node_1_1']).sum()\par
+    node_1_1_output = relu(node_1_1_input)\par
+\par
+    # Put node values into array: hidden_1_outputs\par
+    hidden_1_outputs = np.array([node_1_0_output, node_1_1_output])\par
+\par
+    # Calculate model output: model_output\par
+    model_output = (weights['output'] * hidden_1_outputs).sum()\par
+\par
+    # Return model_output\par
+    return(model_output)\par
+\par
+output = predict_with_network(input_data)\par
+print(output)\par
+---\par
+# The data point you will make a prediction for\par
+input_data = np.array([0, 3])\par
+\par
+# Sample weights\par
+weights_0 = \{'node_0': [2, 1],\par
+             'node_1': [1, 2],\par
+             'output': [1, 1]\par
+            \}\par
+\par
+# The actual target value, used to calculate the error\par
+target_actual = 3\par
+\par
+# Make prediction using original weights\par
+model_output_0 = predict_with_network(input_data, weights_0)\par
+\par
+# Calculate error: error_0\par
+error_0 = model_output_0 - target_actual\par
+\par
+# Create weights that cause the network to make perfect prediction (3): weights_1\par
+weights_1 = \{'node_0': [2, 1],\par
+             'node_1': [1, 2],\par
+             'output': [1, 0]\par
+            \}\par
+\par
+# Make prediction using new weights: model_output_1\par
+model_output_1 = predict_with_network(input_data, weights_1)\par
+\par
+# Calculate error: error_1\par
+error_1 = model_output_1 - target_actual\par
+\par
+# Print error_0 and error_1\par
+print(error_0)\par
+print(error_1)\par
+----\par
+from sklearn.metrics import mean_squared_error\par
+# Create model_output_0 \par
+model_output_0 = []\par
+# Create model_output_0\par
+model_output_1 = []\par
+\par
+# Loop over input_data\par
+for row in input_data:\par
+    # Append prediction to model_output_0\par
+    model_output_0.append(predict_with_network(row, weights_0))\par
+    \par
+    # Append prediction to model_output_1\par
+    model_output_1.append(predict_with_network(row, weights_1))\par
+\par
+# Calculate the mean squared error for model_output_0: mse_0\par
+mse_0 = mean_squared_error(target_actuals, model_output_0)\par
+\par
+# Calculate the mean squared error for model_output_1: mse_1\par
+mse_1 = mean_squared_error(target_actuals, model_output_1)\par
+\par
+# Print mse_0 and mse_1\par
+print("Mean squared error with weights_0: %f" %mse_0)\par
+print("Mean squared error with weights_1: %f" %mse_1)\par
+---\par
+# Calculate the predictions: preds\par
+preds = (weights * input_data).sum()\par
+\par
+# Calculate the error: error\par
+error = preds - target\par
+\par
+# Calculate the slope: slope\par
+slope = input_data * error * 2\par
+\par
+# Print the slope\par
+print(slope)\par
+---\par
+# Set the learning rate: learning_rate\par
+learning_rate = 0.01\par
+\par
+# Calculate the predictions: preds\par
+preds = (weights * input_data).sum()\par
+\par
+# Calculate the error: error\par
+error = preds - target\par
+\par
+# Calculate the slope: slope\par
+slope = 2 * input_data * error\par
+\par
+# Update the weights: weights_updated\par
+weights_updated = weights - learning_rate * slope\par
+\par
+# Get updated predictions: preds_updated\par
+preds_updated = (weights_updated * input_data).sum()\par
+\par
+# Calculate updated error: error_updated\par
+error_updated = preds_updated - target\par
+\par
+# Print the original error\par
+print(error)\par
+\par
+# Print the updated error\par
+print(error_updated)\par
+---\par
+n_updates = 20\par
+mse_hist = []\par
+\par
+# Iterate over the number of updates\par
+for i in range(n_updates):\par
+    # Calculate the slope: slope\par
+    slope = get_slope(input_data, target, weights)\par
+    \par
+    # Update the weights: weights\par
+    weights = weights - 0.01 * slope\par
+    \par
+    # Calculate mse with new weights: mse\par
+    mse = get_mse(input_data, target, weights)\par
+    \par
+    # Append the mse to mse_hist\par
+    mse_hist.append(mse)\par
+\par
+# Plot the mse history\par
+plt.plot(mse_hist)\par
+plt.xlabel('Iterations')\par
+plt.ylabel('Mean Squared Error')\par
+plt.show()\par
+----\par
+# Import necessary modules\par
+import keras\par
+from keras.layers import Dense\par
+from keras.models import Sequential\par
+\par
+# Specify the model\par
+n_cols = predictors.shape[1]\par
+model = Sequential()\par
+model.add(Dense(50, activation='relu', input_shape = (n_cols,)))\par
+model.add(Dense(32, activation='relu'))\par
+model.add(Dense(1))\par
+\par
+# Compile the model\par
+model.compile(optimizer='adam',loss='mean_squared_error')\par
+\par
+# Verify that model contains information from compiling\par
+print("Loss function: " + model.loss)\par
+\par
+\par
+-----\par
+# Import necessary modules\par
+import keras\par
+from keras.layers import Dense\par
+from keras.models import Sequential\par
+\par
+# Specify the model\par
+n_cols = predictors.shape[1]\par
+model = Sequential()\par
+model.add(Dense(50, activation='relu', input_shape = (n_cols,)))\par
+model.add(Dense(32, activation='relu'))\par
+model.add(Dense(1))\par
+\par
+# Compile the model\par
+model.compile(optimizer='adam', loss='mean_squared_error')\par
+\par
+# Fit the model\par
+model.fit(predictors,target)\par
+----\par
+# Import necessary modules\par
+import keras\par
+from keras.layers import Dense\par
+from keras.models import Sequential\par
+from keras.utils import to_categorical\par
+\par
+# Convert the target to categorical: target\par
+target = to_categorical(df.survived)\par
+\par
+# Set up the model\par
+model = Sequential()\par
+\par
+# Add the first layer\par
+model.add(Dense(32, activation='relu', input_shape=(n_cols,)))\par
+\par
+# Add the output layer\par
+model.add(Dense(2, activation='softmax'))\par
+\par
+# Compile the model\par
+model.compile(optimizer='sgd', loss='categorical_crossentropy', metrics=['accuracy'])\par
+\par
+# Fit the model\par
+model.fit(predictors, target)\par
+\par
+# Import the SGD optimizer\par
+from keras.optimizers import SGD\par
+\par
+# Create list of learning rates: lr_to_test\par
+lr_to_test = [.000001, 0.01, 1]\par
+\par
+# Loop over learning rates\par
+for lr in lr_to_test:\par
+    print('\\n\\nTesting model with learning rate: %f\\n'%lr )\par
+    \par
+    # Build new model to test, unaffected by previous models\par
+    model = get_new_model()\par
+    \par
+    # Create SGD optimizer with specified learning rate: my_optimizer\par
+    my_optimizer = SGD(lr=lr)\par
+    \par
+    # Compile the model\par
+    model.compile(optimizer = my_optimizer, loss = 'categorical_crossentropy')\par
+    \par
+    # Fit the model\par
+    model.fit(predictors, target)\par
+\par
+----\par
+# Save the number of columns in predictors: n_cols\par
+n_cols = predictors.shape[1]\par
+input_shape = (n_cols,)\par
+\par
+# Specify the model\par
+model = Sequential()\par
+model.add(Dense(100, activation='relu', input_shape = input_shape))\par
+model.add(Dense(100, activation='relu'))\par
+model.add(Dense(2, activation='softmax'))\par
+\par
+# Compile the model\par
+model.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics=['accuracy'])\par
+\par
+# Fit the model\par
+hist = model.fit(predictors, target, validation_split=0.3)\par
+----\par
+# Import EarlyStopping\par
+from keras.callbacks import EarlyStopping\par
+\par
+# Save the number of columns in predictors: n_cols\par
+n_cols = predictors.shape[1]\par
+input_shape = (n_cols,)\par
+\par
+# Specify the model\par
+model = Sequential()\par
+model.add(Dense(100, activation='relu', input_shape = input_shape))\par
+model.add(Dense(100, activation='relu'))\par
+model.add(Dense(2, activation='softmax'))\par
+\par
+# Compile the model\par
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])\par
+\par
+# Define early_stopping_monitor\par
+early_stopping_monitor = EarlyStopping(patience=2)\par
+\par
+# Fit the model\par
+model.fit(predictors, target, validation_split=0.3, epochs=30, callbacks=[early_stopping_monitor])\par
+\par
+---\par
+# Define early_stopping_monitor\par
+early_stopping_monitor = EarlyStopping(patience=2)\par
+\par
+# Create the new model: model_2\par
+model_2 = Sequential()\par
+\par
+# Add the first and second layers\par
+model_2.add(Dense(100, activation='relu', input_shape=input_shape))\par
+model_2.add(Dense(100, activation='relu'))\par
+\par
+# Add the output layer\par
+model_2.add(Dense(2, activation='softmax'))\par
+\par
+# Compile model_2\par
+model_2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])\par
+\par
+# Fit model_1\par
+model_1_training = model_1.fit(predictors, target, epochs=15, validation_split=0.2, callbacks=[early_stopping_monitor], verbose=False)\par
+\par
+# Fit model_2\par
+model_2_training = model_2.fit(predictors, target, epochs=15, validation_split=0.2, callbacks=[early_stopping_monitor], verbose=False)\par
+\par
+# Create the plot\par
+plt.plot(model_1_training.history['val_loss'], 'r', model_2_training.history['val_loss'], 'b')\par
+plt.xlabel('Epochs')\par
+plt.ylabel('Validation score')\par
+plt.show()\par
+----\par
+# The input shape to use in the first hidden layer\par
+input_shape = (n_cols,)\par
+\par
+# Create the new model: model_2\par
+model_2 = Sequential()\par
+\par
+# Add the first, second, and third hidden layers\par
+model_2.add(Dense(50, activation='relu', input_shape=input_shape))\par
+model_2.add(Dense(50, activation='relu'))\par
+model_2.add(Dense(50, activation='relu'))\par
+\par
+# Add the output layer\par
+model_2.add(Dense(2, activation='softmax'))\par
+\par
+# Compile model_2\par
+model_2.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])\par
+\par
+# Fit model 1\par
+model_1_training = model_1.fit(predictors, target, epochs=20, validation_split=0.4, callbacks=[early_stopping_monitor], verbose=False)\par
+\par
+# Fit model 2\par
+model_2_training = model_2.fit(predictors, target, epochs=20, validation_split=0.4, callbacks=[early_stopping_monitor], verbose=False)\par
+\par
+# Create the plot\par
+plt.plot(model_1_training.history['val_loss'], 'r', model_2_training.history['val_loss'], 'b')\par
+plt.xlabel('Epochs')\par
+plt.ylabel('Validation score')\par
+plt.show()\par
+---\par
+# Create the model: model\par
+model = Sequential()\par
+\par
+# Add the first hidden layer\par
+model.add(Dense(50, activation='relu', input_shape=(784,)))\par
+\par
+# Add the second hidden layer\par
+model.add(Dense(50, activation='relu', input_shape=(784,)))\par
+\par
+# Add the output layer\par
+model.add(Dense(10, activation='softmax'))\par
+\par
+# Compile the model\par
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])\par
+\par
+# Fit the model\par
+model.fit(X, y, validation_split=0.3)\par
+}
+ 
