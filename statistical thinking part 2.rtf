@@ -1,0 +1,642 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 # Seed random number generator\par
+np.random.seed(42)\par
+\par
+# Compute mean no-hitter time: tau\par
+tau = np.mean(nohitter_times)\par
+\par
+# Draw out of an exponential distribution with parameter tau: inter_nohitter_time\par
+inter_nohitter_time = np.random.exponential(tau, 100000)\par
+\par
+# Plot the PDF and label axes\par
+_ = plt.hist(inter_nohitter_time,\par
+             bins=50, normed=True, histtype='step')\par
+_ = plt.xlabel('Games between no-hitters')\par
+_ = plt.ylabel('PDF')\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+\par
+# Create an ECDF from real data: x, y\par
+x, y = ecdf(nohitter_times)\par
+\par
+# Create a CDF from theoretical samples: x_theor, y_theor\par
+x_theor, y_theor = ecdf(inter_nohitter_time)\par
+\par
+# Overlay the plots\par
+plt.plot(x_theor, y_theor)\par
+plt.plot(x, y, marker='.', linestyle='none')\par
+\par
+# Margins and axis labels\par
+plt.margins(0.02)\par
+plt.xlabel('Games between no-hitters')\par
+plt.ylabel('CDF')\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+# Plot the theoretical CDFs\par
+plt.plot(x_theor, y_theor)\par
+plt.plot(x, y, marker='.', linestyle='none')\par
+plt.margins(0.02)\par
+plt.xlabel('Games between no-hitters')\par
+plt.ylabel('CDF')\par
+\par
+# Take samples with half tau: samples_half\par
+samples_half =np.random.exponential(tau/2,10000)\par
+\par
+# Take samples with double tau: samples_double\par
+samples_double =np.random.exponential(tau*2,10000)\par
+\par
+# Generate CDFs from these samples\par
+x_half, y_half =ecdf(samples_half)\par
+x_double, y_double = ecdf(samples_double)\par
+\par
+# Plot these CDFs as lines\par
+_ = plt.plot(x_half, y_half)\par
+_ = plt.plot(x_double, y_double)\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+---\par
+# Plot the illiteracy rate versus fertility\par
+_ = plt.plot(illiteracy, fertility, marker='.', linestyle='none')\par
+plt.margins(0.02)\par
+_ = plt.xlabel('percent illiterate')\par
+_ = plt.ylabel('fertility')\par
+\par
+# Perform a linear regression using np.polyfit(): a, b\par
+a, b = np.polyfit(illiteracy, fertility, 1)\par
+\par
+# Print the results to the screen\par
+print('slope =', a, 'children per woman / percent illiterate')\par
+print('intercept =', b, 'children per woman')\par
+\par
+# Make theoretical line to plot\par
+x = np.array([0, 100])\par
+y = a * x + b\par
+\par
+# Add regression line to your plot\par
+_ = plt.plot(x, y)\par
+\par
+# Draw the plot\par
+plt.show()\par
+\par
+\par
+----\par
+# Perform linear regression: a, b\par
+a, b = np.polyfit(x, y, 1)\par
+\par
+# Print the slope and intercept\par
+print(a, b)\par
+\par
+# Generate theoretical x and y data: x_theor, y_theor\par
+x_theor = np.array([3, 15])\par
+y_theor = a * x_theor + b\par
+\par
+# Plot the Anscombe data and theoretical line\par
+_ = plt.plot(x, y, marker='.', linestyle='none')\par
+_ = plt.plot(x_theor, y_theor)\par
+\par
+# Label the axes\par
+plt.xlabel('x')\par
+plt.ylabel('y')\par
+\par
+# Show the plot\par
+plt.show()\par
+------\par
+np.random.choice([1,2,3,4,5],size=5)\par
+---\par
+for _ in range(50):\par
+    # Generate bootstrap sample: bs_sample\par
+    bs_sample = np.random.choice(rainfall, size=len(rainfall))\par
+\par
+    # Compute and plot ECDF from bootstrap sample\par
+    x, y = ecdf(bs_sample)\par
+    _ = plt.plot(x, y, marker='.', linestyle='none',\par
+                 color='gray', alpha=0.1)\par
+\par
+# Compute and plot ECDF from original data\par
+x, y = ecdf(rainfall)\par
+_ = plt.plot(x, y, marker='.')\par
+\par
+# Make margins and label axes\par
+plt.margins(0.02)\par
+_ = plt.xlabel('yearly rainfall (mm)')\par
+_ = plt.ylabel('ECDF')\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+---\par
+def draw_bs_reps(data, func, size=1):\par
+    """Draw bootstrap replicates."""\par
+\par
+    # Initialize array of replicates: bs_replicates\par
+    bs_replicates = np.empty(size)\par
+\par
+    # Generate replicates\par
+    for i in range(size):\par
+        bs_replicates[i] = bootstrap_replicate_1d(data, func)\par
+\par
+    return bs_replicates\par
+\par
+\par
+# Take 10,000 bootstrap replicates of the mean: bs_replicates\par
+bs_replicates = draw_bs_reps(rainfall, np.mean, size=10000)\par
+\par
+# Compute and print SEM\par
+sem = np.std(rainfall) / np.sqrt(len(rainfall))\par
+print(sem)\par
+\par
+# Compute and print standard deviation of bootstrap replicates\par
+bs_std = np.std(bs_replicates)\par
+print(bs_std)\par
+\par
+# Make a histogram of the results\par
+_ = plt.hist(bs_replicates, bins=50, normed=True)\par
+_ = plt.xlabel('mean annual rainfall (mm)')\par
+_ = plt.ylabel('PDF')\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+\par
+\par
+# Generate 10,000 bootstrap replicates of the variance: bs_replicates\par
+def bootstrap_replicate_1d(data, func):\par
+    return func(np.random.choice(data, size=len(data)))\par
+\par
+def draw_bs_reps(data, func, size=1):\par
+    return np.array([bootstrap_replicate_1d(data, func) for _ in range(size)])\par
+\par
+# Generate 10,000 bootstrap replicates of the variance: bs_replicates\par
+bs_replicates = draw_bs_reps(rainfall, np.var, size=10000)\par
+\par
+# Put the variance in units of square centimeters\par
+bs_replicates /= 100\par
+\par
+# Make a histogram of the results\par
+_ = plt.hist(bs_replicates, normed=True, bins=50)\par
+_ = plt.xlabel('variance of annual rainfall (sq. cm)')\par
+_ = plt.ylabel('PDF')\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+\par
+# Draw bootstrap replicates of the mean no-hitter time (equal to tau):\par
+# bs_replicates\par
+bs_replicates = draw_bs_reps(nohitter_times, np.mean, size=10000)\par
+\par
+# Compute the 95% confidence interval: conf_int\par
+conf_int = np.percentile(bs_replicates, [2.5, 97.5])\par
+\par
+# Print the confidence interval\par
+print('95% confidence interval =', conf_int, 'games')\par
+\par
+# Plot the histogram of the replicates\par
+_ = plt.hist(bs_replicates, bins=50, normed=True)\par
+_ = plt.xlabel(r'$\\tau$ (games)')\par
+_ = plt.ylabel('PDF')\par
+\par
+# Show the plot\par
+plt.show()# Draw bootstrap replicates of the mean no-hitter time (equal to tau):\par
+# bs_replicates\par
+bs_replicates = draw_bs_reps(nohitter_times, np.mean, size=10000)\par
+\par
+# Compute the 95% confidence interval: conf_int\par
+conf_int = np.percentile(bs_replicates, [2.5, 97.5])\par
+\par
+# Print the confidence interval\par
+print('95% confidence interval =', conf_int, 'games')\par
+\par
+# Plot the histogram of the replicates\par
+_ = plt.hist(bs_replicates, bins=50, normed=True)\par
+_ = plt.xlabel(r'$\\tau$ (games)')\par
+_ = plt.ylabel('PDF')\par
+\par
+# Show the plot\par
+plt.show()\par
+-----\par
+def draw_bs_pairs_linreg(x, y, size=1):\par
+    """Perform pairs bootstrap for linear regression."""\par
+\par
+    # Set up array of indices to sample from: inds\par
+    inds = np.arange(len(x))\par
+\par
+    # Initialize replicates: bs_slope_reps, bs_intercept_reps\par
+    bs_slope_reps = np.empty(size)\par
+    bs_intercept_reps = np.empty(size)\par
+\par
+    # Generate replicates\par
+    for i in range(size):\par
+        bs_inds = np.random.choice(inds, size=len(inds))\par
+        bs_x, bs_y = x[bs_inds], y[bs_inds]\par
+        bs_slope_reps[i], bs_intercept_reps[i] = np.polyfit(bs_x, bs_y, 1)\par
+\par
+    return bs_slope_reps, bs_intercept_reps\par
+\par
+-------\par
+# Generate replicates of slope and intercept using pairs bootstrap\par
+bs_slope_reps, bs_intercept_reps = draw_bs_pairs_linreg(\par
+                    illiteracy, fertility, size=1000)\par
+\par
+# Compute and print 95% CI for slope\par
+print(np.percentile(bs_slope_reps, [2.5, 97.5]))\par
+\par
+# Plot the histogram\par
+_ = plt.hist(bs_slope_reps, bins=50, normed=True)\par
+_ = plt.xlabel('slope')\par
+_ = plt.ylabel('PDF')\par
+plt.show()\par
+\par
+\par
+# Generate array of x-values for bootstrap lines: x\par
+x = np.array([0,100])\par
+\par
+# Plot the bootstrap lines\par
+for i in range(100):\par
+    _ = plt.plot(x, \par
+                 bs_slope_reps[i]*x +bs_intercept_reps[i],\par
+                 linewidth=0.5, alpha=0.2,color='red')\par
+\par
+# Plot the data\par
+_ = plt.plot(illiteracy,fertility,marker='.',linestyle='none')\par
+\par
+# Label axes, set the margins, and show the plot\par
+_ = plt.xlabel('illiteracy')\par
+_ = plt.ylabel('fertility')\par
+plt.margins(0.02)\par
+plt.show()\par
+\par
+----------\par
+  \par
+def permutation_sample(data1, data2):\par
+    """Generate a permutation sample from two data sets."""\par
+\par
+    # Concatenate the data sets: data\par
+    data = np.concatenate((data1, data2))\par
+\par
+    # Permute the concatenated array: permuted_data\par
+    permuted_data = np.random.permutation(data)\par
+\par
+    # Split the permuted array into two: perm_sample_1, perm_sample_2\par
+    perm_sample_1 = permuted_data[:len(data1)]\par
+    perm_sample_2 = permuted_data[len(data1):]\par
+\par
+    return perm_sample_1, perm_sample_2\par
+\par
+---------\par
+def draw_perm_reps(data_1, data_2, func, size=1):\par
+    """Generate multiple permutation replicates."""\par
+\par
+    # Initialize array of replicates: perm_replicates\par
+    perm_replicates = np.empty(size)\par
+\par
+    for i in range(size):\par
+        # Generate permutation sample\par
+        perm_sample_1, perm_sample_2 = permutation_sample(data_1, data_2)\par
+\par
+        # Compute the test statistic\par
+        perm_replicates[i] = func(perm_sample_1, perm_sample_2)\par
+\par
+    return perm_replicates\par
+\par
+\par
+# Make bee swarm plot\par
+_ = sns.swarmplot(x='ID', y='impact_force',data=df)\par
+\par
+# Label axes\par
+_ = plt.xlabel('frog')\par
+_ = plt.ylabel('impact force (N)')\par
+\par
+# Show the plot\par
+plt.show()\par
+------\par
+def diff_of_means(data_1, data_2):\par
+    """Difference in means of two arrays."""\par
+\par
+    # The difference of means of data_1, data_2: diff\par
+    diff = np.mean(data_1) - np.mean(data_2)\par
+\par
+    return diff\par
+\par
+# Compute difference of mean impact force from experiment: empirical_diff_means\par
+empirical_diff_means = diff_of_means(force_a, force_b)\par
+\par
+# Draw 10,000 permutation replicates: perm_replicates\par
+perm_replicates = draw_perm_reps(force_a, force_b,\par
+                                 diff_of_means, size=10000)\par
+\par
+# Compute p-value: p\par
+p = np.sum(perm_replicates >= empirical_diff_means) / len(perm_replicates)\par
+\par
+# Print the result\par
+print('p-value =', p)\par
+-----ONE SAMPLE STA---\par
+# Make an array of translated impact forces: translated_force_b\par
+translated_force_b = force_b - np.mean(force_b) + 0.55\par
+\par
+# Take bootstrap replicates of Frog B's translated impact forces: bs_replicates\par
+bs_replicates = draw_bs_reps(translated_force_b, np.mean, 10000)\par
+\par
+# Compute fraction of replicates that are less than the observed Frog B force: p\par
+p = np.sum(bs_replicates <= np.mean(force_b)) / 10000\par
+\par
+# Print the p-value\par
+print('p = ', p)\par
+----\par
+# Compute mean of all forces: mean_force\par
+mean_force = np.mean(forces_concat)\par
+\par
+# Generate shifted arrays\par
+force_a_shifted = force_a - np.mean(force_a) + mean_force\par
+force_b_shifted = force_b - np.mean(force_b) + mean_force \par
+\par
+# Compute 10,000 bootstrap replicates from shifted arrays\par
+bs_replicates_a = draw_bs_reps(force_a_shifted, np.mean, 10000)\par
+bs_replicates_b = draw_bs_reps(force_b_shifted, np.mean, 10000)\par
+\par
+# Get replicates of difference of means: bs_replicates\par
+bs_replicates = bs_replicates_a - bs_replicates_b\par
+\par
+# Compute and print p-value: p\par
+p = np.sum(bs_replicates >= empirical_diff_means) / 10000\par
+print('p-value =', p)\par
+\par
+----------a/b testing---\par
+# Construct arrays of data: dems, reps\par
+dems = np.array([True] * 153 + [False] * 91)\par
+reps = np.array([True] * 136 + [False] * 35)\par
+\par
+def frac_yea_dems(dems, reps):\par
+    """Compute fraction of Democrat yea votes."""\par
+    frac = np.sum(dems) / len(dems)\par
+    return frac\par
+\par
+# Acquire permutation samples: perm_replicates\par
+perm_replicates = draw_perm_reps(dems, reps, frac_yea_dems, size=10000)\par
+\par
+# Compute and print p-value: p\par
+p = np.sum(perm_replicates <= 153/244) / len(perm_replicates)\par
+print('p-value =', p)\par
+\par
+\par
+----\par
+def permutation_sample(data1, data2):\par
+    """Generate a permutation sample from two data sets."""\par
+\par
+    # Concatenate the data sets: data\par
+    data = np.concatenate((data1, data2))\par
+\par
+    # Permute the concatenated array: permuted_data\par
+    permuted_data = np.random.permutation(data)\par
+\par
+    # Split the permuted array into two: perm_sample_1, perm_sample_2\par
+    perm_sample_1 = permuted_data[:len(data1)]\par
+    perm_sample_2 = permuted_data[len(data1):]\par
+\par
+    return perm_sample_1, perm_sample_2\par
+\par
+-------\par
+# Compute the observed difference in mean inter-no-hitter times: nht_diff_obs\par
+nht_diff_obs = diff_of_means(nht_dead, nht_live)\par
+\par
+# Acquire 10,000 permutation replicates of difference in mean no-hitter time: perm_replicates\par
+perm_replicates = draw_perm_reps(nht_dead, nht_live,\par
+                                 diff_of_means, size=10000)\par
+\par
+# Compute and print the p-value: p\par
+p = np.sum(perm_replicates <= nht_diff_obs) / len(perm_replicates)\par
+print('p-val =',p)\par
+\par
+\par
+------pearson----\par
+# Compute observed correlation: r_obs\par
+r_obs = pearson_r(illiteracy, fertility)\par
+\par
+# Initialize permutation replicates: perm_replicates\par
+perm_replicates = np.empty(10000)\par
+\par
+# Draw replicates\par
+for i in range(10000):\par
+    # Permute illiteracy measurments: illiteracy_permuted\par
+    illiteracy_permuted = np.random.permutation(illiteracy)\par
+\par
+    # Compute Pearson correlation\par
+    perm_replicates[i] = pearson_r(illiteracy_permuted, fertility)\par
+\par
+# Compute p-value: p\par
+p = np.sum(perm_replicates >= r_obs) / len(perm_replicates)\par
+print('p-val =', p)\par
+\par
+\par
+-----\par
+# Create bee swarm plot\par
+_ = sns.swarmplot(x='year', y='beak_depth', data=df)\par
+\par
+\par
+# Label the axes\par
+_ = plt.xlabel('year')\par
+_ = plt.ylabel('beak depth (mm)')\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+\par
+# Compute ECDFs\par
+x_1975, y_1975 = ecdf(bd_1975)\par
+x_2012, y_2012 = ecdf(bd_2012)\par
+\par
+# Plot the ECDFs\par
+_ = plt.plot(x_1975, y_1975, marker='.', linestyle='none')\par
+_ = plt.plot(x_2012, y_2012, marker='.', linestyle='none')\par
+\par
+# Set margins\par
+plt.margins(0.02)\par
+\par
+# Add axis labels and legend\par
+_ = plt.xlabel('beak depth (mm)')\par
+_ = plt.ylabel('ECDF')\par
+_ = plt.legend(('1975', '2012'), loc='lower right')\par
+\par
+# Show the plot\par
+plt.show()\par
+# Compute ECDFs\par
+x_1975, y_1975 = ecdf(bd_1975)\par
+x_2012, y_2012 = ecdf(bd_2012)\par
+\par
+# Plot the ECDFs\par
+_ = plt.plot(x_1975, y_1975, marker='.', linestyle='none')\par
+_ = plt.plot(x_2012, y_2012, marker='.', linestyle='none')\par
+\par
+# Set margins\par
+plt.margins(0.02)\par
+\par
+# Add axis labels and legend\par
+_ = plt.xlabel('beak depth (mm)')\par
+_ = plt.ylabel('ECDF')\par
+_ = plt.legend(('1975', '2012'), loc='lower right')\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+# Compute the difference of the sample means: mean_diff\par
+mean_diff = np.mean(bd_2012) - np.mean(bd_1975)\par
+\par
+# Get bootstrap replicates of means\par
+bs_replicates_1975 = draw_bs_reps(bd_1975, np.mean, 10000)\par
+bs_replicates_2012 = draw_bs_reps(bd_2012, np.mean, 10000)\par
+\par
+# Compute samples of difference of means: bs_diff_replicates\par
+bs_diff_replicates = bs_replicates_2012 - bs_replicates_1975\par
+\par
+# Compute 95% confidence interval: conf_int\par
+conf_int = np.percentile(bs_diff_replicates, [2.5, 97.5])\par
+\par
+# Print the results\par
+print('difference of means =', mean_diff, 'mm')\par
+print('95% confidence interval =', conf_int, 'mm')\par
+\par
+--------\par
+# Compute the linear regressions\par
+slope_1975, intercept_1975 = np.polyfit(bl_1975, bd_1975, 1)\par
+slope_2012, intercept_2012 = np.polyfit(bl_2012, bd_2012, 1)\par
+\par
+# Perform pairs bootstrap for the linear regressions\par
+bs_slope_reps_1975, bs_intercept_reps_1975 = \\\par
+        draw_bs_pairs_linreg(bl_1975, bd_1975, 1000)\par
+bs_slope_reps_2012, bs_intercept_reps_2012 = \\\par
+        draw_bs_pairs_linreg(bl_2012, bd_2012, 1000)\par
+\par
+# Compute confidence intervals of slopes\par
+slope_conf_int_1975 = np.percentile(bs_slope_reps_1975, [2.5, 97.5])\par
+slope_conf_int_2012 = np.percentile(bs_slope_reps_2012, [2.5, 97.5])\par
+intercept_conf_int_1975 = np.percentile(\par
+                            bs_intercept_reps_1975, [2.5, 97.5])\par
+intercept_conf_int_2012 = np.percentile(\par
+                            bs_intercept_reps_2012, [2.5, 97.5])\par
+\par
+# Print the results\par
+print('1975: slope =', slope_1975,\par
+      'conf int =', slope_conf_int_1975)\par
+print('1975: intercept =', intercept_1975,\par
+      'conf int =', intercept_conf_int_1975)\par
+print('2012: slope =', slope_2012,\par
+      'conf int =', slope_conf_int_2012)\par
+print('2012: intercept =', intercept_2012,\par
+      'conf int =', intercept_conf_int_2012)\par
+-------\par
+\par
+# Compute length-to-depth ratios\par
+ratio_1975 = bl_1975 / bd_1975\par
+ratio_2012 = bl_2012 / bd_2012\par
+\par
+# Compute means\par
+mean_ratio_1975 = np.mean(ratio_1975)\par
+mean_ratio_2012 = np.mean(ratio_2012)\par
+\par
+# Generate bootstrap replicates of the means\par
+bs_replicates_1975 = draw_bs_reps(ratio_1975, np.mean, size=10000)\par
+bs_replicates_2012 = draw_bs_reps(ratio_2012, np.mean, size=10000)\par
+\par
+# Compute the 99% confidence intervals\par
+conf_int_1975 = np.percentile(bs_replicates_1975, [0.5, 99.5])\par
+conf_int_2012 = np.percentile(bs_replicates_2012, [0.5, 99.5])\par
+\par
+# Print the results\par
+print('1975: mean ratio =', mean_ratio_1975,\par
+      'conf int =', conf_int_1975)\par
+print('2012: mean ratio =', mean_ratio_2012,\par
+      'conf int =', conf_int_2012)\par
+\par
+-------\par
+\par
+# Make scatter plots\par
+_ = plt.plot(bd_parent_fortis, bd_offspring_fortis,\par
+             marker='.', linestyle='none', color='blue', alpha=0.5)\par
+_ = plt.plot(bd_parent_scandens, bd_offspring_scandens,\par
+             marker='.', linestyle='none', color='red', alpha=0.5)\par
+\par
+# Set margins, make legend, label axes, and show plot\par
+plt.margins(0.02)\par
+\par
+# Label axes\par
+_ = plt.xlabel('parental beak depth (mm)')\par
+_ = plt.ylabel('offspring beak depth (mm)')\par
+\par
+# Add legend\par
+_ = plt.legend(('G. fortis', 'G. scandens'), loc='lower right')\par
+\par
+# Show plot\par
+plt.show()\par
+\par
+---------\par
+\par
+def draw_bs_pairs(x, y, func, size=1):\par
+    """Perform pairs bootstrap for single statistic."""\par
+\par
+    # Set up array of indices to sample from: inds\par
+    inds = np.arange(len(x))\par
+\par
+    # Initialize replicates: bs_replicates\par
+    bs_replicates = np.empty(size)\par
+\par
+    # Generate replicates\par
+    for i in range(size):\par
+        bs_inds = np.random.choice(inds, len(inds))\par
+        bs_x, bs_y = x[bs_inds], y[bs_inds]\par
+        bs_replicates[i] = func(bs_x, bs_y)\par
+\par
+    return bs_replicates\par
+------\par
+# Compute the Pearson correlation coefficients\par
+r_scandens = pearson_r(bd_parent_scandens, bd_offspring_scandens)\par
+r_fortis = pearson_r(bd_parent_fortis, bd_offspring_fortis)\par
+\par
+# Acquire 1000 bootstrap replicates of Pearson r\par
+bs_replicates_scandens = draw_bs_pairs(\par
+        bd_parent_scandens, bd_offspring_scandens, pearson_r, size=1000)\par
+bs_replicates_fortis = draw_bs_pairs(\par
+        bd_parent_fortis, bd_offspring_fortis, pearson_r, size=1000)\par
+\par
+# Compute 95% confidence intervals\par
+conf_int_scandens = np.percentile(bs_replicates_scandens, [2.5, 97.5])\par
+conf_int_fortis = np.percentile(bs_replicates_fortis, [2.5, 97.5])\par
+\par
+# Print results\par
+print('G. scandens:', r_scandens, conf_int_scandens)\par
+print('G. fortis:', r_fortis, conf_int_fortis)\par
+\par
+----\par
+def heritability(parents, offspring):\par
+    """Compute the heritability from parent and offspring samples."""\par
+    covariance_matrix = np.cov(parents, offspring)\par
+    return covariance_matrix[0,1] / covariance_matrix[0,0]\par
+\par
+# Compute the heritability\par
+heritability_scandens = heritability(bd_parent_scandens,\par
+                                     bd_offspring_scandens)\par
+heritability_fortis = heritability(bd_parent_fortis,\par
+                                   bd_offspring_fortis)\par
+\par
+# Acquire 1000 bootstrap replicates of heritability\par
+replicates_scandens = draw_bs_pairs(\par
+        bd_parent_scandens, bd_offspring_scandens, heritability, size=1000)\par
+replicates_fortis = draw_bs_pairs(\par
+        bd_parent_fortis, bd_offspring_fortis, heritability, size=1000)\par
+\par
+# Compute 95% confidence intervals\par
+conf_int_scandens = np.percentile(replicates_scandens, [2.5, 97.5])\par
+conf_int_fortis = np.percentile(replicates_fortis, [2.5, 97.5])\par
+\par
+# Print results\par
+print('G. scandens:', heritability_scandens, conf_int_scandens)\par
+print('G. fortis:', heritability_fortis, conf_int_fortis)\par
+------\par
+}
+ 

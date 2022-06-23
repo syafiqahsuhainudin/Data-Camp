@@ -1,0 +1,365 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 # Import DecisionTreeClassifier from sklearn.tree\par
+from sklearn.tree import DecisionTreeClassifier\par
+\par
+# Instantiate a DecisionTreeClassifier 'dt' with a maximum depth of 6\par
+dt  =DecisionTreeClassifier(max_depth =6, random_state=SEED)\par
+\par
+# Fit dt to the training set\par
+dt.fit(X_train, y_train)\par
+\par
+# Predict test set labels\par
+y_pred = dt.predict(X_test)\par
+print(y_pred[0:5])\par
+\par
+-----\par
+# Import accuracy_score\par
+from sklearn.metrics import accuracy_score\par
+\par
+# Predict test set labels\par
+y_pred = dt.predict(X_test)\par
+\par
+# Compute test set accuracy  \par
+acc = accuracy_score(y_test, y_pred)\par
+print("Test set accuracy: \{:.2f\}".format(acc))\par
+---\par
+# Import LogisticRegression from sklearn.linear_model\par
+from sklearn.linear_model import LogisticRegression\par
+\par
+# Instatiate logreg\par
+logreg = LogisticRegression(random_state=1)\par
+\par
+# Fit logreg to the training set\par
+logreg.fit(X_train, y_train)\par
+\par
+# Define a list called clfs containing the two classifiers logreg and dt\par
+clfs = [logreg, dt]\par
+\par
+# Review the decision regions of the two classifiers\par
+plot_labeled_decision_regions(X_test, y_test, clfs)\par
+----\par
+# Import DecisionTreeClassifier from sklearn.tree\par
+from sklearn.tree import DecisionTreeClassifier\par
+\par
+# Instantiate dt_entropy, set 'entropy' as the information criterion\par
+dt_entropy = DecisionTreeClassifier(max_depth=8, criterion='entropy', random_state=1)\par
+\par
+# Fit dt_entropy to the training set\par
+dt_entropy.fit(X_train, y_train)\par
+------\par
+# Import accuracy_score from sklearn.metrics\par
+from sklearn.metrics import accuracy_score\par
+\par
+# Use dt_entropy to predict test set labels\par
+y_pred= dt_entropy.predict(X_test)\par
+\par
+# Evaluate accuracy_entropy\par
+accuracy_entropy = accuracy_score(y_test, y_pred)\par
+\par
+# Print accuracy_entropy\par
+print('Accuracy achieved by using entropy: ', accuracy_entropy)\par
+\par
+# Print accuracy_gini\par
+print('Accuracy achieved by using the gini index: ', accuracy_gini)\par
+---\par
+# Import DecisionTreeRegressor from sklearn.tree\par
+from sklearn.tree import DecisionTreeRegressor\par
+\par
+# Instantiate dt\par
+dt = DecisionTreeRegressor(max_depth=8,\par
+             min_samples_leaf=0.13,\par
+            random_state=3)\par
+\par
+# Fit dt to the training set\par
+dt.fit(X_train, y_train)\par
+-----\par
+# Import mean_squared_error from sklearn.metrics as MSE\par
+from sklearn.metrics import mean_squared_error as MSE\par
+\par
+# Compute y_pred\par
+y_pred = dt.predict(X_test)\par
+\par
+# Compute mse_dt\par
+mse_dt = MSE(y_test, y_pred)\par
+\par
+# Compute rmse_dt\par
+rmse_dt = mse_dt**(1/2)\par
+\par
+# Print rmse_dt\par
+print("Test set RMSE of dt: \{:.2f\}".format(rmse_dt))\par
+----\par
+# Predict test set labels \par
+y_pred_lr = lr.predict(X_test)\par
+\par
+# Compute mse_lr\par
+mse_lr = MSE(y_test, y_pred_lr)\par
+\par
+# Compute rmse_lr\par
+rmse_lr = mse_lr**(1/2)\par
+\par
+# Print rmse_lr\par
+print('Linear Regression test set RMSE: \{:.2f\}'.format(rmse_lr))\par
+\par
+# Print rmse_dt\par
+print('Regression Tree test set RMSE: \{:.2f\}'.format(rmse_dt))\par
+----\par
+# Import train_test_split from sklearn.model_selection\par
+from sklearn.model_selection import train_test_split\par
+\par
+# Set SEED for reproducibility\par
+SEED = 1\par
+\par
+# Split the data into 70% train and 30% test\par
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=SEED)\par
+\par
+# Instantiate a DecisionTreeRegressor dt\par
+dt = DecisionTreeRegressor(max_depth=4, min_samples_leaf=0.26, random_state=SEED)\par
+---\par
+\par
+\par
+# Compute the array containing the 10-folds CV MSEs\par
+MSE_CV_scores = - cross_val_score(dt, X_train, y_train, cv=10, \par
+                       scoring='neg_mean_squared_error',\par
+                       n_jobs=-1)\par
+\par
+# Compute the 10-folds CV RMSE\par
+RMSE_CV = (MSE_CV_scores.mean())**(0.5)\par
+\par
+# Print RMSE_CV\par
+print('CV RMSE: \{:.2f\}'.format(RMSE_CV)\par
+---\par
+# Import mean_squared_error from sklearn.metrics as MSE\par
+from sklearn.metrics import mean_squared_error as MSE\par
+\par
+# Fit dt to the training set\par
+dt.fit(X_train, y_train)\par
+\par
+# Predict the labels of the training set\par
+y_pred_train = dt.predict(X_train)\par
+\par
+# Evaluate the training set RMSE of dt\par
+RMSE_train = (MSE(y_train, y_pred_train))**(1/2)\par
+\par
+# Print RMSE_train\par
+print('Train RMSE: \{:.2f\}'.format(RMSE_train))\par
+---\par
+# Set seed for reproducibility\par
+SEED=1\par
+\par
+# Instantiate lr\par
+lr = LogisticRegression(random_state=SEED)\par
+\par
+# Instantiate knn\par
+knn =KNN(n_neighbors=27)\par
+\par
+# Instantiate dt\par
+dt = DecisionTreeClassifier(min_samples_leaf=0.13, random_state=SEED)\par
+\par
+# Define the list classifiers\par
+classifiers = [('Logistic Regression', lr), ('K Nearest Neighbours', knn), ('Classification Tree', dt)]\par
+\par
+-----\par
+# Iterate over the pre-defined list of classifiers\par
+for clf_name, clf in classifiers:    \par
+ \par
+    # Fit clf to the training set\par
+    clf.fit(X_train, y_train)    \par
+   \par
+    # Predict y_pred\par
+    y_pred = clf.predict(X_test)\par
+    \par
+    # Calculate accuracy\par
+    accuracy = accuracy_score(y_test, y_pred) \par
+   \par
+    # Evaluate clf's accuracy on the test set\par
+    print('\{:s\} : \{:.3f\}'.format(clf_name, accuracy))\par
+----\par
+# Import VotingClassifier from sklearn.ensemble\par
+from sklearn.ensemble import VotingClassifier\par
+\par
+# Instantiate a VotingClassifier vc\par
+vc = VotingClassifier(estimators=classifiers)     \par
+\par
+# Fit vc to the training set\par
+vc.fit(X_train, y_train)   \par
+\par
+# Evaluate the test set predictions\par
+y_pred = vc.predict(X_test)\par
+\par
+# Calculate accuracy score\par
+accuracy = accuracy_score(y_test, y_pred)\par
+print('Voting Classifier: \{:.3f\}'.format(accuracy))\par
+\par
+-----\par
+# Import DecisionTreeClassifier\par
+from sklearn.tree import DecisionTreeClassifier\par
+\par
+# Import BaggingClassifier\par
+from sklearn.ensemble import BaggingClassifier\par
+\par
+# Instantiate dt\par
+dt = DecisionTreeClassifier(random_state=1)\par
+\par
+# Instantiate bc\par
+bc = BaggingClassifier(base_estimator=dt, n_estimators=50, random_state=1)\par
+----\par
+# Fit bc to the training set\par
+bc.fit(X_train, y_train)\par
+\par
+# Predict test set labels\par
+y_pred = bc.predict(X_test)\par
+\par
+# Evaluate acc_test\par
+acc_test = accuracy_score(y_test, y_pred)\par
+print('Test set accuracy of bc: \{:.2f\}'.format(acc_test)) \par
+----\par
+# Import DecisionTreeClassifier\par
+from sklearn.tree import DecisionTreeClassifier\par
+\par
+# Import BaggingClassifier\par
+from sklearn.ensemble import BaggingClassifier\par
+\par
+# Instantiate dt\par
+dt = DecisionTreeClassifier(min_samples_leaf=8, random_state=1)\par
+\par
+# Instantiate bc\par
+bc = BaggingClassifier(base_estimator=dt, \par
+            n_estimators=50,\par
+            oob_score=True,\par
+            random_state=1)\par
+----\par
+# Import RandomForestRegressor\par
+from sklearn.ensemble import RandomForestRegressor\par
+\par
+# Instantiate rf\par
+rf = RandomForestRegressor(n_estimators=25,\par
+            random_state=2)\par
+            \par
+# Fit rf to the training set    \par
+rf.fit(X_train, y_train) \par
+----\par
+# Import mean_squared_error as MSE\par
+from sklearn.metrics import mean_squared_error as MSE\par
+\par
+# Predict the test set labels\par
+y_pred = rf.predict(X_test)\par
+\par
+# Evaluate the test set RMSE\par
+rmse_test = (MSE(y_test, y_pred))**(1/2)\par
+\par
+# Print rmse_test\par
+print('Test set RMSE of rf: \{:.2f\}'.format(rmse_test))\par
+---\par
+# Create a pd.Series of features importances\par
+importances = pd.Series\par
+(data=rf.feature_importances,\par
+                        index= X_train.columns)\par
+\par
+# Sort importances\par
+importances_sorted = importances.sort_values()\par
+\par
+# Draw a horizontal barplot of importances_sorted\par
+importances_sorted.plot(kind='barh', color='lightgreen')\par
+plt.title('Features Importances')\par
+plt.show()\par
+\par
+\par
+# Import DecisionTreeClassifier\par
+from sklearn.tree import DecisionTreeClassifier\par
+\par
+# Import AdaBoostClassifier\par
+from sklearn.ensemble import AdaBoostClassifier\par
+\par
+# Instantiate dt\par
+dt = DecisionTreeClassifier(max_depth=2, random_state=1)\par
+\par
+# Instantiate ada\par
+ada = AdaBoostClassifier(base_estimator=dt, n_estimators=180, random_state=1)\par
+\par
+----\par
+# Import GradientBoostingRegressor\par
+from sklearn.ensemble import GradientBoostingRegressor\par
+\par
+# Instantiate gb\par
+gb = GradientBoostingRegressor(max_depth = 4, \par
+            n_estimators=200,\par
+            random_state=2)\par
+-----\par
+# Fit gb to the training set\par
+gb.fit(X_train, y_train)\par
+\par
+# Predict test set labels\par
+y_pred = gb.predict(X_test)\par
+----\par
+# Import mean_squared_error as MSE\par
+from sklearn.metrics import mean_squared_error as MSE\par
+\par
+# Compute MSE\par
+mse_test = MSE(y_test, y_pred)\par
+\par
+# Compute RMSE\par
+rmse_test = (mse_test)**(1/2)\par
+\par
+# Print RMSE\par
+print('Test set RMSE of gb: \{:.3f\}'.format(rmse_test))\par
+---\par
+# Import GradientBoostingRegressor\par
+from sklearn.ensemble import GradientBoostingRegressor\par
+\par
+# Instantiate sgbr\par
+sgbr = GradientBoostingRegressor(max_depth=4, \par
+            subsample=0.9,\par
+            max_features=0.75,\par
+            n_estimators=200,                                \par
+            random_state=2)\par
+----\par
+# Fit sgbr to the training set\par
+sgbr.fit(X_train, y_train)\par
+\par
+# Predict test set labels\par
+y_pred = sgbr.predict(X_test)\par
+---\par
+# Define params_dt\par
+params_dt = \{'max_depth': [2, 3, 4], 'min_samples_leaf': [0.12, 0.14, 0.16, 0.18]\}\par
+----\par
+# Import GridSearchCV\par
+from sklearn.model_selection import GridSearchCV\par
+\par
+# Instantiate grid_dt\par
+grid_dt = GridSearchCV(estimator=dt,\par
+                       param_grid=params_dt,\par
+                       scoring='roc_auc',\par
+                       cv=5,\par
+                       n_jobs=-1)\par
+----\par
+# Import roc_auc_score from sklearn.metrics \par
+from sklearn.metrics import roc_auc_score\par
+\par
+# Extract the best estimator\par
+best_model = grid_dt.best_estimator_\par
+\par
+# Predict the test set probabilities of the positive class\par
+y_pred_proba = best_model.predict_proba(X_test)[:,1]\par
+\par
+# Compute test_roc_auc\par
+test_roc_auc = roc_auc_score(y_test, y_pred_proba)\par
+\par
+# Print test_roc_auc\par
+print('Test set ROC AUC score: \{:.3f\}'.format(test_roc_auc))\par
+----\par
+# Define the dictionary 'params_rf'\par
+params_rf = \{'n_estimators': [100, 350, 500], 'max_features': ['log2', 'auto', 'sqrt'], 'min_samples_leaf': [2, 10, 30]\}\par
+--\par
+# Import GridSearchCV\par
+from sklearn.model_selection import  GridSearchCV\par
+\par
+# Instantiate grid_rf\par
+grid_rf = GridSearchCV(estimator=rf,\par
+                       param_grid=params_rf,\par
+                       scoring='neg_mean_squared_error',\par
+                       cv=3,\par
+                       verbose=1,\par
+                       n_jobs=-1)\par
+}
+ 

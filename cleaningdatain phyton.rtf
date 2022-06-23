@@ -1,0 +1,425 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 df.columns\par
+df.shape\par
+df.info\par
+\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Read the file into a DataFrame: df\par
+df = pd.read_csv('dob_job_application_filings_subset.csv')\par
+\par
+# Print the head of df\par
+print(df.head())\par
+\par
+# Print the tail of df\par
+print(df.tail())\par
+\par
+# Print the shape of df\par
+print(df.shape)\par
+\par
+# Print the columns of df\par
+print(df.columns)\par
+\par
+# Print the head and tail of df_subset\par
+print(df_subset.head())\par
+print(df_subset.tail())\par
+\par
+df.continent.value_counts(dropna=False)\par
+df['continent'].value_counts(dropna=False)\par
+df.country.value_counts(dropna=False).head()\par
+df.population.value_counts(dropna=False).head()\par
+df.fertility.value_counts(dropna=False).head()\par
+df.describe()\par
+\par
+df.population.plot('hist')\par
+import matplotlib.pyplot as plt\par
+plt.show()\par
+df[df.population>1000]\par
+\par
+df.boxplot(column='population',by='continent)\par
+\par
+# Import matplotlib.pyplot\par
+import matplotlib.pyplot as plt\par
+\par
+# Describe the column\par
+print(df['Existing Zoning Sqft'].describe())\par
+\par
+# Plot the histogram\par
+df['Existing Zoning Sqft'].plot(kind='hist', rot=70, logx=True, logy=True)\par
+\par
+# Display the histogram\par
+plt.show()\par
+\par
+pd.melt(frame=df,id_vars='name', value_vars=['treatmen a','tetdgd']\par
+\par
+# Print the head of airquality\par
+print(airquality.head())\par
+\par
+# Melt airquality: airquality_melt\par
+airquality_melt = pd.melt(airquality,id_vars='Date') \par
+\par
+# Print the head of airquality_melt\par
+print(airquality_melt.head())\par
+\par
+# Melt airquality: airquality_melt\par
+airquality_melt = pd.melt(airquality, id_vars='Date', var_name='measurement', value_name='reading')\par
+\par
+weather_tidy=weather.pivot(index='date',columns='elements',values='value')\par
+\par
+weather_tidy=weather.pivot_table(values='value',index='date',columns='elements',aggfunc=np.mean)\par
+\par
+# Print the index of airquality_pivot\par
+print(airquality_pivot.index)\par
+\par
+# Reset the index of airquality_pivot: airquality_pivot_reset\par
+airquality_pivot_reset = airquality_pivot.reset_index()\par
+\par
+# Print the new index of airquality_pivot_reset\par
+print(airquality_pivot_reset.index)\par
+\par
+# Print the head of airquality_pivot_reset\par
+print(airquality_pivot_reset.head())\par
+\par
+# Pivot table the airquality_dup: airquality_pivot\par
+airquality_pivot = airquality_dup = airquality_dup.pivot_table(index=['Date'], columns='measurement', values='reading', aggfunc=np.mean)\par
+\par
+# Print the head of airquality_pivot before reset_index\par
+print(airquality.head())\par
+\par
+# Reset the index of airquality_pivot\par
+airquality_pivot = airquality_dup.reset_index()\par
+\par
+# Print the head of airquality_pivot\par
+print(airquality_pivot.head())\par
+\par
+# Print the head of airquality\par
+print(airquality.head())\par
+\par
+---------\par
+pd.melt(frame=tb,id_vars=['country','year'])\par
+tb_melt['sex']=tb_melt.variable.str[0]\par
+\par
+concatenated=pd.concat([weather_p1,weather_p2])\par
+concatenated=concatenated.loc[0,:]\par
+concatenated=pd.concat([weather_p1,weather_p2], ignore_index=True)\par
+\par
+\par
+import glob\par
+csv_files=glob.glob('*.csv')\par
+print(csv_files)\par
+\par
+list-date=[]\par
+for filename in csv_files:\par
+data=pd.read_csv(filename)\par
+list_data.append(data)\par
+pd.concat(list_data)\par
+\par
+pd.merge(left=state_populations,right=state,on=None,left_on='state', right_on='name')\par
+\par
+------------------------------\par
+print(df.dtypes)\par
+df['treatment b']=df['treatment b'].astype(str)\par
+df['treatment b']=df['treatment b'].astype('category')\par
+\par
+df['treatment a']=pd.to_numeric(df['treatment a'],errors='corce')\par
+\par
+# Convert 'total_bill' to a numeric dtype\par
+tips['total_bill'] =pd.to_numeric(tips['total_bill'],errors='coerce')\par
+\par
+# Convert 'tip' to a numeric dtype\par
+tips['tip'] = pd.to_numeric(tips['tip'],errors='coerce')\par
+\par
+# Print the info of tips\par
+print(tips.info())\par
+\par
+\\d*\par
+$17 --\\$\\d*\par
+$17 .00--\\$\\d*\\.\\d*\par
+$17 .89--\\$\\d*\\.\\d\{2\}\par
+$17 .895--^\\$\\d*\\.\\d\{2\}$\par
+\par
+import re\par
+pattern=re.compile('\\$\\d*\\.\\d\{2\}')\par
+result=pattern.match('$17.89')\par
+bool(result)\par
+\par
+# Import the regular expression module\par
+import re\par
+\par
+# Find the numeric values: matches\par
+matches = re.findall('\\d+', 'the recipe calls for 10 strawberries and 1 banana')\par
+\par
+# Print the matches\par
+print(matches)\par
+\par
+# Import the regular expression module\par
+import re\par
+\par
+# Compile the pattern: prog\par
+prog = re.compile('\\d\{3\}-\\d\{3\}-\\d\{4\}')\par
+\par
+# See if the pattern matches\par
+result = prog.match('123-456-7890')\par
+print(bool(result))\par
+\par
+# See if the pattern matches\par
+result2 = prog.match('1123-456-7890')\par
+print(bool(result2))\par
+\par
+# Write the first pattern\par
+pattern1 = bool(re.match(pattern='\\d\{3\}-\\d\{3\}-\\d\{4\}', string='123-456-7890'))\par
+print(pattern1)\par
+\par
+# Write the second pattern\par
+pattern2 = bool(re.match(pattern='\\$\\d*\\.\\d\{2\}', string='$123.45'))\par
+print(pattern2)\par
+\par
+# Write the third pattern\par
+pattern3 = bool(re.match(pattern='\\w*[A-Z]', string='Australia'))\par
+print(pattern3)\par
+----------------------\par
+df.apply(np.mean,axis=0)\par
+df.apply(np.mean,axis=1)\par
+\par
+import re\par
+from numpy import NaN\par
+pattern=re.compile('^\\$\\d*\\.\\d\{2\}$')\par
+\par
+def my_function(input1,input2);\par
+#Function Body\par
+return value\par
+\par
+def diff_money(row,pattern):\par
+icost=row['Initial Cost']\par
+tef=row['Total Est.Fee']\par
+\par
+if bool(pattern.match(icost)) and bool(pattern.match(tef)):\par
+icost=icost.replace("$","")\par
+\par
+icost=float(icost)\par
+return icost\par
+else:\par
+return(NaN)\par
+\par
+\par
+df_subset['diff']=df_subset.apply(diff_money,axis=1,pattern=pattern)\par
+\par
+\par
+# Define recode_gender()\par
+def recode_gender(gender):\par
+\par
+    # Return 0 if gender is 'Female'\par
+    if gender == 'Female':\par
+        return 0\par
+    \par
+    # Return 1 if gender is 'Male'    \par
+    elif gender == 'Male':\par
+        return 1\par
+    \par
+    # Return np.nan    \par
+    else:\par
+        return np.nan\par
+\par
+# Apply the function to the sex column\par
+tips['recode'] = tips.sex.apply(recode_gender)\par
+\par
+\par
+# Print the first five rows of tips\par
+print(tips.head())\par
+\par
+\par
+-----\par
+# Write the lambda function using replace\par
+tips['total_dollar_replace'] = tips.total_dollar.apply(lambda x: x.replace('$', ''))\par
+\par
+# Write the lambda function using regular expressions\par
+tips['total_dollar_re'] = tips.total_dollar.apply(lambda x: re.findall('\\d+\\.\\d+', x)[0])\par
+\par
+# Print the head of tips\par
+print(tips.head())\par
+-----------------\par
+df=df.drop_duplicates()\par
+tips_nan.info()\par
+tips_dropped=tips_nan.dropna()\par
+tips_dropped.info()\par
+tips_nan['sex']=tips_nan['sex'].fillna('missing')\par
+tips_nan[['total bill','size']]=tips_nan[['total_bill','size']].fillna(0)\par
+tips_nan.info()\par
+\par
+\par
+mean_value=tips_nan['tip'].mean()\par
+tips_nan['tip']=tips_nan['tip'].fillna(mean_value)\par
+\par
+# Create the new DataFrame: tracks\par
+tracks = billboard[['year', 'artist', 'track','time']]\par
+\par
+# Print info of tracks\par
+print(tracks.info())\par
+\par
+# Drop the duplicates: tracks_no_duplicates\par
+tracks_no_duplicates = tracks.drop_duplicates()\par
+\par
+# Print info of tracks\par
+print(tracks_no_duplicates.info())\par
+\par
+\par
+# Calculate the mean of the Ozone column: oz_mean\par
+oz_mean = airquality.Ozone.mean()\par
+\par
+# Replace all the missing values in the Ozone column with the mean\par
+airquality['Ozone'] = airquality.fillna(oz_mean)\par
+\par
+# Print the info of airquality\par
+print(airquality.info())\par
+\par
+\par
+assert 1==1--true\par
+assert 1==2--false\par
+\par
+assert google.Close.notnull().all()\par
+google_0=google.fillna(value=0)\par
+assert google_0.Close.notnull().all()\par
+\par
+# Assert that there are no missing values\par
+assert ebola.notnull().all().all()\par
+\par
+# Assert that all values are >= 0\par
+assert (ebola >= 0).all().all()\par
+------------------------\par
+import panda as pd\par
+df=pd.read_csv('my_data.csv')\par
+df.head()\par
+df.info()\par
+df.columns\par
+df.describe()\par
+df.column.value_counts()\par
+df.column.plot('hist')\par
+\par
+def cleaning_function(row_data)\par
+  return...\par
+df.apply(cleaning_function,axis=1)\par
+assert(df.column_data>0).all()\par
+\par
+pp.merge(df1,df2,...)\par
+pd.concat([df1,df2,df3,..])\par
+\par
+# Import matplotlib.pyplot\par
+import matplotlib.pyplot as plt\par
+\par
+# Create the scatter plot\par
+g1800s.plot(kind='scatter', x='1800', y='1899')\par
+\par
+# Specify axis labels\par
+plt.xlabel('Life Expectancy by Country in 1800')\par
+plt.ylabel('Life Expectancy by Country in 1899')\par
+\par
+# Specify axis limits\par
+plt.xlim(20, 55)\par
+plt.ylim(20, 55)\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Concatenate the DataFrames column-wise\par
+gapminder = pd.concat([g1800s,g1900s,g2000s],axis=1)\par
+\par
+# Print the shape of gapminder\par
+print(gapminder.shape)\par
+\par
+# Print the head of gapminder\par
+print(gapminder.head())\par
+\par
+\par
+-----------\par
+df.dtypes\par
+df['column']=pd.to_numeric(df['column'])\par
+df['column']=df['column'].astype(str)\par
+\par
+\par
+\par
+import pandas as pd\par
+\par
+# Melt gapminder: gapminder_melt\par
+gapminder_melt =pd.melt(frame=gapminder,id_vars='Life expectancy')\par
+\par
+# Rename the columns\par
+gapminder_melt.columns = ['country', 'year', 'life_expectancy']\par
+\par
+# Print the head of gapminder_melt\par
+print(gapminder_melt.head())\par
+\par
+# Convert the year column to numeric\par
+gapminder.year = pd.to_numeric(gapminder['year'], errors='coerce')\par
+\par
+# Test if country is of type object\par
+assert gapminder.country.dtypes == np.object\par
+\par
+# Test if year is of type int64\par
+assert gapminder.year.dtypes == np.int64\par
+\par
+# Test if life_expectancy is of type float64\par
+assert gapminder.life_expectancy.dtypes == np.float64\par
+\par
+\par
+\par
+# Create the series of countries: countries\par
+countries = gapminder['country']\par
+\par
+# Drop all the duplicates from countries\par
+countries = countries.drop_duplicates()\par
+\par
+# Write the regular expression: pattern\par
+pattern = '^[A-Za-z\\.\\s]*$'\par
+\par
+# Create the Boolean vector: mask\par
+mask = countries.str.contains(pattern)\par
+\par
+# Invert the mask: mask_inverse\par
+mask_inverse = ~countries.str.contains(pattern)\par
+\par
+# Subset countries using mask_inverse: invalid_countries\par
+invalid_countries =  countries.loc[mask_inverse]\par
+\par
+# Print invalid_countries\par
+print(invalid_countries)\par
+\par
+# Add first subplot\par
+plt.subplot(2, 1, 1) \par
+\par
+# Create a histogram of life_expectancy\par
+gapminder.life_expectancy.plot(kind='hist')\par
+\par
+# Group gapminder: gapminder_agg\par
+gapminder_agg = gapminder.groupby('year')['life_expectancy'].mean()\par
+\par
+# Print the head of gapminder_agg\par
+print(gapminder_agg.head())\par
+\par
+# Print the tail of gapminder_agg\par
+print(gapminder_agg.tail())\par
+\par
+# Add second subplot\par
+plt.subplot(2, 1, 2)\par
+\par
+# Create a line plot of life expectancy per year\par
+gapminder_agg.plot()\par
+\par
+# Add title and specify axis labels\par
+plt.title('Life expectancy over the years')\par
+plt.ylabel('Life expectancy')\par
+plt.xlabel('Year')\par
+\par
+# Display the plots\par
+plt.tight_layout()\par
+plt.show()\par
+\par
+# Save both DataFrames to csv files\par
+gapminder.to_csv('gapminder.csv')\par
+gapminder_agg.to_csv('gapminder_agg.csv')\par
+\par
+\par
+\par
+}
+ 

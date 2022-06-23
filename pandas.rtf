@@ -1,0 +1,569 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 import pandas as pd\par
+type(AAPL)\par
+\par
+AAPL.index\par
+AAPL.iloc[:5 , :]\par
+AAPL.iloc[-5: , :]\par
+AAPL.head(5)\par
+AAPL.head(2)\par
+AAPL.tail()\par
+AAPL.tail(3)\par
+AAPL.info()\par
+\par
+import numpy as np\par
+AAPL.iloc[ ::3, -1]=np.nan\par
+low=AAPL['low']\par
+type(low)\par
+-------\par
+import panda as pd\par
+users=pd.read_csv('datasets/users.csv',index_col=0)\par
+\par
+\par
+data=\{'weekday':['sun','sun'],'city':['Austin','Dallas']\}\par
+users=pd.Dataframe(data)\par
+data=dict(zipped)\par
+users['fees']=0\par
+heights=[56.0,89]\par
+data=\{'heights':heights,'sex':'M'\}\par
+results.columns=[ ]\par
+\par
+# Zip the 2 lists together into one list of (key,value) tuples: zipped\par
+zipped =list(zip(list_keys,list_values))\par
+\par
+# Inspect the list using print()\par
+print(zipped)\par
+\par
+# Build a dictionary with the zipped list: data\par
+data = dict(zipped)\par
+\par
+# Build and inspect a DataFrame from the dictionary: df\par
+df = pd.DataFrame(data)\par
+print(df)\par
+\par
+# Build a list of labels: list_labels\par
+list_labels = list(['year', 'artist', 'song', 'chart weeks'])\par
+\par
+# Assign the list of labels to the columns attribute: df.columns\par
+df.columns= list_labels\par
+\par
+\par
+import pandas as pd\par
+filepath='ISSN_D_tot.csv'\par
+sunspots=pd.read_csv(filepath)\par
+sunspots.info()\par
+sunspots.iloc[10:20,:]\par
+sunspots=pd.read_csv(filepath,header=None)\par
+sunspots=pd.read_csv(filepath,header=None,names=col_names)\par
+sunspots=pd.read_csv(filepath,header=None,names=col_names,na_values='-1')\par
+\par
+sunspots=pd.read_csv(filepath,header=None,names=col_names,na_values=\{'sunspots':['-1']\}, parse_dates=[[0,1,2]])\par
+\par
+sunspots.index=sunspots['year_month_day']\par
+sunspots.index_name='date'\par
+cols=['sunspots','definite']\par
+sunspots=sunspots[cols]\par
+\par
+\par
+out_csv='sunspots.csv'\par
+sunspots.to_csv(out_csv)\par
+\par
+out_tsv='sunspots.tsv'\par
+sunspots.to_csv(out_tsv,sep='\\t')\par
+\par
+\par
+# Read the raw file as-is: df1\par
+df1 = pd.read_csv(file_messy)\par
+\par
+# Print the output of df1.head()\par
+print(df1.head())\par
+\par
+# Read in the file with the correct parameters: df2\par
+df2 = pd.read_csv(file_messy, delimiter=' ', header=3, comment='#')\par
+\par
+# Print the output of df2.head()\par
+print(df2.head())\par
+\par
+# Save the cleaned up DataFrame to a CSV file without the index\par
+df2.to_csv(file_clean, index=False)\par
+\par
+# Save the cleaned up DataFrame to an excel file without the index\par
+df2.to_excel('file_clean.xlsx', index=False)\par
+\par
+\par
+aapl=pd.read_csv('aapl.csv',index_col='date',parse_dates=True)\par
+aapl.head(6)\par
+\par
+close_arr=aapl['close'].values\par
+type(close_arr)\par
+plt.plot(close_arr)\par
+close_series=aapl['close']\par
+close_series.plot()\par
+plt.yscale('log')\par
+plt.show()\par
+aapl['open'].plot(color='b',style=',',legend=True)\par
+plt.axis('2001','2002',0,100))\par
+\par
+aapl.loc['2001':'2004',['open','close']].plot()\par
+plt.savefig('aapl.png')//jpg,pdf\par
+\par
+# Create a plot with color='red'\par
+df.plot(color='red')\par
+\par
+# Add a title\par
+plt.title('Temperature in Austin')\par
+\par
+# Specify the x-axis label\par
+plt.xlabel('Hours since midnight August 1, 2010')\par
+\par
+# Specify the y-axis label\par
+plt.ylabel('Temperature (degrees F)')\par
+\par
+# Display the plot\par
+plt.show()\par
+# Plot all columns (default)\par
+df.plot()\par
+plt.show()\par
+\par
+# Plot all columns as subplots\par
+df.plot(subplots=True,)\par
+plt.show()\par
+\par
+# Plot just the Dew Point data\par
+column_list1 = ['Dew Point (deg F)']\par
+df[column_list1].plot()\par
+plt.show()\par
+\par
+# Plot the Dew Point and Temperature data, but not the Pressure data\par
+column_list2 = ['Temperature (deg F)','Dew Point (deg F)']\par
+df[column_list2].plot()\par
+plt.show()\par
+\par
+\par
+iris.head()\par
+iris.plt(x='',y='')\par
+plt.ylabel()\par
+iris.plot(y='sepal', kind='hist', bins=30,range=(4,8),normed=True)\par
+\par
+iris.plot(y='sepal', kind='hist', bins=30,range=(4,8),cumulative=True,normed=True)\par
+\par
+# Create a list of y-axis column names: y_columns\par
+y_columns = ['AAPL','IBM']\par
+\par
+# Generate a line plot\par
+df.plot(x='Month', y=y_columns)\par
+\par
+# Add the title\par
+plt.title('Monthly stock prices')\par
+\par
+# Add the y-axis label\par
+plt.ylabel('Price ($US)')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Generate a scatter plot\par
+df.plot(kind='scatter', x='hp', y='mpg', s=sizes)\par
+\par
+# Add the title\par
+plt.title('Fuel efficiency vs Horse-power')\par
+\par
+# Add the x-axis label\par
+plt.xlabel('Horse-power')\par
+\par
+# Add the y-axis label\par
+plt.ylabel('Fuel efficiency (mpg)')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+\par
+# Make a list of the column names to be plotted: cols\par
+cols = ['weight','mpg']\par
+\par
+# Generate the box plots\par
+df[cols].plot(kind='box',subplots=True)\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+\par
+# This formats the plots such that they appear on separate rows\par
+fig, axes = plt.subplots(nrows=2, ncols=1)\par
+\par
+# Plot the PDF\par
+df.fraction.plot(ax=axes[0], kind='hist',bins=30, normed=True, range=(0,.3))\par
+plt.show()\par
+\par
+# Plot the CDF\par
+df.fraction.plot(ax=axes[1],  kind='hist', bins=30, normed=True,range=(0,.3))\par
+plt.show()\par
+\par
+-----------------------------\par
+iris['sepal'].count()\par
+iris[['sepal','petal']].count()\par
+type(iris[['sepal','petal']].count())\par
+iris.mean()\par
+iris['sepal'].mean()\par
+iris.std()\par
+iris.median()\par
+iris.quantile(q)\par
+q=[0.23,0.78]\par
+iris.quantile(q)\par
+iris.min()\par
+iris.max()\par
+iris.plot(kind='box')\par
+plt.ylabel('[cm]')\par
+\par
+\par
+# Print the minimum value of the Engineering column\par
+print(df['Engineering'].min())\par
+\par
+# Print the maximum value of the Engineering column\par
+print(df['Engineering'].max())\par
+\par
+# Construct the mean percentage per year: mean\par
+mean = df.mean(axis='columns')\par
+\par
+# Plot the average percentage per year\par
+mean.plot()\par
+df.plot()\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Print summary statistics of the fare column with .describe()\par
+print(df.fare.describe())\par
+\par
+# Generate a box plot of the fare column\par
+df.fare.plot(kind='box',)\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+# Print the number of countries reported in 2015\par
+print(df['2015'].count())\par
+\par
+# Print the 5th and 95th percentiles\par
+print(df.quantile([0.05, 0.95]))\par
+\par
+# Generate a box plot\par
+years = ['1800','1850','1900','1950','2000']\par
+df[years].plot(kind='box')\par
+plt.show()\par
+\par
+\par
+# Print the mean of the January and March data\par
+print(january.mean(), march.mean())\par
+\par
+# Print the standard deviation of the January and March data\par
+print(january.std(), march.std())\par
+\par
+iris['species'].describe()\par
+iris['speci'].unique()\par
+indices=iris['species']=='setosa'\par
+setosa=iris.loc[indices,:]#extract new dataframe\par
+\par
+sentosa.head(2)\par
+iris.plot(kind='hist',bins=50,range=(0,8),alpha=0.3)\par
+plt.title('Entire iris data set')\par
+plt.xlabel('[cm]')\par
+plt.show()\par
+\par
+describe_all=iris.describe()\par
+\par
+error_setosa=100*np.abs(describe_setosa-describe_all)\par
+error_setosa=error_setosa/describe_setosa\par
+\par
+# Compute the global mean and global standard deviation: global_mean, global_std\par
+global_mean =df.mean()\par
+global_std = df.std()\par
+\par
+# Filter the US population from the origin column: us\par
+us =df[df['origin'] == 'US']\par
+\par
+# Compute the US mean and US standard deviation: us_mean, us_std\par
+us_mean = us.mean()\par
+us_std = us.std()\par
+\par
+# Print the differences\par
+print(us_mean - global_mean)\par
+print(us_std - global_std)\par
+\par
+# Display the box plots on 3 separate rows and 1 column\par
+fig, axes = plt.subplots(nrows=3, ncols=1)\par
+\par
+# Generate a box plot of the fare prices for the First passenger class\par
+titanic.loc[titanic['pclass'] == 1].plot(ax=axes[0],y='fare', kind='box')\par
+\par
+# Generate a box plot of the fare prices for the Second passenger class\par
+titanic.loc[titanic['pclass']== 2].plot(ax=axes[1], y='fare', kind='box')\par
+\par
+# Generate a box plot of the fare prices for the Third passenger class\par
+titanic.loc[titanic['pclass'] == 3].plot(ax=axes[2], y='fare', kind='box')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+----------------\par
+sales.pd.read_csv(' ',parse_dates=True,index_col='Date')\par
+sales.loc['2015-03-19 11:00:00','company']\par
+\par
+evening_2_11=pd.to_datetime(['2015-2-11 20:00','2015-2-11 21:00'])\par
+\par
+sales.reindex(evening_2-11,method='ffill')\par
+\par
+\par
+# Prepare a format string: time_format\par
+time_format = '%Y-%m-%d %H:%M'\par
+\par
+# Convert date_list into a datetime object: my_datetimes\par
+my_datetimes = pd.to_datetime(date_list, format=time_format)  \par
+\par
+# Construct a pandas Series using temperature_list and my_datetimes: time_series\par
+time_series = pd.Series(temperature_list, index=my_datetimes)\par
+\par
+# Extract the hour from 9pm to 10pm on '2010-10-11': ts1\par
+ts1 = ts0.loc['2010-10-11 21:00:00':'2010-10-11 22:00:00']\par
+\par
+# Extract '2010-07-04' from ts0: ts2\par
+ts2 = ts0.loc['2010-07-04']\par
+\par
+# Extract data from '2010-12-15' to '2010-12-31': ts3\par
+ts3 = ts0.loc['2010-12-15':'2010-12-31']\par
+\par
+\par
+# Reindex without fill method: ts3\par
+ts3 = ts2.reindex(ts1.index)\par
+\par
+# Reindex with fill method, using forward fill: ts4\par
+ts4 = ts2.reindex(ts1.index, method='ffill')\par
+\par
+# Combine ts1 + ts2: sum12\par
+sum12 = ts1 + ts2\par
+\par
+# Combine ts1 + ts3: sum13\par
+sum13 = ts1 + ts3\par
+\par
+# Combine ts1 + ts4: sum14\par
+sum14 = ts1 + ts4\par
+\par
+\par
+daily_mean=sales.resamples('D').mean()\par
+daily_mean()\par
+\par
+print(daily_mean.loc['2015-2-2'])\par
+print(daily_mean.loc['2015-2-2','Units'])\par
+\par
+daily_mean=sales.resamples('D').sum().max()\par
+daily_mean=sales.resamples('D').count()\par
+\par
+daily_mean.loc['2015-2-2':'2015-2-5','Units']\par
+two_days.resample('4H').fflill()\par
+\par
+# Extract temperature data for August: august\par
+august =df['Temperature']['2010-August']\par
+\par
+\par
+# Downsample to obtain only the daily highest temperatures in August: august_highs\par
+august_highs =august.resample('D').max()\par
+\par
+# Extract temperature data for February: february\par
+february =  df['Temperature']['2010-February']\par
+\par
+# Downsample to obtain the daily lowest temperatures in February: february_lows\par
+february_lows = february.resample('D').min()\par
+\par
+\par
+# Extract data from 2010-Aug-01 to 2010-Aug-15: unsmoothed\par
+unsmoothed = df['Temperature']['2010-August-01':'2010-August-15']\par
+\par
+# Apply a rolling mean with a 24 hour window: smoothed\par
+smoothed = unsmoothed.rolling(window=24).mean()\par
+\par
+# Create a new DataFrame with columns smoothed and unsmoothed: august\par
+august = pd.DataFrame(\{'smoothed':smoothed, 'unsmoothed':unsmoothed\})\par
+\par
+# Plot both smoothed and unsmoothed data using august.plot().\par
+august.plot()\par
+plt.show()\par
+\par
+\par
+# Extract the August 2010 data: august\par
+august = df['Temperature']['2010-August']\par
+\par
+# Resample to daily data, aggregating by max: daily_highs\par
+daily_highs = august.resample('D').max()\par
+\par
+# Use a rolling 7-day window with method chaining to smooth the daily high temperatures in August\par
+daily_highs_smoothed = daily_highs.rolling(window=7).mean()\par
+print(daily_highs_smoothed)\par
+\par
+\par
+\par
+----------\par
+sales['company'].str.upper()\par
+sales['Product'].str.contains('ware')\par
+sales['Product'].str.contains('ware').sum()\par
+sales['Date'].dt.hour\par
+central=sales['Date'].dt.tz_localize('US/cENTRAL')\par
+central.dt.tz_convert('US/Eastern')\par
+population=pd.read_csv(' ', parse_dates=True,index_col='Date')\par
+\par
+population.resample('A').first().interpolate('linear')\par
+\par
+# Reset the index of ts2 to ts1, and then use linear interpolation to fill in the NaNs: ts2_interp\par
+ts2_interp = ts2.reindex(ts1.index).interpolate(how='linear')\par
+\par
+# Compute the absolute difference of ts1 and ts2_interp: differences \par
+differences = np.abs(ts1-ts2_interp)\par
+\par
+# Generate and print summary statistics of the differences\par
+print(differences.describe())\par
+\par
+sp500['Close'].plot(kind='area',title='s&p 500')\par
+sp500.loc['2012',['close','volume']].plot(title='s&p 500')\par
+plt.show()\par
+sp500.loc['2012',['close','volume']].plot(subplots=True)\par
+\par
+# Plot the raw data before setting the datetime index\par
+df.plot()\par
+plt.show()\par
+\par
+# Convert the 'Date' column into a collection of datetime objects: df.Date\par
+df.Date = pd.to_datetime(df.Date)\par
+\par
+# Set the index to be the converted 'Date' column\par
+df.set_index('Date',inplace=True)\par
+\par
+# Re-plot the DataFrame to see that the axis is now datetime aware!\par
+df.plot()\par
+plt.show()\par
+---------------------\par
+# Split on the comma to create a list: column_labels_list\par
+column_labels_list = column_labels.split(',')\par
+\par
+# Assign the new column labels to the DataFrame: df.columns\par
+df.columns = column_labels_list\par
+\par
+# Remove the appropriate columns: df_dropped\par
+df_dropped = df.drop(list_to_drop, axis='columns')\par
+\par
+# Print the output of df_dropped.head()\par
+print(df_dropped.head())\par
+\par
+\par
+# Convert the date column to string: df_dropped['date']\par
+df_dropped['date'] = df_dropped['date'].astype(str)\par
+\par
+# Pad leading zeros to the Time column: df_dropped['Time']\par
+df_dropped['Time'] = df_dropped['Time'].apply(lambda x:'\{:0>4\}'.format(x))\par
+\par
+# Concatenate the new date and Time columns: date_string\par
+date_string = df_dropped['date'] + df_dropped['Time']\par
+\par
+# Convert the date_string Series to datetime: date_times\par
+date_times = pd.to_datetime(date_string, format='%Y%m%d%H%M')\par
+\par
+# Set the index to be the new date_times container: df_clean\par
+df_clean = df_dropped.set_index(date_times)\par
+\par
+# Print the output of df_clean.head()\par
+print(df_clean.head())\par
+\par
+\par
+# Print the dry_bulb_faren temperature between 8 AM and 9 AM on June 20, 2011\par
+print(df_clean.loc['2011-6-20 08:00:00':'2011-6-20 09:00:00', 'dry_bulb_faren'])\par
+\par
+# Convert the dry_bulb_faren column to numeric values: df_clean['dry_bulb_faren']\par
+df_clean['dry_bulb_faren'] = pd.to_numeric(df_clean['dry_bulb_faren'], errors='coerce')\par
+\par
+# Print the transformed dry_bulb_faren temperature between 8 AM and 9 AM on June 20, 2011\par
+print(df_clean.loc['2011-6-20 08:00:00':'2011-6-20 09:00:00','dry_bulb_faren'])\par
+\par
+# Convert the wind_speed and dew_point_faren columns to numeric values\par
+df_clean['wind_speed'] = pd.to_numeric(df_clean['wind_speed'], errors='coerce')\par
+df_clean['dew_point_faren'] = pd.to_numeric(df_clean['dew_point_faren'], errors='coerce')\par
+\par
+-----\par
+# Print the median of the dry_bulb_faren column\par
+print(df_clean['dry_bulb_faren'].median())\par
+\par
+# Print the median of the dry_bulb_faren column for the time range '2011-Apr':'2011-Jun'\par
+print(df_clean.loc['2011-Apr':'2011-Jun', 'dry_bulb_faren'].median())\par
+\par
+# Print the median of the dry_bulb_faren column for the month of January\par
+print(df_clean.loc['2011-Jan','dry_bulb_faren'].median())\par
+\par
+# Downsample df_clean by day and aggregate by mean: daily_mean_2011\par
+daily_mean_2011 = df_clean.resample('D').mean()\par
+\par
+# Extract the dry_bulb_faren column from daily_mean_2011 using .values: daily_temp_2011\par
+daily_temp_2011 = daily_mean_2011['dry_bulb_faren'].values\par
+\par
+# Downsample df_climate by day and aggregate by mean: daily_climate\par
+daily_climate = df_climate.resample('D').mean()\par
+\par
+# Extract the Temperature column from daily_climate using .reset_index(): daily_temp_climate\par
+daily_temp_climate = daily_climate.reset_index()['Temperature']\par
+\par
+# Compute the difference between the two arrays and print the mean difference\par
+difference = daily_temp_2011 - daily_temp_climate\par
+print(difference.mean())\par
+\par
+import matplotlib.pyplot as plt\par
+climate2010.Temperature['2010-07'].plot()plt.title('Temperature')\par
+\par
+\par
+# Import matplotlib.pyplot as plt\par
+import matplotlib.pyplot as plt\par
+\par
+# Select the visibility and dry_bulb_faren columns and resample them: weekly_mean\par
+weekly_mean = df_clean[['visibility','dry_bulb_faren']].resample('W').mean()\par
+\par
+# Print the output of weekly_mean.corr()\par
+print(weekly_mean.corr())\par
+\par
+# Plot weekly_mean with subplots=True\par
+weekly_mean.plot(subplots=True)\par
+plt.show()\par
+\par
+\par
+# From previous steps\par
+is_sky_clear = df_clean['sky_condition'] == 'CLR'\par
+resampled = is_sky_clear.resample('D')\par
+sunny_hours = resampled.sum()\par
+total_hours = resampled.count()\par
+sunny_fraction = sunny_hours / total_hours\par
+\par
+# Make a box plot of sunny_fraction\par
+sunny_fraction.plot(kind='box')\par
+plt.show()\par
+\par
+# Resample dew_point_faren and dry_bulb_faren by Month, aggregating the maximum values: monthly_max\par
+monthly_max = df_clean[['dew_point_faren','dry_bulb_faren']].resample('M').max()\par
+\par
+# Generate a histogram with bins=8, alpha=0.5, subplots=True\par
+monthly_max.plot(kind='hist',bins=8,alpha=0.5,subplots=True)\par
+\par
+# Show the plot\par
+plt.show()\par
+\par
+# Extract the maximum temperature in August 2010 from df_climate: august_max\par
+august_max = df_climate.loc['2010-Aug','Temperature'].max()\par
+print(august_max)\par
+\par
+# Resample the August 2011 temperatures in df_clean by day and aggregate the maximum value: august_2011\par
+august_2011 = df_clean.loc['2011-Aug','dry_bulb_faren'].resample('D').max()\par
+\par
+# Filter out days in august_2011 where the value exceeded august_max: august_2011_high\par
+august_2011_high = august_2011.loc[august_2011 > august_max]\par
+\par
+# Construct a CDF of august_2011_high\par
+august_2011_high.plot(kind='hist', normed=True, cumulative=True, bins=25)\par
+\par
+# Display the plot\par
+plt.show()\par
+}
+ 

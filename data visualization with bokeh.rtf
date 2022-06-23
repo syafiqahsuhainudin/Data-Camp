@@ -1,0 +1,776 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 from bokeh.io import output_file,show\par
+from bokeh,plotting import figure\par
+plot=figure(plot_width=400,tools='pan,box_zoom')\par
+plot.circle([1,2,3,4,5],[8,6,2,3,5])\par
+\par
+plot.circle(x=10,y=[2,5,8,12],size=[10,20,30,40])\par
+plot=figure()\par
+----\par
+# Import figure from bokeh.plotting\par
+from bokeh.plotting import figure\par
+\par
+# Import output_file and show from bokeh.io\par
+from bokeh.io import output_file, show\par
+\par
+# Create the figure: p\par
+p = figure(x_axis_label='fertility (children per woman)',y_axis_label='female_literacy (% population)')\par
+\par
+# Add a circle glyph to the figure p\par
+p.circle(fertility ,female_literacy)\par
+\par
+# Call the output_file() function and specify the name of the file\par
+output_file('fert_lit.html')\par
+\par
+# Display the plot\par
+show(p)\par
+\par
+---\par
+# Create the figure: p\par
+p = figure(x_axis_label='fertility (children per woman)', y_axis_label='female_literacy (% population)')\par
+\par
+# Add a circle glyph to the figure p\par
+\par
+p.circle(fertility_latinamerica ,female_literacy_latinamerica)\par
+# Add an x glyph to the figure p\par
+\par
+p.x(fertility_africa,female_literacy_africa)\par
+# Specify the name of the file\par
+output_file('fert_lit_separate.html')\par
+\par
+# Display the plot\par
+show(p)\par
+---\par
+# Create the figure: p\par
+p = figure(x_axis_label='fertility (children per woman)', y_axis_label='female_literacy (% population)')\par
+\par
+# Add a blue circle glyph to the figure p\par
+p.circle(fertility_latinamerica, female_literacy_latinamerica, color='blue', size=10, alpha=0.8)\par
+\par
+# Add a red circle glyph to the figure p\par
+p.circle(fertility_africa,female_literacy_africa, color='red', size=10, alpha=0.8)\par
+\par
+# Specify the name of the file\par
+output_file('fert_lit_separate_colors.html')\par
+\par
+# Display the plot\par
+show(p)\par
+----\par
+plot.line(x,y,line_width=2)\par
+xs=[[1,2,3,4],[2,2,3]]\par
+plot.patches(xs,ys,fill_color=['red','blue','green'],line_color='white')\par
+\par
+---\par
+# Import figure from bokeh.plotting\par
+from bokeh.plotting import figure\par
+\par
+# Create a figure with x_axis_type="datetime": p\par
+p = figure(x_axis_type="datetime", x_axis_label='Date', y_axis_label='US Dollars')\par
+\par
+# Plot date along the x axis and price along the y axis\par
+p.line(date,price)\par
+\par
+# Specify the name of the output file and show the result\par
+output_file('line.html')\par
+show(p)\par
+---\par
+# Import figure from bokeh.plotting\par
+from bokeh.plotting import figure\par
+\par
+# Create a figure with x_axis_type='datetime': p\par
+p = figure(x_axis_type='datetime', x_axis_label='Date', y_axis_label='US Dollars')\par
+\par
+# Plot date along the x-axis and price along the y-axis\par
+\par
+p.line(date,price)\par
+# With date on the x-axis and price on the y-axis, add a white circle glyph of size 4\par
+p.circle(date, price, fill_color='white', size=4)\par
+\par
+# Specify the name of the output file and show the result\par
+output_file('line.html')\par
+show(p)\par
+---\par
+# Create a list of az_lons, co_lons, nm_lons and ut_lons: x\par
+x = [az_lons, co_lons, nm_lons, ut_lons]\par
+\par
+# Create a list of az_lats, co_lats, nm_lats and ut_lats: y\par
+y = [az_lats, co_lats, nm_lats,ut_lats]\par
+\par
+# Add patches to figure p with line_color=white for x and y\par
+\par
+p.patches(x,y,line_color='white')\par
+\par
+# Specify the name of the output file and show the result\par
+output_file('four_corners.html')\par
+show(p)\par
+\par
+---\par
+from bokeh.sampledata.iris import flowers as df\par
+\par
+from bokeh.models import ColumnDataSource\par
+\par
+--\par
+# Import numpy as np\par
+import numpy as np\par
+\par
+# Create array using np.linspace: x\par
+x = np.linspace(0,5,100)\par
+\par
+# Create array using np.cos: y\par
+y = np.cos(x)\par
+\par
+# Add circles at x and y\par
+p.circle(x,y)\par
+\par
+# Specify the name of the output file and show the result\par
+output_file('numpy.html')\par
+show(p)\par
+\par
+----\par
+# Import pandas as pd\par
+import pandas as pd\par
+\par
+# Read in the CSV file: df\par
+df = pd.read_csv('auto.csv')\par
+\par
+# Import figure from bokeh.plotting\par
+from bokeh.plotting import figure\par
+\par
+# Create the figure: p\par
+p = figure(x_axis_label='HP', y_axis_label='MPG')\par
+\par
+# Plot mpg vs hp by color\par
+p.circle(df['hp'], df['mpg'], color=df['color'], size=10)\par
+\par
+# Specify the name of the output file and show the result\par
+output_file('auto-df.html')\par
+show(p)\par
+\par
+----\par
+# Import the ColumnDataSource class from bokeh.plotting\par
+from  bokeh.plotting import ColumnDataSource\par
+\par
+\par
+# Create a ColumnDataSource: source\par
+source = ColumnDataSource(df)\par
+\par
+# Add circle glyphs to the figure p\par
+p.circle(x='Year', y='Time', color='color', size=8, source=source)\par
+\par
+# Specify the name of the output file and show the result\par
+output_file('sprint.html')\par
+show(p)\par
+------\par
+plot=figure(tools='box_select,lasso_select')\par
+plot.circle(petal,sepal,selection_color='red',nonselection_fill_alpha=0.2,nonselection_fill_color='grey')\par
+\par
+from bokeh.models import HoverTool\par
+hover=HoverTool(tooltips=None,mode'hline')\par
+plot=figure(tools=[hover,'crosshair'])\par
+plot.circle(x,y,size=15,hover_color='red')\par
+\par
+from bokeh.models import \par
+CategoricalColorMapper\par
+----\par
+\par
+# Create a figure with the "box_select" tool: p\par
+p =figure(x_axis_label='Year',y_axis_label='Time',tools='box_select')\par
+\par
+# Add circle glyphs to the figure p with the selected and non-selected properties\par
+p.circle(x='Year', y='Time', source=source, selection_color='red', nonselection_alpha=0.1)\par
+\par
+# Specify the name of the output file and show the result\par
+output_file('selection_glyph.html')\par
+show(p)\par
+\par
+----\par
+# import the HoverTool\par
+from bokeh.models import HoverTool\par
+\par
+# Add circle glyphs to figure p\par
+p.circle(x, y, size=10,\par
+         fill_color='grey', alpha=0.1, line_color=None,\par
+         hover_fill_color='firebrick', hover_alpha=0.5,\par
+         hover_line_color='white')\par
+\par
+# Create a HoverTool: hover\par
+hover = HoverTool(tooltips=None,mode='vline')\par
+\par
+# Add the hover tool to the figure p\par
+p.add_tools(hover)\par
+\par
+# Specify the name of the output file and show the result\par
+output_file('hover_glyph.html')\par
+show(p)\par
+-----\par
+#Import CategoricalColorMapper from bokeh.models\par
+from bokeh.models import CategoricalColorMapper\par
+\par
+# Convert df to a ColumnDataSource: source\par
+source = ColumnDataSource(df)\par
+\par
+# Make a CategoricalColorMapper object: color_mapper\par
+color_mapper =CategoricalColorMapper(factors=['Europe', 'Asia', 'US'],\par
+                                      palette=['red', 'green', 'blue'])\par
+\par
+# Add a circle glyph to the figure p\par
+p.circle('weight', 'mpg', source=source,\par
+            color=dict(field='origin', transform=color_mapper),\par
+            legend='origin')\par
+\par
+# Specify the name of the output file and show the result\par
+output_file('colormap.html')\par
+show(p)\par
+\par
+-----\par
+layout=row(p1,p2,p3)\par
+from bokeh.layouts import column\par
+from bokeh.layouts import column,row\par
+\par
+layout=row(column(p1,p2),p3)\par
+\par
+# Import row from bokeh.layouts\par
+from bokeh.layouts import row\par
+\par
+# Create the first figure: p1\par
+p1 = figure(x_axis_label='fertility (children per woman)',y_axis_label='female_literacy (% population)')\par
+\par
+# Add a circle glyph to p1\par
+p1.circle('fertility', 'female_literacy',source=source)\par
+\par
+# Create the second figure: p2\par
+p2 = figure(x_axis_label='population',y_axis_label='female_literacy (% population)')\par
+\par
+# Add a circle glyph to p2\par
+p2.circle('population','female_literacy',source=source)\par
+\par
+# Put p1 and p2 into a horizontal row: layout\par
+layout = row(p1,p2)\par
+\par
+# Specify the name of the output_file and show the result\par
+output_file('fert_row.html')\par
+show(layout)\par
+\par
+# Import column from the bokeh.layouts module\par
+from bokeh.layouts import column\par
+\par
+# Create a blank figure: p1\par
+p1 = figure(x_axis_label='fertility (children per woman)', y_axis_label='female_literacy (% population)')\par
+\par
+# Add circle scatter to the figure p1\par
+p1.circle('fertility', 'female_literacy', source=source)\par
+\par
+# Create a new blank figure: p2\par
+p2 = figure(x_axis_label='population', y_axis_label='female_literacy (% population)')\par
+\par
+# Add circle scatter to the figure p2\par
+p2.circle('population', 'female_literacy', source=source)\par
+\par
+# Put plots p1 and p2 in a column: layout\par
+layout = column(p1,p2)\par
+\par
+# Specify the name of the output_file and show the result\par
+output_file('fert_column.html')\par
+show(layout)\par
+\par
+\par
+# Import column and row from bokeh.layouts\par
+from bokeh.layouts import column, row\par
+\par
+# Make a row layout that will be used as the second row: row2\par
+row2 = row([mpg_hp,mpg_weight],sizing_mode='scale_width')\par
+\par
+# Make a column layout that includes the above row layout: layout\par
+layout = column([avg_mpg,row2],sizing_mode='scale_width')\par
+\par
+# Specify the name of the output_file and show the result\par
+output_file('layout_custom.html')\par
+show(layout)\par
+\par
+----------\par
+# Import gridplot from bokeh.layouts\par
+from bokeh.layouts import gridplot\par
+\par
+# Create a list containing plots p1 and p2: row1\par
+row1 = [p1,p2]\par
+\par
+# Create a list containing plots p3 and p4: row2\par
+row2 = [p3,p4]\par
+\par
+# Create a gridplot using row1 and row2: layout\par
+layout = gridplot([row1,row2])\par
+\par
+# Specify the name of the output_file and show the result\par
+output_file('grid.html')\par
+show(layout)\par
+\par
+-----\par
+# Import Panel from bokeh.models.widgets\par
+from bokeh.models.widgets import Panel\par
+\par
+# Create tab1 from plot p1: tab1\par
+tab1 = Panel(child=p1, title='Latin America')\par
+\par
+# Create tab2 from plot p2: tab2\par
+tab2 =  Panel(child=p2, title='Africa')\par
+\par
+# Create tab3 from plot p3: tab3\par
+tab3 = Panel(child=p3, title='Asia')\par
+\par
+# Create tab4 from plot p4: tab4\par
+tab4 =Panel(child=p4, title='Europe')\par
+\par
+-------\par
+# Import Tabs from bokeh.models.widgets\par
+from bokeh.models.widgets import Tabs\par
+\par
+# Create a Tabs layout: layout\par
+layout = Tabs(tabs=[tab1, tab2, tab3, tab4])\par
+\par
+# Specify the name of the output_file and show the result\par
+output_file('tabs.html')\par
+show(layout)\par
+\par
+-------\par
+p3.x_range=p2.x_range=p1.x_range\par
+\par
+# Link the x_range of p2 to p1: p2.x_range\par
+p2.x_range = p1.x_range \par
+\par
+# Link the y_range of p2 to p1: p2.y_range\par
+p2.y_range = p1.y_range\par
+\par
+# Link the x_range of p3 to p1: p3.x_range\par
+p3.x_range = p1.x_range\par
+\par
+# Link the y_range of p4 to p1: p4.y_range\par
+p4.y_range = p1.y_range\par
+\par
+# Specify the name of the output_file and show the result\par
+output_file('linked_range.html')\par
+show(layout)\par
+\par
+\par
+--------\par
+# Create ColumnDataSource: source\par
+source = ColumnDataSource(data)\par
+\par
+# Create the first figure: p1\par
+p1 = figure(x_axis_label='fertility (children per woman)', y_axis_label='female literacy (% population)',\par
+            tools='box_select,lasso_select')\par
+\par
+# Add a circle glyph to p1\par
+p1.circle('fertility', 'female literacy', source=source)\par
+\par
+# Create the second figure: p2\par
+p2 = figure(x_axis_label='fertility (children per woman)', y_axis_label='population (millions)',\par
+            tools='box_select,lasso_select')\par
+\par
+# Add a circle glyph to p2\par
+p2.circle('fertility', 'population', source=source)\par
+\par
+# Create row layout of figures p1 and p2: layout\par
+layout = row(p1,p2)\par
+\par
+# Specify the name of the output_file and show the result\par
+output_file('linked_brush.html')\par
+show(layout)\par
+\par
+# Assign the legend to the bottom left: p.legend.location\par
+p.legend.location='bottom_left'\par
+\par
+# Fill the legend background with the color 'lightgray': p.legend.background_fill_color\par
+p.legend.background_fill_color='lightgray'\par
+\par
+# Specify the name of the output_file and show the result\par
+output_file('fert_lit_groups.html')\par
+show(p)\par
+\par
+# Import HoverTool from bokeh.models\par
+from  bokeh.models import HoverTool\par
+\par
+# Create a HoverTool object: hover\par
+hover = HoverTool(tooltips=[('Country','@Country')])\par
+\par
+# Add the HoverTool object to figure p\par
+p.add_tools(hover)\par
+\par
+# Specify the name of the output_file and show the result\par
+output_file('hover.html')\par
+show(p)\par
+\par
+--------\par
+from bokeh.io import curdoc\par
+# Perform necessary imports\par
+from bokeh.io import curdoc\par
+from bokeh.plotting import figure\par
+\par
+# Create a new plot: plot\par
+plot = figure()\par
+\par
+# Add a line to the plot\par
+plot.line([1,2,3,4,5], [2,5,4,6,7])\par
+\par
+# Add the plot to the current document\par
+curdoc().add_root(plot)\par
+\par
+\par
+\par
+from bokeh.io import curdoc\par
+from bokeh.layouts import widgetbox\par
+from bokeh.models import Slider\par
+\par
+# Create a slider: slider\par
+slider = Slider(title='my slider', start=0, end=10, step=0.1, value=2)\par
+\par
+# Create a widgetbox layout: layout\par
+layout = widgetbox(slider)\par
+\par
+# Add the layout to the current document\par
+curdoc().add_root(layout)\par
+\par
+\par
+# Define a callback function: callback\par
+def callback(attr, old, new):\par
+\par
+    # Read the current value of the slider: scale\par
+    scale = slider.value\par
+\par
+    # Compute the updated y using np.sin(scale/x): new_y\par
+    new_y = np.sin(scale/x)\par
+\par
+    # Update source with the new data values\par
+    source.data = \{'x': x, 'y': new_y\}\par
+\par
+# Attach the callback to the 'value' property of slider\par
+slider.on_change('value', callback)\par
+\par
+# Create layout and add to current document\par
+layout = column(widgetbox(slider), plot)\par
+curdoc().add_root(layout)\par
+\par
+\par
+------\par
+# Perform necessary imports\par
+from bokeh.models import ColumnDataSource, Select\par
+\par
+# Create ColumnDataSource: source\par
+source = ColumnDataSource(data=\{\par
+    'x' : fertility,\par
+    'y' : female_literacy\par
+\})\par
+\par
+# Create a new plot: plot\par
+plot = figure()\par
+\par
+# Add circles to the plot\par
+plot.circle('x', 'y', source=source)\par
+\par
+# Define a callback function: update_plot\par
+def update_plot(attr, old, new):\par
+    # If the new Selection is 'female_literacy', update 'y' to female_literacy\par
+    if new == 'female_literacy': \par
+        source.data = \{\par
+            'x' : fertility,\par
+            'y' : female_literacy\par
+        \}\par
+    # Else, update 'y' to population\par
+    else:\par
+        source.data = \{\par
+            'x' : fertility,\par
+            'y' : population\par
+        \}\par
+\par
+# Create a dropdown Select widget: select    \par
+select = Select(title="distribution", options=['female_literacy', 'population'], value='female_literacy')\par
+\par
+# Attach the update_plot callback to the 'value' property of select\par
+select.on_change('value', update_plot)\par
+\par
+\par
+# Create two dropdown Select widgets: select1, select2\par
+select1 = Select(title='First', options=['A', 'B'], value='A')\par
+select2 = Select(title='Second', options=['1', '2', '3'], value='1')\par
+\par
+# Define a callback function: callback\par
+def callback(attr, old, new):\par
+    # If select1 is 'A' \par
+    if select1.value == 'A':\par
+        # Set select2 options to ['1', '2', '3']\par
+        select2.options = ['1', '2', '3']\par
+\par
+        # Set select2 value to '1'\par
+        select2.value = '1'\par
+    else:\par
+        # Set select2 options to ['100', '200', '300']\par
+        select2.options = ['100', '200', '300']\par
+\par
+        # Set select2 value to '100'\par
+        select2.value = '100'\par
+\par
+# Attach the callback to the 'value' property of select1\par
+select1.on_change('value', callback)\par
+\par
+# Create layout and add to current document\par
+layout = widgetbox(select1, select2)\par
+curdoc().add_root(layout)\par
+\par
+\par
+-----\par
+# Create a Button with label 'Update Data'\par
+button = Button(label='Update Data')\par
+\par
+# Define an update callback with no arguments: update\par
+def update():\par
+\par
+    # Compute new y values: y\par
+    y = np.sin(x) + np.random.random(N)\par
+\par
+    # Update the ColumnDataSource data dictionary\par
+    source.data = \{'x': x, 'y': y\}\par
+\par
+# Add the update callback to the button\par
+button.on_click(update)\par
+\par
+# Create layout and add to current document\par
+layout = column(widgetbox(button), plot)\par
+curdoc().add_root(layout)\par
+\par
+\par
+# Import CheckboxGroup, RadioGroup, Toggle from bokeh.models\par
+from bokeh.models import CheckboxGroup, RadioGroup, Toggle\par
+\par
+# Add a Toggle: toggle\par
+toggle = Toggle(label='Toggle button',button_type='success')\par
+\par
+# Add a CheckboxGroup: checkbox\par
+checkbox = CheckboxGroup(labels=['Option 1', 'Option 2', 'Option 3'])\par
+\par
+# Add a RadioGroup: radio\par
+radio = RadioGroup(labels=['Option 1', 'Option 2', 'Option 3'])\par
+\par
+# Add widgetbox(toggle, checkbox, radio) to the current document\par
+curdoc().add_root(widgetbox(toggle, checkbox, radio))\par
+\par
+\par
+# Perform necessary imports\par
+from bokeh.io import output_file, show\par
+from bokeh.plotting import figure\par
+from bokeh.models import HoverTool, ColumnDataSource\par
+\par
+# Make the ColumnDataSource: source\par
+source = ColumnDataSource(data=\{\par
+    'x'       : data.loc[1970].fertility,\par
+    'y'       : data.loc[1970].life,\par
+    'country' : data.loc[1970].Country,\par
+\})\par
+\par
+# Create the figure: p\par
+p = figure(title='1970', x_axis_label='Fertility (children per woman)', y_axis_label='Life Expectancy (years)',\par
+           plot_height=400, plot_width=700,\par
+           tools=[HoverTool(tooltips='@country')])\par
+\par
+# Add a circle glyph to the figure p\par
+p.circle(x='x', y='y', source=source)\par
+\par
+# Output the file and show the figure\par
+output_file('gapminder.html')\par
+show(p)\par
+\par
+\par
+-----\par
+# Import the necessary modules\par
+from bokeh.io import curdoc\par
+from bokeh.models import ColumnDataSource\par
+from bokeh.plotting import figure\par
+\par
+# Make the ColumnDataSource: source\par
+source = ColumnDataSource(data=\{\par
+    'x'       : data.loc[1970].fertility,\par
+    'y'       : data.loc[1970].life,\par
+    'country'      : data.loc[1970].Country,\par
+    'pop'      : (data.loc[1970].population / 20000000) + 2,\par
+    'region'      : data.loc[1970].region,\par
+\})\par
+\par
+# Save the minimum and maximum values of the fertility column: xmin, xmax\par
+xmin, xmax = min(data.fertility), max(data.fertility)\par
+\par
+# Save the minimum and maximum values of the life expectancy column: ymin, ymax\par
+ymin, ymax = min(data.life), max(data.life)\par
+\par
+# Create the figure: plot\par
+plot = figure(title='Gapminder Data for 1970', plot_height=400, plot_width=700, x_range=(xmin, xmax), y_range=(ymin, ymax))\par
+\par
+# Add circle glyphs to the plot\par
+plot.circle(x='x', y='y', fill_alpha=0.8, source=source)\par
+\par
+# Set the x-axis label\par
+plot.xaxis.axis_label ='Fertility (children per woman)'\par
+\par
+# Set the y-axis label\par
+plot.yaxis.axis_label = 'Life Expectancy (years)'\par
+\par
+# Add the plot to the current document and add a title\par
+curdoc().add_root(plot)\par
+curdoc().title = 'Gapminder'\par
+\par
+\par
+# Make a list of the unique values from the region column: regions_list\par
+regions_list = data.region.unique().tolist()\par
+\par
+# Import CategoricalColorMapper from bokeh.models and the Spectral6 palette from bokeh.palettes\par
+from bokeh.models import CategoricalColorMapper\par
+from bokeh.palettes import Spectral6\par
+\par
+# Make a color mapper: color_mapper\par
+color_mapper = CategoricalColorMapper(factors=regions_list, palette=Spectral6)\par
+\par
+# Add the color mapper to the circle glyph\par
+plot.circle(x='x', y='y', fill_alpha=0.8, source=source,\par
+            color=dict(field='region', transform=color_mapper), legend='region')\par
+\par
+# Set the legend.location attribute of the plot to 'top_right'\par
+plot.legend.location = 'top_right'\par
+\par
+# Add the plot to the current document and add the title\par
+curdoc().add_root(plot)\par
+curdoc().title = 'Gapminder'\par
+----\par
+# Import the necessary modules\par
+from bokeh.layouts import widgetbox, row\par
+from bokeh.models import Slider\par
+\par
+# Define the callback function: update_plot\par
+def update_plot(attr, old, new):\par
+    # set the `yr` name to `slider.value` and `source.data = new_data`\par
+    yr = slider.value\par
+    new_data = \{\par
+        'x'       : data.loc[yr].fertility,\par
+        'y'       : data.loc[yr].life,\par
+        'country' : data.loc[yr].Country,\par
+        'pop'     : (data.loc[yr].population / 20000000) + 2,\par
+        'region'  : data.loc[yr].region,\par
+    \}\par
+    source.data = new_data\par
+\par
+\par
+# Make a slider object: slider\par
+slider = Slider(start=1970, end=2010, step=1, value=1970, title='Year')\par
+\par
+# Attach the callback to the 'value' property of slider\par
+slider.on_change('value',update_plot)\par
+\par
+# Make a row layout of widgetbox(slider) and plot and add it to the current document\par
+layout = row(widgetbox(slider), plot)\par
+curdoc().add_root(layout)\par
+\par
+# Define the callback function: update_plot\par
+def update_plot(attr, old, new):\par
+    # Assign the value of the slider: yr\par
+    yr = slider.value\par
+    # Set new_data\par
+    new_data = \{\par
+        'x'       : data.loc[yr].fertility,\par
+        'y'       : data.loc[yr].life,\par
+        'country' : data.loc[yr].Country,\par
+        'pop'     : (data.loc[yr].population / 20000000) + 2,\par
+        'region'  : data.loc[yr].region,\par
+    \}\par
+    # Assign new_data to: source.data\par
+    source.data = new_data\par
+\par
+    # Add title to figure: plot.title.text\par
+    plot.title.text = 'Gapminder data for %d' % yr\par
+\par
+# Make a slider object: slider\par
+slider = Slider(start=1970, end=2010, step=1, value=1970, title='Year')\par
+\par
+# Attach the callback to the 'value' property of slider\par
+slider.on_change('value', update_plot)\par
+\par
+# Make a row layout of widgetbox(slider) and plot and add it to the current document\par
+layout = row(widgetbox(slider), plot)\par
+curdoc().add_root(layout)\par
+\par
+# Import HoverTool from bokeh.models\par
+from bokeh.models import HoverTool\par
+\par
+# Create a HoverTool: hover\par
+hover = HoverTool(tooltips=[('Country', '@country')])\par
+\par
+# Add the HoverTool to the plot\par
+plot.add_tools(hover)\par
+\par
+# Create layout: layout\par
+layout = row(widgetbox(slider), plot)\par
+\par
+# Add layout to current document\par
+curdoc().add_root(layout)\par
+\par
+------\par
+--app ,button----\par
+# Define the callback: update_plot\par
+def update_plot(attr, old, new):\par
+    # Read the current value off the slider and 2 dropdowns: yr, x, y\par
+    yr = slider.value\par
+    x = x_select.value\par
+    y = y_select.value\par
+    # Label axes of plot\par
+    plot.xaxis.axis_label = x\par
+    plot.yaxis.axis_label = y\par
+    # Set new_data\par
+    new_data = \{\par
+        'x'       : data.loc[yr][x],\par
+        'y'       : data.loc[yr][y],\par
+        'country' : data.loc[yr].Country,\par
+        'pop'     : (data.loc[yr].population / 20000000) + 2,\par
+        'region'  : data.loc[yr].region,\par
+    \}\par
+    # Assign new_data to source.data\par
+    source.data = new_data\par
+\par
+    # Set the range of all axes\par
+    plot.x_range.start = min(data[x])\par
+    plot.x_range.end = max(data[x])\par
+    plot.y_range.start = min(data[y])\par
+    plot.y_range.end = max(data[y])\par
+\par
+    # Add title to plot\par
+    plot.title.text = 'Gapminder data for %d' % yr\par
+\par
+# Create a dropdown slider widget: slider\par
+slider = Slider(start=1970, end=2010, step=1, value=1970, title='Year')\par
+\par
+# Attach the callback to the 'value' property of slider\par
+slider.on_change('value', update_plot)\par
+\par
+# Create a dropdown Select widget for the x data: x_select\par
+x_select = Select(\par
+    options=['fertility', 'life', 'child_mortality', 'gdp'],\par
+    value='fertility',\par
+    title='x-axis data'\par
+)\par
+\par
+# Attach the update_plot callback to the 'value' property of x_select\par
+x_select.on_change('value', update_plot)\par
+\par
+# Create a dropdown Select widget for the y data: y_select\par
+y_select = Select(\par
+    options=['fertility', 'life', 'child_mortality', 'gdp'],\par
+    value='life',\par
+    title='y-axis data'\par
+)\par
+\par
+# Attach the update_plot callback to the 'value' property of y_select\par
+y_select.on_change('value', update_plot)\par
+\par
+# Create layout and add to current document\par
+layout = row(widgetbox(slider, x_select, y_select), plot)\par
+curdoc().add_root(layout)\par
+\par
+\par
+\par
+}
+ 

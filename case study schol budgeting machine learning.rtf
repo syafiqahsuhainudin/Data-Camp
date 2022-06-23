@@ -1,0 +1,377 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 # Print the summary statistics\par
+print(df.describe())\par
+\par
+# Import matplotlib.pyplot as plt\par
+import matplotlib.pyplot as plt\par
+\par
+# Create the histogram\par
+plt.hist(df['FTE'].dropna())\par
+\par
+# Add title and labels\par
+plt.title('Distribution of %full-time \\n employee works')\par
+plt.xlabel('% of full-time')\par
+plt.ylabel('num employees')\par
+\par
+# Display the histogram\par
+plt.show()\par
+\par
+-----\par
+# Compute and print log loss for 1st case\par
+correct_confident_loss = compute_log_loss(correct_confident, actual_labels)\par
+print("Log loss, correct and confident: \{\}".format(correct_confident_loss)) \par
+\par
+# Compute log loss for 2nd case\par
+correct_not_confident_loss = compute_log_loss(correct_not_confident, actual_labels)\par
+print("Log loss, correct and not confident: \{\}".format(correct_not_confident_loss)) \par
+\par
+# Compute and print log loss for 3rd case\par
+wrong_not_confident_loss = compute_log_loss(wrong_not_confident, actual_labels)\par
+print("Log loss, wrong and not confident: \{\}".format(wrong_not_confident_loss)) \par
+\par
+# Compute and print log loss for 4th case\par
+wrong_confident_loss = compute_log_loss(wrong_confident, actual_labels)\par
+print("Log loss, wrong and confident: \{\}".format(wrong_confident_loss)) \par
+\par
+# Compute and print log loss for actual labels\par
+actual_labels_loss = compute_log_loss(actual_labels, actual_labels)\par
+print("Log loss, actual labels: \{\}".format(actual_labels_loss)) \par
+\par
+----\par
+# Create the new DataFrame: numeric_data_only\par
+numeric_data_only = df[NUMERIC_COLUMNS].fillna(-1000)\par
+\par
+# Get labels and convert to dummy variables: label_dummies\par
+label_dummies = pd.get_dummies(df[LABELS])\par
+\par
+# Create training and test sets\par
+X_train, X_test, y_train, y_test = multilabel_train_test_split(numeric_data_only,label_dummies,size=0.2,seed=123)\par
+\par
+# Print the info\par
+print("X_train info:")\par
+print(X_train.info())\par
+print("\\nX_test info:")  \par
+print(X_test.info())\par
+print("\\ny_train info:")  \par
+print(y_train.info())\par
+print("\\ny_test info:")  \par
+print(y_test.info()) \par
+\par
+----\par
+# Import classifiers\par
+from sklearn.linear_model import LogisticRegression\par
+from sklearn.multiclass import OneVsRestClassifier\par
+\par
+# Create the DataFrame: numeric_data_only\par
+numeric_data_only = df[NUMERIC_COLUMNS].fillna(-1000)\par
+\par
+# Get labels and convert to dummy variables: label_dummies\par
+label_dummies = pd.get_dummies(df[LABELS])\par
+\par
+# Create training and test sets\par
+X_train, X_test, y_train, y_test = multilabel_train_test_split(numeric_data_only,\par
+                                                               label_dummies,\par
+                                                               size=0.2, \par
+                                                               seed=123)\par
+\par
+# Instantiate the classifier: clf\par
+clf = OneVsRestClassifier(LogisticRegression())\par
+\par
+# Fit the classifier to the training data\par
+clf.fit(X_train, y_train)\par
+\par
+# Print the accuracy\par
+print("Accuracy: \{\}".format(clf.score(X_test, y_test)))\par
+-----\par
+# Instantiate the classifier: clf\par
+clf = OneVsRestClassifier(LogisticRegression())\par
+\par
+# Fit it to the training data\par
+clf.fit(X_train, y_train)\par
+\par
+# Load the holdout data: holdout\par
+holdout = pd.read_csv('HoldoutData.csv', index_col=0)\par
+\par
+# Generate predictions: predictions\par
+predictions = clf.predict_proba(holdout[NUMERIC_COLUMNS].fillna(-1000))\par
+---\par
+# Generate predictions: predictions\par
+predictions = clf.predict_proba(holdout[NUMERIC_COLUMNS].fillna(-1000))\par
+\par
+# Format predictions in DataFrame: prediction_df\par
+prediction_df = pd.DataFrame(columns=pd.get_dummies(df[LABELS]).columns,\par
+                             index=holdout.index,\par
+                             data=predictions)\par
+\par
+\par
+# Save prediction_df to csv\par
+prediction_df.to_csv('predictions.csv')\par
+\par
+# Submit the predictions for scoring: score\par
+score = score_submission(pred_path='predictions.csv')\par
+\par
+# Print score\par
+print('Your model, trained with numeric data only, yields logloss score: \{\}'.format(score))\par
+\par
+\par
+-----\par
+# Import CountVectorizer\par
+from sklearn.feature_extraction.text import CountVectorizer\par
+\par
+# Create the token pattern: TOKENS_ALPHANUMERIC\par
+TOKENS_ALPHANUMERIC = '[A-Za-z0-9]+(?=\\\\s+)'\par
+\par
+# Fill missing values in df.Position_Extra\par
+df.Position_Extra.fillna('', inplace=True)\par
+\par
+# Instantiate the CountVectorizer: vec_alphanumeric\par
+vec_alphanumeric = CountVectorizer(token_pattern=TOKENS_ALPHANUMERIC)\par
+\par
+# Fit to the data\par
+vec_alphanumeric.fit(df.Position_Extra)\par
+\par
+# Print the number of tokens and first 15 tokens\par
+msg = "There are \{\} tokens in Position_Extra if we split on non-alpha numeric"\par
+print(msg.format(len(vec_alphanumeric.get_feature_names())))\par
+print(vec_alphanumeric.get_feature_names()[:15])\par
+-----\par
+\par
+# Define combine_text_columns()\par
+def combine_text_columns(data_frame, to_drop=NUMERIC_COLUMNS + LABELS):\par
+    """ converts all text in each row of data_frame to single vector """\par
+    \par
+    # Drop non-text columns that are in the df\par
+    to_drop = set(to_drop) & set(data_frame.columns.tolist())\par
+    text_data = data_frame.drop(to_drop, axis=1)\par
+    \par
+    # Replace nans with blanks\par
+    text_data.fillna("", inplace=True)\par
+    \par
+    # Join all text items in a row that have a space in between\par
+    return text_data.apply(lambda x: " ".join(x), axis=1)\par
+\par
+-----\par
+\par
+from sklearn.feature_extraction.text import CountVectorizer\par
+\par
+# Create the basic token pattern\par
+TOKENS_BASIC = '{{\field{\*\fldinst{HYPERLINK "\\\\\\\\S+(?=\\\\\\\\s+)"}}{\fldrslt{\\\\S+(?=\\\\s+)\ul0\cf0}}}}\f0\fs22 '\par
+\par
+# Create the alphanumeric token pattern\par
+TOKENS_ALPHANUMERIC = '[A-Za-z0-9]+(?=\\\\s+)'\par
+\par
+# Instantiate basic CountVectorizer: vec_basic\par
+vec_basic = CountVectorizer(token_pattern=TOKENS_BASIC)\par
+\par
+# Instantiate alphanumeric CountVectorizer: vec_alphanumeric\par
+vec_alphanumeric = CountVectorizer(token_pattern=TOKENS_ALPHANUMERIC)\par
+\par
+# Create the text vector\par
+text_vector = combine_text_columns(df)\par
+\par
+# Fit and transform vec_basic\par
+vec_basic.fit_transform(text_vector)\par
+\par
+# Print number of tokens of vec_basic\par
+print("There are \{\} tokens in the dataset".format(len(vec_basic.get_feature_names())))\par
+\par
+# Fit and transform vec_alphanumeric\par
+vec_alphanumeric.fit_transform(text_vector)\par
+\par
+# Print number of tokens of vec_alphanumeric\par
+print("There are \{\} alpha-numeric tokens in the dataset".format(len(vec_alphanumeric.get_feature_names())))\par
+\par
+----\par
+# Import Pipeline\par
+from sklearn.pipeline import Pipeline\par
+\par
+# Import other necessary modules\par
+from sklearn.model_selection import train_test_split\par
+from sklearn.linear_model import LogisticRegression\par
+from sklearn.multiclass import OneVsRestClassifier\par
+\par
+# Split and select numeric data only, no nans \par
+X_train, X_test, y_train, y_test = train_test_split(sample_df[['numeric']],\par
+                                                    pd.get_dummies(sample_df['label']), \par
+                                                    random_state=22)\par
+\par
+# Instantiate Pipeline object: pl\par
+pl = Pipeline([\par
+        ('clf', OneVsRestClassifier(LogisticRegression()))\par
+    ])\par
+\par
+# Fit the pipeline to the training data\par
+pl.fit(X_train, y_train)\par
+\par
+# Compute and print accuracy\par
+accuracy = pl.score(X_test, y_test)\par
+print("\\nAccuracy on sample data - numeric, no nans: ", accuracy)\par
+---\par
+\par
+# Import the CountVectorizer\par
+from sklearn.feature_extraction.text import CountVectorizer\par
+\par
+# Split out only the text data\par
+X_train, X_test, y_train, y_test = train_test_split(sample_df['text'],\par
+                                                    pd.get_dummies(sample_df['label']), \par
+                                                    random_state=456)\par
+\par
+# Instantiate Pipeline object: pl\par
+pl = Pipeline([\par
+        ('vec', CountVectorizer()),\par
+        ('clf', OneVsRestClassifier(LogisticRegression()))\par
+    ])\par
+\par
+# Fit to the training data\par
+pl.fit(X_train, y_train)\par
+\par
+# Compute and print accuracy\par
+accuracy = pl.score(X_test, y_test)\par
+print("\\nAccuracy on sample data - just text data: ", accuracy)\par
+-----\par
+# Import FunctionTransformer\par
+from sklearn.preprocessing import FunctionTransformer\par
+\par
+# Obtain the text data: get_text_data\par
+get_text_data = FunctionTransformer(lambda x: x['text'], validate=False)\par
+\par
+# Obtain the numeric data: get_numeric_data\par
+get_numeric_data = FunctionTransformer(lambda x: x[['numeric', 'with_missing']], validate=False)\par
+\par
+# Fit and transform the text data: just_text_data\par
+just_text_data = get_text_data.fit_transform(sample_df)\par
+\par
+# Fit and transform the numeric data: just_numeric_data\par
+just_numeric_data = get_numeric_data.fit_transform(sample_df)\par
+\par
+# Print head to check results\par
+print('Text Data')\par
+print(just_text_data.head())\par
+print('\\nNumeric Data')\par
+print(just_numeric_data.head())\par
+\par
+---\par
+# Import FunctionTransformer\par
+from sklearn.preprocessing import FunctionTransformer\par
+\par
+# Get the dummy encoding of the labels\par
+dummy_labels = pd.get_dummies(df[LABELS])\par
+\par
+# Get the columns that are features in the original df\par
+NON_LABELS = [c for c in df.columns if c not in LABELS]\par
+\par
+# Split into training and test sets\par
+X_train, X_test, y_train, y_test = multilabel_train_test_split(df[NON_LABELS],\par
+                                                               dummy_labels,\par
+                                                               0.2, \par
+                                                               seed=123)\par
+\par
+# Preprocess the text data: get_text_data\par
+get_text_data = FunctionTransformer(combine_text_columns, validate=False)\par
+\par
+# Preprocess the numeric data: get_numeric_data\par
+get_numeric_data = FunctionTransformer(lambda x: x[NUMERIC_COLUMNS], validate=False)\par
+----\par
+# Complete the pipeline: pl\par
+pl = Pipeline([\par
+        ('union', FeatureUnion(\par
+            transformer_list = [\par
+                ('numeric_features', Pipeline([\par
+                    ('selector', get_numeric_data),\par
+                    ('imputer', Imputer())\par
+                ])),\par
+                ('text_features', Pipeline([\par
+                    ('selector', get_text_data),\par
+                    ('vectorizer', CountVectorizer())\par
+                ]))\par
+             ]\par
+        )),\par
+        ('clf', OneVsRestClassifier(LogisticRegression()))\par
+    ])\par
+\par
+# Fit to the training data\par
+pl.fit(X_train, y_train)\par
+\par
+# Compute and print accuracy\par
+accuracy = pl.score(X_test, y_test)\par
+print("\\nAccuracy on budget dataset: ", accuracy)\par
+\par
+---\par
+# Import random forest classifer\par
+from sklearn.ensemble import RandomForestClassifier\par
+\par
+# Edit model step in pipeline\par
+pl = Pipeline([\par
+        ('union', FeatureUnion(\par
+            transformer_list = [\par
+                ('numeric_features', Pipeline([\par
+                    ('selector', get_numeric_data),\par
+                    ('imputer', Imputer())\par
+                ])),\par
+                ('text_features', Pipeline([\par
+                    ('selector', get_text_data),\par
+                    ('vectorizer', CountVectorizer())\par
+                ]))\par
+             ]\par
+        )),\par
+        ('clf', RandomForestClassifier())\par
+    ])\par
+\par
+# Fit to the training data\par
+pl.fit(X_train, y_train)\par
+\par
+# Compute and print accuracy\par
+accuracy = pl.score(X_test, y_test)\par
+print("\\nAccuracy on budget dataset: ", accuracy)\par
+----\par
+# Import RandomForestClassifier\par
+from sklearn.ensemble import RandomForestClassifier\par
+\par
+# Add model step to pipeline: pl\par
+pl = Pipeline([\par
+        ('union', FeatureUnion(\par
+            transformer_list = [\par
+                ('numeric_features', Pipeline([\par
+                    ('selector', get_numeric_data),\par
+                    ('imputer', Imputer())\par
+                ])),\par
+                ('text_features', Pipeline([\par
+                    ('selector', get_text_data),\par
+                    ('vectorizer', CountVectorizer())\par
+                ]))\par
+             ]\par
+        )),\par
+       ('clf', RandomForestClassifier(n_estimators=15))\par
+    ])\par
+\par
+# Fit to the training data\par
+pl.fit(X_train, y_train)\par
+\par
+# Compute and print accuracy\par
+accuracy = pl.score(X_test, y_test)\par
+print("\\nAccuracy on budget dataset: ", accuracy)\par
+-----\par
+# Instantiate pipeline: pl\par
+pl = Pipeline([\par
+        ('union', FeatureUnion(\par
+            transformer_list = [\par
+                ('numeric_features', Pipeline([\par
+                    ('selector', get_numeric_data),\par
+                    ('imputer', Imputer())\par
+                ])),\par
+                ('text_features', Pipeline([\par
+                    ('selector', get_text_data),\par
+                    ('vectorizer', CountVectorizer(token_pattern=TOKENS_ALPHANUMERIC,\par
+                                                   ngram_range=(1, 2))),  \par
+                    ('dim_red', SelectKBest(chi2, chi_k))\par
+                ]))\par
+             ]\par
+        )),\par
+        ('int', SparseInteractions(degree=2)),\par
+        ('scale', MaxAbsScaler()),\par
+        ('clf', OneVsRestClassifier(LogisticRegression()))\par
+    ])\par
+}
+ 

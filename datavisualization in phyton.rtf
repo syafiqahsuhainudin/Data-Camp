@@ -1,0 +1,815 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 import matplotlib.pyplot as plt\par
+plt.plot(t,temperature,'r')\par
+plt.plot(t,dewpoint,'b')\par
+plt.xlabel('Date')\par
+plt.title('Temperature & Dew Point')\par
+plt.subplot(2,1,1)\par
+plt.tight_layout()\par
+subplot(nrows,ncols,nsubplot)\par
+--------\par
+# Import matplotlib.pyplot\par
+import matplotlib.pyplot as plt\par
+\par
+# Plot in blue the % of degrees awarded to women in the Physical Sciences\par
+plt.plot(year,physical_sciences,color='blue')\par
+\par
+# Plot in red the % of degrees awarded to women in Computer Science\par
+plt.plot(year,computer_science,color='red')\par
+\par
+# Display the plot\par
+plt.show()\par
+----\par
+# Create plot axes for the first line plot\par
+plt.axes([0.05,0.05,0.425,0.9])\par
+\par
+# Plot in blue the % of degrees awarded to women in the Physical Sciences\par
+plt.plot(year,physical_sciences,color='blue')\par
+\par
+# Create plot axes for the second line plot\par
+plt.axes([0.525,0.05,0.425,0.9])\par
+\par
+# Plot in red the % of degrees awarded to women in Computer Science\par
+plt.plot(year,computer_science,color='red')\par
+\par
+# Display the plot\par
+plt.show()\par
+-----\par
+# Create a figure with 1x2 subplot and make the left subplot active\par
+plt.subplot(1,2,1)\par
+\par
+# Plot in blue the % of degrees awarded to women in the Physical Sciences\par
+plt.plot(year, physical_sciences, color='blue')\par
+plt.title('Physical Sciences')\par
+\par
+# Make the right subplot active in the current 1x2 subplot grid\par
+plt.subplot(1,2,2)\par
+\par
+# Plot in red the % of degrees awarded to women in Computer Science\par
+plt.plot(year, computer_science, color='red')\par
+plt.title('Computer Science')\par
+\par
+# Use plt.tight_layout() to improve the spacing between subplots\par
+plt.tight_layout()\par
+plt.show()\par
+\par
+# Create a figure with 2x2 subplot layout and make the top left subplot active\par
+plt.subplot(2,2,1)\par
+\par
+# Plot in blue the % of degrees awarded to women in the Physical Sciences\par
+plt.plot(year, physical_sciences, color='blue')\par
+plt.title('Physical Sciences')\par
+\par
+# Make the top right subplot active in the current 2x2 subplot grid \par
+plt.subplot(2,2,2)\par
+# Plot in red the % of degrees awarded to women in Computer Science\par
+plt.plot(year,computer_science, color='red')\par
+plt.title('Computer Science')\par
+\par
+# Make the bottom left subplot active in the current 2x2 subplot grid\par
+plt.subplot(2,2,3)\par
+\par
+# Plot in green the % of degrees awarded to women in Health Professions\par
+plt.plot(year, health, color='green')\par
+plt.title('Health Professions')\par
+\par
+# Make the bottom right subplot active in the current 2x2 subplot grid\par
+plt.subplot(2,2,4)\par
+# Plot in yellow the % of degrees awarded to women in Education\par
+plt.plot(year, education, color='yellow')\par
+plt.title('Education')\par
+\par
+# Improve the spacing between subplots and display them\par
+plt.tight_layout()\par
+plt.show()\par
+---------\par
+axis([xmin,xmax,ymin,ymax])\par
+xlim([xmin,xmax])\par
+ylim([ymin,ymax])\par
+\par
+# Plot the % of degrees awarded to women in Computer Science and the Physical Sciences\par
+plt.plot(year,computer_science, color='red') \par
+plt.plot(year, physical_sciences, color='blue')\par
+\par
+# Add the axis labels\par
+plt.xlabel('Year')\par
+plt.ylabel('Degrees awarded to women (%)')\par
+\par
+# Set the x-axis range\par
+\par
+plt.xlim([1990,2010])\par
+\par
+\par
+# Set the y-axis range\par
+plt.ylim([0,50])\par
+\par
+# Add a title and display the plot\par
+plt.title('Degrees awarded to women (1990-2010)\\nComputer Science (red)\\nPhysical Sciences (blue)')\par
+plt.show()\par
+\par
+# Save the image as 'xlim_and_ylim.png'\par
+plt.savefig('xlim_and_ylim.png')\par
+\par
+# Plot in blue the % of degrees awarded to women in Computer Science\par
+plt.plot(year,computer_science, color='blue')\par
+\par
+# Plot in red the % of degrees awarded to women in the Physical Sciences\par
+plt.plot(year, physical_sciences,color='red')\par
+\par
+# Set the x-axis and y-axis limits\par
+plt.axis([1990,2010,0,50])\par
+\par
+\par
+# Show the figure\par
+plt.show()\par
+\par
+plt.scatter(setosa_len,setosa_wind,marker='0',color='green',label='vesicolor')\par
+\par
+plt.legend(loc='upper right')\par
+plt.annotate('setosa',xy=(5.0,3.5))\par
+plt.annotate('setosa',xy=(5.0,3.5),xytext=(6.5,4.0),arrowprops=\{'color':'blue'\})\par
+\par
+plt.style.use('ggplot')\par
+\par
+\par
+-------\par
+# Specify the label 'Computer Science'\par
+plt.plot(year, computer_science, color='red', label='Computer Science') \par
+\par
+# Specify the label 'Physical Sciences' \par
+plt.plot(year, physical_sciences, color='blue', label='Physical Sciences' )\par
+\par
+# Add a legend at the lower center\par
+plt.legend(loc='lower center')\par
+\par
+# Add axis labels and title\par
+plt.xlabel('Year')\par
+plt.ylabel('Enrollment (%)')\par
+plt.title('Undergraduate enrollment of women')\par
+plt.show()\par
+-----\par
+# Compute the maximum enrollment of women in Computer Science: cs_max\par
+cs_max = computer_science.max()\par
+\par
+# Calculate the year in which there was maximum enrollment of women in Computer Science: yr_max\par
+yr_max = year[computer_science.argmax()]\par
+\par
+# Plot with legend as before\par
+plt.plot(year, computer_science, color='red', label='Computer Science') \par
+plt.plot(year, physical_sciences, color='blue', label='Physical Sciences')\par
+plt.legend(loc='lower right')\par
+\par
+# Add a black arrow annotation\par
+plt.annotate('Maximum',xy=(yr_max,cs_max),xytext=(yr_max+5, cs_max+5),arrowprops=dict(facecolor='black'))\par
+\par
+\par
+# Add axis labels and title\par
+plt.xlabel('Year')\par
+plt.ylabel('Enrollment (%)')\par
+plt.title('Undergraduate enrollment of women')\par
+plt.show()\par
+\par
+------\par
+# Import matplotlib.pyplot\par
+import  matplotlib.pyplot as plt\par
+\par
+# Set the style to 'ggplot'\par
+plt.style.use('ggplot')\par
+\par
+# Create a figure with 2x2 subplot layout\par
+plt.subplot(2, 2, 1) \par
+\par
+# Plot the enrollment % of women in the Physical Sciences\par
+plt.plot(year, physical_sciences, color='blue')\par
+plt.title('Physical Sciences')\par
+\par
+# Plot the enrollment % of women in Computer Science\par
+plt.subplot(2, 2, 2)\par
+plt.plot(year, computer_science, color='red')\par
+plt.title('Computer Science')\par
+\par
+# Add annotation\par
+cs_max = computer_science.max()\par
+yr_max = year[computer_science.argmax()]\par
+plt.annotate('Maximum', xy=(yr_max, cs_max), xytext=(yr_max-1, cs_max-10), arrowprops=dict(facecolor='black'))\par
+\par
+# Plot the enrollmment % of women in Health professions\par
+plt.subplot(2, 2, 3)\par
+plt.plot(year, health, color='green')\par
+plt.title('Health Professions')\par
+\par
+# Plot the enrollment % of women in Education\par
+plt.subplot(2, 2, 4)\par
+plt.plot(year, education, color='yellow')\par
+plt.title('Education')\par
+\par
+# Improve spacing between subplots and display them\par
+plt.tight_layout()\par
+plt.show()\par
+\par
+u=np.linspace(-2,2,3)\par
+np.meshgrid(u,v)\par
+u=plt.set_cmap('grayscale')\par
+\par
+# Import numpy and matplotlib.pyplot\par
+import numpy as np\par
+import matplotlib.pyplot as plt\par
+\par
+\par
+# Generate two 1-D arrays: u, v\par
+u = np.linspace(-2,+2,41)\par
+v = np.linspace(-1,+1,21)\par
+\par
+# Generate 2-D arrays from u and v: X, Y\par
+X,Y = np.meshgrid(u,v)\par
+\par
+# Compute Z based on X and Y\par
+Z = np.sin(3*np.sqrt(X**2 + Y**2)) \par
+\par
+# Display the resulting image with pcolor()\par
+plt.pcolor(Z)\par
+plt.show()\par
+\par
+# Save the figure to 'sine_mesh.png'\par
+plt.savefig('sine_mesh.png')\par
+\par
+---\par
+plt.colorbar()\par
+plt.pcolor(Z,cmap='gray')\par
+plt.axis('tight')\par
+plt.contour(z)\par
+plt.contourf(x,y,z,30)\par
+\par
+---\par
+# Generate a default contour map of the array Z\par
+plt.subplot(2,2,1)\par
+plt.contour(X,Y,Z)\par
+\par
+# Generate a contour map with 20 contours\par
+plt.subplot(2,2,2)\par
+plt.contour(X,Y,Z,20)\par
+\par
+# Generate a default filled contour map of the array Z\par
+plt.subplot(2,2,3)\par
+plt.contourf(X,Y,Z)\par
+\par
+# Generate a default filled contour map with 20 contours\par
+plt.subplot(2,2,4)\par
+plt.contourf(X,Y,Z,20)\par
+\par
+# Improve the spacing between subplots\par
+plt.tight_layout()\par
+\par
+# Display the figure\par
+plt.show()\par
+\par
+------\par
+# Create a filled contour plot with a color map of 'viridis'\par
+plt.subplot(2,2,1)\par
+plt.contourf(X,Y,Z,20, cmap='viridis')\par
+plt.colorbar()\par
+plt.title('Viridis')\par
+\par
+# Create a filled contour plot with a color map of 'gray'\par
+plt.subplot(2,2,2)\par
+plt.contourf(X,Y,Z,20, cmap='gray')\par
+plt.colorbar()\par
+plt.title('Gray')\par
+\par
+# Create a filled contour plot with a color map of 'autumn'\par
+plt.subplot(2,2,3)\par
+plt.contourf(X,Y,Z,20, cmap='autumn')\par
+plt.colorbar()\par
+plt.title('Autumn')\par
+\par
+# Create a filled contour plot with a color map of 'winter'\par
+plt.subplot(2,2,4)\par
+plt.contourf(X,Y,Z,20, cmap='winter')\par
+plt.colorbar()\par
+plt.title('Winter')\par
+\par
+# Improve the spacing between subplots and display them\par
+plt.tight_layout()\par
+plt.show()\par
+\par
+----------\par
+plt.hist2d(x,y,bins=(10,20))\par
+plt.hexbin(x,y,gridsize=(15,10))\par
+\par
+--------\par
+# Generate a 2-D histogram\par
+plt.hist2d(hp,mpg,bins=(20,20),range=((40, 235), (8, 48)))\par
+\par
+# Add a color bar to the histogram\par
+plt.colorbar()\par
+\par
+# Add labels, title, and display the plot\par
+plt.xlabel('Horse power [hp]')\par
+plt.ylabel('Miles per gallon [mpg]')\par
+plt.title('hist2d() plot')\par
+plt.show()\par
+\par
+# Generate a 2d histogram with hexagonal bins\par
+plt.hexbin(hp,mpg,gridsize=(15,12),extent=(40, 235, 8, 48))\par
+\par
+           \par
+# Add a color bar to the histogram\par
+plt.colorbar()\par
+\par
+# Add labels, title, and display the plot\par
+plt.xlabel('Horse power [hp]')\par
+plt.ylabel('Miles per gallon [mpg]')\par
+plt.title('hexbin() plot')\par
+plt.show()\par
+\par
+\par
+------\par
+img=plt.imread('sunflower.jpg')\par
+plt.imshow(img)\par
+plt.axis('off')\par
+\par
+\par
+--reduction to grayscale--\par
+collapsed=img.mean(axis=2)\par
+plt.set_cmap('gray')\par
+plt.imshow(collapsed,cmap='gray')\par
+plt.imshow(uneven,cmap='gray',extent=(0,640,0,480))\par
+\par
+-----\par
+# Load the image into an array: img\par
+img=plt.imread('480px-Astronaut-EVA.jpg')\par
+\par
+# Print the shape of the image\par
+print(img.shape)\par
+\par
+# Display the image\par
+plt.imshow(img)\par
+\par
+# Hide the axes\par
+plt.axis('off')\par
+plt.show()\par
+\par
+\par
+# Load the image into an array: img\par
+img = plt.imread('480px-Astronaut-EVA.jpg')\par
+\par
+# Print the shape of the image\par
+print(img.shape)\par
+\par
+# Compute the sum of the red, green and blue channels: intensity\par
+intensity =img.sum(axis=2)\par
+\par
+# Print the shape of the intensity\par
+print(intensity.shape)\par
+\par
+# Display the intensity with a colormap of 'gray'\par
+plt.imshow(intensity,cmap='gray')\par
+\par
+# Add a colorbar\par
+plt.colorbar()\par
+\par
+# Hide the axes and show the figure\par
+plt.axis('off')\par
+plt.show()\par
+\par
+------\par
+# Load the image into an array: image\par
+image = plt.imread('640px-Unequalized_Hawkes_Bay_NZ.jpg')\par
+\par
+# Extract minimum and maximum values from the image: pmin, pmax\par
+pmin, pmax = image.min(), image.max()\par
+print("The smallest & largest pixel intensities are %d & %d." % (pmin, pmax))\par
+\par
+# Rescale the pixels: rescaled_image\par
+rescaled_image = 256*(image - pmin) / (pmax - pmin)\par
+print("The rescaled smallest & largest pixel intensities are %.1f & %.1f." % \par
+      (rescaled_image.min(), rescaled_image.max()))\par
+\par
+# Display the rescaled image\par
+plt.title('rescaled image')\par
+plt.axis('off')\par
+plt.imshow(rescaled_image)\par
+\par
+plt.show()\par
+\par
+# Import plotting modules\par
+import matplotlib.pyplot as plt\par
+import seaborn as sns\par
+\par
+# Plot a linear regression between 'weight' and 'hp'\par
+sns.lmplot(data=auto, x='weight', y='hp')\par
+\par
+# Display the plot\par
+plt.show()# Import plotting modules\par
+import matplotlib.pyplot as plt\par
+import seaborn as sns\par
+\par
+# Plot a linear regression between 'weight' and 'hp'\par
+sns.lmplot(data=auto, x='weight', y='hp')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+---\par
+# Import plotting modules\par
+import matplotlib.pyplot as plt\par
+import seaborn as sns\par
+\par
+# Generate a green residual plot of the regression between 'hp' and 'mpg'\par
+sns.residplot(x='hp', y='mpg', data=auto, color='green')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+----\par
+# Generate a scatter plot of 'weight' and 'mpg' using red circles\par
+plt.scatter(auto['weight'], auto['mpg'], label='data', color='red', marker='o')\par
+\par
+# Plot in blue a linear regression of order 1 between 'weight' and 'mpg'\par
+sns.regplot(x='weight', y='mpg', data=auto, color='blue', scatter=None, label='First Order')\par
+\par
+# Plot in green a linear regression of order 2 between 'weight' and 'mpg'\par
+sns.regplot(x='weight', y='mpg', data=auto, color='green', scatter=None, label='Second Order',order=2)\par
+\par
+# Add a legend and display the plot\par
+plt.legend(loc='upper right')\par
+plt.show()\par
+\par
+\par
+# Plot a linear regression between 'weight' and 'hp', with a hue of 'origin' and palette of 'Set1'\par
+sns.lmplot(data=auto, x='weight', y='hp', hue='origin', palette='Set1')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Plot linear regressions between 'weight' and 'hp' grouped row-wise by 'origin'\par
+sns.lmplot(data=auto, x='weight', y='hp', hue='origin', row='origin')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Make a strip plot of 'hp' grouped by 'cyl'\par
+plt.subplot(2,1,1)\par
+sns.stripplot(x='cyl', y='hp', data=auto)\par
+\par
+# Make the strip plot again using jitter and a smaller point size\par
+plt.subplot(2,1,2)\par
+sns.stripplot(x='cyl', y='hp', data=auto, jitter=True, size=3)\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Generate a swarm plot of 'hp' grouped horizontally by 'cyl'  \par
+plt.subplot(2,1,1)\par
+sns.swarmplot(x='cyl', y='hp', data=auto)\par
+\par
+# Generate a swarm plot of 'hp' grouped vertically by 'cyl' with a hue of 'origin'\par
+plt.subplot(2,1,2)\par
+sns.swarmplot(x='hp', y='cyl', data=auto, hue='origin', orient='h')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Generate a violin plot of 'hp' grouped horizontally by 'cyl'\par
+plt.subplot(2,1,1)\par
+sns.violinplot(x='cyl', y='hp', data=auto)\par
+\par
+# Generate the same violin plot again with a color of 'lightgray' and without inner annotations\par
+plt.subplot(2,1,2)\par
+sns.violinplot(x='cyl', y='hp', data=auto, inner=None, color='lightgray')\par
+\par
+# Overlay a strip plot on the violin plot\par
+sns.stripplot(x='cyl', y='hp', data=auto, size=1.5, jitter=True)\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Generate a joint plot of 'hp' and 'mpg'\par
+sns.jointplot(x='hp', y='mpg', data=auto)\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Generate a joint plot of 'hp' and 'mpg' using a hexbin plot\par
+sns.jointplot(x='hp', y='mpg', data=auto, kind='hex')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Print the first 5 rows of the DataFrame\par
+print(auto.head())\par
+\par
+# Plot the pairwise joint distributions from the DataFrame \par
+sns.pairplot(auto)\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Print the first 5 rows of the DataFrame\par
+print(auto.head())\par
+\par
+# Plot the pairwise joint distributions grouped by 'origin' along with regression lines\par
+sns.pairplot(auto, hue='origin', kind='reg')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+\par
+# Print the covariance matrix\par
+print(cov_matrix)\par
+\par
+# Visualize the covariance matrix using a heatmap\par
+sns.heatmap(cov_matrix)\par
+\par
+# Display the heatmap\par
+plt.show()\par
+\par
+------\par
+# Import matplotlib.pyplot\par
+import matplotlib.pyplot as plt\par
+\par
+# Plot the aapl time series in blue\par
+plt.plot(aapl, color='blue', label='AAPL')\par
+\par
+# Plot the ibm time series in green\par
+plt.plot(ibm, color='green', label='IBM')\par
+\par
+# Plot the csco time series in red\par
+plt.plot(csco, color='red', label='CSCO')\par
+\par
+# Plot the msft time series in magenta\par
+plt.plot(msft, color='magenta', label='MSFT')\par
+\par
+# Add a legend in the top left corner of the plot\par
+plt.legend(loc='upper left')\par
+\par
+# Specify the orientation of the xticks\par
+plt.xticks(rotation=60)\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+\par
+# Import matplotlib.pyplot\par
+import matplotlib.pyplot as plt\par
+\par
+# Plot the aapl time series in blue\par
+plt.plot(aapl, color='blue', label='AAPL')\par
+\par
+# Plot the ibm time series in green\par
+plt.plot(ibm, color='green', label='IBM')\par
+\par
+# Plot the csco time series in red\par
+plt.plot(csco, color='red', label='CSCO')\par
+\par
+# Plot the msft time series in magenta\par
+plt.plot(msft, color='magenta', label='MSFT')\par
+\par
+# Add a legend in the top left corner of the plot\par
+plt.legend(loc='upper left')\par
+\par
+# Specify the orientation of the xticks\par
+plt.xticks(rotation=60)\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+\par
+# Slice aapl from Nov. 2007 to Apr. 2008 inclusive: view\par
+view_1 = aapl['2007-11':'2008-04']\par
+\par
+# Plot the sliced series in the top subplot in red\par
+plt.subplot(2,1,1)\par
+plt.plot(view_1, color='red')\par
+plt.title('AAPL: Nov. 2007 to Apr. 2008')\par
+plt.xticks(rotation=45)\par
+\par
+# Reassign the series by slicing the month January 2008\par
+view_2 = aapl['2008-01']\par
+\par
+# Plot the sliced series in the bottom subplot in green\par
+plt.subplot(2,1,2)\par
+plt.plot(view_2, color='green')\par
+plt.title('AAPL: Jan. 2008')\par
+plt.xticks(rotation=45)\par
+\par
+# Improve spacing and display the plot\par
+plt.tight_layout()\par
+plt.show()\par
+\par
+# Plot the 30-day moving average in the top left subplot in green\par
+plt.subplot(2,2,1)\par
+plt.plot(mean_30, color='green')\par
+plt.plot(aapl, 'k-.')\par
+plt.xticks(rotation=60)\par
+plt.title('30d averages')\par
+\par
+# Plot the 75-day moving average in the top right subplot in red\par
+plt.subplot(2,2,2)\par
+plt.plot(mean_75, color='red')\par
+plt.plot(aapl, 'k-.')\par
+plt.xticks(rotation=60)\par
+plt.title('75d averages')\par
+\par
+# Plot the 125-day moving average in the bottom left subplot in magenta\par
+plt.subplot(2, 2, 3)\par
+plt.plot(mean_125, color='magenta')\par
+plt.plot(aapl, 'k-.')\par
+plt.xticks(rotation=60)\par
+plt.title('125d averages')\par
+\par
+# Plot the 250-day moving average in the bottom right subplot in cyan\par
+plt.subplot(2, 2, 4)\par
+plt.plot(mean_250, color='cyan')\par
+plt.plot(aapl, 'k-.')\par
+plt.xticks(rotation=60)\par
+plt.title('250d averages')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+\par
+# Plot std_30 in red\par
+plt.plot(std_30, color='red', label='30d')\par
+\par
+# Plot std_75 in cyan\par
+plt.plot(std_75, color='cyan', label='75d')\par
+\par
+# Plot std_125 in green\par
+plt.plot(std_125, color='green', label='125d')\par
+\par
+# Plot std_250 in magenta\par
+plt.plot(std_250, color='magenta', label='250d')\par
+\par
+# Add a legend to the upper left\par
+plt.legend(loc='upper left')\par
+\par
+# Add a title\par
+plt.title('Moving standard deviations')\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Load the image into an array: image\par
+image = plt.imread('640px-Unequalized_Hawkes_Bay_NZ.jpg')\par
+\par
+# Display image in top subplot using color map 'gray'\par
+plt.subplot(2,1,1)\par
+plt.title('Original image')\par
+plt.axis('off')\par
+plt.imshow(image, cmap='gray')\par
+\par
+# Flatten the image into 1 dimension: pixels\par
+pixels = image.flatten()\par
+\par
+# Display a histogram of the pixels in the bottom subplot\par
+plt.subplot(2,1,2)\par
+plt.xlim((0,255))\par
+plt.title('Normalized histogram')\par
+plt.hist(pixels, bins=64, color='red', alpha=0.4, range=(0, 256), normed=True)\par
+\par
+# Display the plot\par
+plt.show()\par
+\par
+# Load the image into an array: image\par
+image = plt.imread('640px-Unequalized_Hawkes_Bay_NZ.jpg')\par
+\par
+# Display image in top subplot using color map 'gray'\par
+plt.subplot(2,1,1)\par
+plt.imshow(image, cmap='gray')\par
+plt.title('Original image')\par
+plt.axis('off')\par
+\par
+# Flatten the image into 1 dimension: pixels\par
+pixels = image.flatten()\par
+\par
+# Display a histogram of the pixels in the bottom subplot\par
+plt.subplot(2,1,2)\par
+pdf = plt.hist(pixels, bins=64, range=(0,256), normed=False,\par
+               color='red', alpha=0.4)\par
+plt.grid('off')\par
+\par
+# Use plt.twinx() to overlay the CDF in the bottom subplot\par
+plt.twinx()\par
+\par
+# Display a cumulative histogram of the pixels\par
+cdf = plt.hist(pixels, bins=64, range=(0,256),\par
+               cumulative=True, normed=True,\par
+               color='blue', alpha=0.4)\par
+               \par
+# Specify x-axis range, hide axes, add title and display plot\par
+plt.xlim((0,256))\par
+plt.grid('off')\par
+plt.title('PDF & CDF (original image)')\par
+plt.show()\par
+\par
+---\par
+# Load the image into an array: image\par
+image = plt.imread('640px-Unequalized_Hawkes_Bay_NZ.jpg')\par
+\par
+# Flatten the image into 1 dimension: pixels\par
+pixels = image.flatten()\par
+\par
+# Generate a cumulative histogram\par
+cdf, bins, patches = plt.hist(pixels, bins=256, range=(0,256), normed=True, cumulative=True)\par
+new_pixels = np.interp(pixels, bins[:-1], cdf*255)\par
+\par
+# Reshape new_pixels as a 2-D array: new_image\par
+new_image = new_pixels.reshape(image.shape)\par
+\par
+# Display the new image with 'gray' color map\par
+plt.subplot(2,1,1)\par
+plt.title('Equalized image')\par
+plt.axis('off')\par
+plt.imshow(new_image, cmap='gray')\par
+\par
+# Generate a histogram of the new pixels\par
+plt.subplot(2,1,2)\par
+pdf = plt.hist(new_pixels, bins=64, range=(0,256), normed=False,\par
+               color='red', alpha=0.4)\par
+plt.grid('off')\par
+\par
+# Use plt.twinx() to overlay the CDF in the bottom subplot\par
+plt.twinx()\par
+plt.xlim((0,256))\par
+plt.grid('off')\par
+\par
+# Add title\par
+plt.title('PDF & CDF (equalized image)')\par
+\par
+# Generate a cumulative histogram of the new pixels\par
+cdf = plt.hist(new_pixels, bins=64, range=(0,256),\par
+               cumulative=True, normed=True,\par
+               color='blue', alpha=0.4)\par
+plt.show()\par
+\par
+# Load the image into an array: image\par
+image = plt.imread('640px-Unequalized_Hawkes_Bay_NZ.jpg')\par
+\par
+# Flatten the image into 1 dimension: pixels\par
+pixels = image.flatten()\par
+\par
+# Generate a cumulative histogram\par
+cdf, bins, patches = plt.hist(pixels, bins=256, range=(0,256), normed=True, cumulative=True)\par
+new_pixels = np.interp(pixels, bins[:-1], cdf*255)\par
+\par
+# Reshape new_pixels as a 2-D array: new_image\par
+new_image = new_pixels.reshape(image.shape)\par
+\par
+# Display the new image with 'gray' color map\par
+plt.subplot(2,1,1)\par
+plt.title('Equalized image')\par
+plt.axis('off')\par
+plt.imshow(new_image, cmap='gray')\par
+\par
+# Generate a histogram of the new pixels\par
+plt.subplot(2,1,2)\par
+pdf = plt.hist(new_pixels, bins=64, range=(0,256), normed=False,\par
+               color='red', alpha=0.4)\par
+plt.grid('off')\par
+\par
+# Use plt.twinx() to overlay the CDF in the bottom subplot\par
+plt.twinx()\par
+plt.xlim((0,256))\par
+plt.grid('off')\par
+\par
+# Add title\par
+plt.title('PDF & CDF (equalized image)')\par
+\par
+# Generate a cumulative histogram of the new pixels\par
+cdf = plt.hist(new_pixels, bins=64, range=(0,256),\par
+               cumulative=True, normed=True,\par
+               color='blue', alpha=0.4)\par
+plt.show()\par
+\par
+\par
+# Load the image into an array: image\par
+image = plt.imread('hs-2004-32-b-small_web.jpg')\par
+\par
+# Display image in top subplot\par
+plt.subplot(2,1,1)\par
+plt.title('Original image')\par
+plt.axis('off')\par
+plt.imshow(image)\par
+\par
+# Extract 2-D arrays of the RGB channels: red, blue, green\par
+red, green, blue = image[:,:,0], image[:,:,1], image[:,:,2]\par
+\par
+# Flatten the 2-D arrays of the RGB channels into 1-D\par
+red_pixels = red.flatten()\par
+blue_pixels = blue.flatten()\par
+green_pixels = green.flatten()\par
+\par
+# Overlay histograms of the pixels of each color in the bottom subplot\par
+plt.subplot(2,1,2)\par
+plt.title('Histograms from color image')\par
+plt.xlim((0,256))\par
+plt.hist(red_pixels, bins=64, normed=True, color='red', alpha=0.2)\par
+plt.hist(green_pixels, bins=64, normed=True, color='green', alpha=0.2)\par
+plt.hist(blue_pixels, bins=64, normed=True, color='blue', alpha=0.2)\par
+\par
+# Display the plot\par
+plt.show()\par
+}
+ 

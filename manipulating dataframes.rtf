@@ -1,0 +1,493 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 # Assign the row position of election.loc['Bedford']: x\par
+x = 4\par
+\par
+# Assign the column position of election['winner']: y\par
+y = 4\par
+\par
+# Print the boolean equivalence\par
+print(election.iloc[x, y] == election.loc['Bedford', 'winner'])\par
+\par
+df['eggs'][1:4]\par
+df.loc[:,'eggs':'salt']//middle columns\par
+df.loc['eggs':'salt',:]#some rows,all columns\par
+df.loc['Mar':'May','salt':'spam']\par
+df.iloc[2:5,1:]///a block from middle of dataframe\par
+\par
+df.loc['Jan':'May',['eggs','spam']]\par
+df.iloc[[0,4,5],0:2]\par
+df['eggs']// aseries by column name\par
+df['eggs']// a dataframe w/ single column\par
+\par
+\par
+# Slice the row labels 'Perry' to 'Potter': p_counties\par
+p_counties = election.loc['Perry':'Potter']\par
+\par
+\par
+# Print the p_counties DataFrame\par
+print(p_counties)\par
+\par
+# Slice the row labels 'Potter' to 'Perry' in reverse order: p_counties_rev\par
+p_counties_rev = election.loc['Potter':'Perry':-1]\par
+\par
+# Print the p_counties_rev DataFrame\par
+print(p_counties_rev)\par
+\par
+\par
+# Slice the columns from the starting column to 'Obama': left_columns\par
+left_columns = election.loc[:,:'Obama']\par
+\par
+# Print the output of left_columns.head()\par
+print(left_columns.head())\par
+\par
+# Slice the columns from 'Obama' to 'winner': middle_columns\par
+middle_columns = election.loc[:,'Obama':'winner']\par
+\par
+# Print the output of middle_columns.head()\par
+print(middle_columns.head())\par
+\par
+# Slice the columns from 'Romney' to the end: 'right_columns'\par
+right_columns = election.loc[:,'Romney':]\par
+\par
+# Print the output of right_columns.head()\par
+print(right_columns.head())\par
+\par
+\par
+# Create the list of row labels: rows\par
+rows = ['Philadelphia', 'Centre', 'Fulton']\par
+\par
+# Create the list of column labels: cols\par
+cols = ['winner', 'Obama', 'Romney']\par
+\par
+# Create the new DataFrame: three_counties\par
+three_counties = election.loc[rows,cols]\par
+\par
+# Print the three_counties DataFrame\par
+print(three_counties)\par
+\par
+# Create the boolean array: high_turnout\par
+high_turnout = election['turnout'] > 70\par
+\par
+# Filter the election DataFrame with the high_turnout array: high_turnout_df\par
+high_turnout_df = election[high_turnout]\par
+\par
+# Print the high_turnout_results DataFrame\par
+print(high_turnout_df)\par
+\par
+# Write a function to convert degrees Fahrenheit to degrees Celsius: to_celsius\par
+def to_celsius(F):\par
+    return 5/9*(F - 32)\par
+\par
+# Apply the function over 'Mean TemperatureF' and 'Mean Dew PointF': df_celsius\par
+df_celsius = weather[['Mean TemperatureF', 'Mean Dew PointF']].apply(to_celsius)\par
+\par
+# Reassign the columns df_celsius\par
+df_celsius.columns = ['Mean TemperatureC', 'Mean Dew PointC']\par
+\par
+# Print the output of df_celsius.head()\par
+print(df_celsius.head())\par
+\par
+# Create the dictionary: red_vs_blue\par
+red_vs_blue = \{'Obama':'blue', 'Romney':'red'\}\par
+\par
+# Use the dictionary to map the 'winner' column to the new column: election['color']\par
+election['color'] = election['winner'].map(red_vs_blue)\par
+\par
+# Print the output of election.head()\par
+print(election.head())\par
+\par
+\par
+shares=pd.Series(prices,index=days)\par
+shared.index.name\par
+shares.index[:2]\par
+shares.index[-2:]\par
+\par
+stockcks= stocks.sort_index()\par
+\par
+# Set the index to be the columns ['state', 'month']: sales\par
+sales = sales.set_index(['state','month'])\par
+\par
+# Sort the MultiIndex: sales\par
+sales = sales.sort_index()\par
+\par
+# Print the sales DataFrame\par
+print(sales)\par
+\par
+# Set the index to the column 'state': sales\par
+sales = sales.set_index(['state'])\par
+\par
+# Print the sales DataFrame\par
+print(sales)\par
+\par
+# Access the data from 'NY'\par
+print(sales.loc['NY'])\par
+\par
+# Pivot the users DataFrame: visitors_pivot\par
+visitors_pivot = users.pivot(index='weekday',columns='city',values='visitors')\par
+\par
+# Print the pivoted DataFrame\par
+print(visitors_pivot)\par
+\par
+\par
+# Pivot users with signups indexed by weekday and city: signups_pivot\par
+signups_pivot = users.pivot(index='weekday',columns='city',values='signups')\par
+\par
+\par
+# Print signups_pivot\par
+print(signups_pivot)\par
+\par
+# Pivot users pivoted by both signups and visitors: pivot\par
+pivot  = users.pivot(index='weekday',columns='city')\par
+\par
+# Print the pivoted DataFrame\par
+print(pivot)\par
+\par
+\par
+trials=trials.unstack(level='gender')\par
+swapped=stacked.swaplevel(0,1)\par
+\par
+# Unstack users by 'weekday': byweekday\par
+byweekday = users.unstack(level='weekday')\par
+\par
+# Print the byweekday DataFrame\par
+print(byweekday)\par
+\par
+# Stack byweekday by 'weekday' and print it\par
+print(byweekday.stack(level='weekday'))\par
+\par
+# Reset the index: visitors_by_city_weekday\par
+visitors_by_city_weekday = visitors_by_city_weekday.reset_index() \par
+\par
+# Print visitors_by_city_weekday\par
+print(visitors_by_city_weekday)\par
+\par
+# Melt visitors_by_city_weekday: visitors\par
+visitors = pd.melt(visitors_by_city_weekday, id_vars=['weekday'], value_name='visitors')\par
+\par
+# Print visitors\par
+print(visitors)\par
+\par
+# Melt users: skinny\par
+skinny =pd.melt(users,id_vars=['weekday','city'])\par
+\par
+# Print skinny\par
+print(skinny)\par
+\par
+# Set the new index: users_idx\par
+users_idx = users.set_index(['city','weekday'])\par
+\par
+# Print the users_idx DataFrame\par
+print(users_idx)\par
+\par
+# Obtain the key-value pairs: kv_pairs\par
+kv_pairs = pd.melt(users_idx, col_level=0)\par
+\par
+# Print the key-value pairs\par
+print(kv_pairs)\par
+\par
+\par
+-------\par
+# Create the DataFrame with the appropriate pivot table: by_city_day\par
+by_city_day = users.pivot_table(index='weekday',columns='city')\par
+\par
+# Print by_city_day\par
+print(by_city_day)\par
+# Create the DataFrame with the appropriate pivot table: signups_and_visitors\par
+signups_and_visitors = users.pivot_table(index='weekday', aggfunc=sum)\par
+\par
+# Print signups_and_visitors\par
+print(signups_and_visitors)\par
+\par
+# Add in the margins: signups_and_visitors_total \par
+signups_and_visitors_total = users.pivot_table(index='weekday', margins=True, aggfunc=sum)\par
+\par
+# Print signups_and_visitors_total\par
+print(signups_and_visitors_total)\par
+\par
+\par
+sales.groupby('weekday').count()\par
+mean()\par
+std()\par
+sum()\par
+first(),last()\par
+min(),max()\par
+//reducing function\par
+sales.groupby('weekday')['bread'].sum()\par
+sales.groupby('weekday')[['bread','butter']].sum()\par
+sales.groupby(['bread','butter']).mean()\par
+sales['weekday'].unique()\par
+\par
+# Group titanic by 'pclass'\par
+by_class = titanic.groupby('pclass')\par
+\par
+# Aggregate 'survived' column of by_class by count\par
+count_by_class = by_class['survived'].count()\par
+\par
+# Print count_by_class\par
+print(count_by_class)\par
+\par
+# Group titanic by 'embarked' and 'pclass'\par
+by_mult = titanic.groupby(['embarked','pclass'])\par
+\par
+# Aggregate 'survived' column of by_mult by count\par
+count_mult = by_mult['survived'].count()\par
+\par
+# Print count_mult\par
+print(count_mult)\par
+\par
+# Read life_fname into a DataFrame: life\par
+life = pd.read_csv(life_fname, index_col='Country')\par
+\par
+# Read regions_fname into a DataFrame: regions\par
+regions = pd.read_csv(regions_fname,index_col='Country')\par
+\par
+# Group life by regions['region']: life_by_region\par
+life_by_region = life.groupby(regions['region'])\par
+\par
+# Print the mean over the '2010' column of life_by_region\par
+print(life_by_region['2010'].mean())\par
+\par
+\par
+def data_range(series):\par
+return series.max()\par
+\par
+sales.groupby('weekday')[['bread','butter']].agg(data_range)\par
+sales.groupby(customers)[['bread','butter']].agg(\{'bread':'sum','butter':data_range\})\par
+\par
+# Group titanic by 'pclass': by_class\par
+by_class = titanic.groupby('pclass')\par
+\par
+# Select 'age' and 'fare'\par
+by_class_sub = by_class[['age','fare']]\par
+\par
+# Aggregate by_class_sub by 'max' and 'median': aggregated\par
+aggregated = by_class_sub.agg(['max','median'])\par
+\par
+# Print the maximum age in each class\par
+print(aggregated.loc[:, ('age','max')])\par
+\par
+# Print the median fare in each class\par
+print(aggregated.loc[:, ('fare','median')])\par
+\par
+# Read the CSV file into a DataFrame and sort the index: gapminder\par
+gapminder = pd.read_csv('gapminder.csv', index_col=['Year','region','Country']).sort_index()\par
+\par
+# Group gapminder by 'Year' and 'region': by_year_region\par
+by_year_region = gapminder.groupby(level=['Year','region'])\par
+\par
+# Define the function to compute spread: spread\par
+def spread(series):\par
+    return series.max() - series.min()\par
+\par
+# Create the dictionary: aggregator\par
+aggregator = \{'population':'sum', 'child_mortality':'mean', 'gdp':spread\}\par
+\par
+# Aggregate by_year_region using the dictionary: aggregated\par
+aggregated = by_year_region.agg(aggregator)\par
+\par
+# Print the last 6 entries of aggregated \par
+print(aggregated.tail(6))\par
+\par
+\par
+zscore(auto['mpg']).head()\par
+auto.groupby('yr')['mpg'].transform(zscore).head()\par
+\par
+def zscore_with_year_and_name(group):\par
+df=pd.DataFrame(\{'mpg':zscore(group['mpg']),\par
+'year':group['yr']\})\par
+\par
+auto.groupby('yr').apply(zscore_with_year_and_name).head()\par
+\par
+# Import zscore\par
+from scipy.stats import zscore\par
+\par
+# Group gapminder_2010: standardized\par
+standardized = gapminder_2010.groupby('region')[['life','fertility']].transform(zscore)\par
+\par
+# Construct a Boolean Series to identify outliers: outliers\par
+outliers = (standardized['life'] < -3) | (standardized['fertility'] > 3)\par
+\par
+# Filter gapminder_2010 by the outliers: gm_outliers\par
+gm_outliers = gapminder_2010.loc[outliers]\par
+\par
+# Print gm_outliers\par
+print(gm_outliers)\par
+\par
+# Create a groupby object: by_sex_class\par
+by_sex_class = titanic.groupby(['sex', 'pclass'])\par
+\par
+# Write a function that imputes median\par
+def impute_median(series):\par
+    return series.fillna(series.median())\par
+\par
+# Impute age and assign to titanic['age']\par
+titanic.age = by_sex_class['age'].transform(impute_median)\par
+\par
+# Print the output of titanic.tail(10)\par
+print(titanic.tail(10))\par
+\par
+\par
+regional\par
+regional = gapminder_2010.groupby('region')\par
+\par
+# Apply the disparity function on regional: reg_disp\par
+reg_disp = regional.apply(disparity)\par
+\par
+# Print the disparity of 'United States', 'United Kingdom', and 'China'\par
+print(reg_disp.loc[['United States', 'United Kingdom', 'China']])\par
+\par
+# Create a groupby object using titanic over the 'sex' column: by_sex\par
+by_sex = titanic.groupby('sex')\par
+\par
+# Call by_sex.apply with the function c_deck_survival and print the result\par
+c_surv_by_sex = by_sex.apply(c_deck_survival)\par
+\par
+# Print the survival rates\par
+print(c_surv_by_sex)\par
+\par
+# Read the CSV file into a DataFrame: sales\par
+sales = pd.read_csv('sales.csv', index_col='Date', parse_dates=True)\par
+\par
+# Group sales by 'Company': by_company\par
+by_company = sales.groupby('Company')\par
+\par
+# Compute the sum of the 'Units' of by_company: by_com_sum\par
+by_com_sum = by_company['Units'].sum()\par
+print(by_com_sum)\par
+\par
+# Filter 'Units' where the sum is > 35: by_com_filt\par
+by_com_filt = by_company.filter(lambda g:g['Units'].sum() > 35)\par
+print(by_com_filt)\par
+\par
+# Create the Boolean Series: under10\par
+under10 = (titanic['age'] < 10).map(\{True:'under 10', False:'over 10'\})\par
+\par
+# Group by under10 and compute the survival rate\par
+survived_mean_1 = titanic.groupby(under10)['survived'].mean()\par
+print(survived_mean_1)\par
+\par
+# Group by under10 and pclass and compute the survival rate\par
+survived_mean_2 = titanic.groupby([under10, 'pclass'])['survived'].mean()\par
+print(survived_mean_2)\par
+\par
+# Select the 'NOC' column of medals: country_names\par
+country_names = medals['NOC']\par
+\par
+# Count the number of medals won by each country: medal_counts\par
+medal_counts = country_names.value_counts()\par
+\par
+# Print top 15 countries ranked by medals\par
+print(medal_counts.head(15))\par
+\par
+# Construct the pivot table: counted\par
+counted =medals.pivot_table(index='NOC',values='Athlete',columns='Medal',aggfunc='count')\par
+\par
+# Create the new column: counted['totals']\par
+counted['totals'] = counted.sum(axis='columns')\par
+\par
+# Sort counted by the 'totals' column\par
+counted = counted.sort_values('totals', ascending=False)\par
+\par
+# Print the top 15 rows of counted\par
+print(counted.head(15))\par
+--------\par
+# Select columns: ev_gen\par
+ev_gen = medals[['Event_gender', 'Gender']]\par
+\par
+# Drop duplicate pairs: ev_gen_uniques\par
+ev_gen_uniques = ev_gen.drop_duplicates()\par
+\par
+# Print ev_gen_uniques\par
+print(ev_gen_uniques)\par
+\par
+\par
+# Create the Boolean Series: sus\par
+sus = (medals.Event_gender == 'W') & (medals.Gender == 'Men')\par
+\par
+# Create a DataFrame with the suspicious row: suspect\par
+suspect = medals[sus]\par
+\par
+# Print suspect\par
+print(suspect)\par
+\par
+\par
+\par
+weather.idxmax()\par
+//dataframe with single row\par
+\par
+\par
+\par
+# Group medals by 'NOC': country_grouped\par
+country_grouped = medals.groupby('NOC')\par
+\par
+# Compute the number of distinct sports in which each country won medals: Nsports\par
+Nsports = country_grouped['Sport'].nunique()\par
+\par
+# Sort the values of Nsports in descending order\par
+Nsports = Nsports.sort_values(ascending=False)\par
+\par
+# Print the top 15 rows of Nsports\par
+print(Nsports.head(15))\par
+\par
+# Extract all rows for which the 'Edition' is between 1952 & 1988: during_cold_war\par
+during_cold_war = (medals['Edition'] >= 1952) & (medals['Edition'] <= 1988)\par
+\par
+# Extract rows for which 'NOC' is either 'USA' or 'URS': is_usa_urs\par
+is_usa_urs = medals.NOC.isin(['USA', 'URS'])\par
+\par
+# Use during_cold_war and is_usa_urs to create the DataFrame: cold_war_medals\par
+cold_war_medals = medals.loc[during_cold_war & is_usa_urs]\par
+\par
+# Group cold_war_medals by 'NOC'\par
+country_grouped = cold_war_medals.groupby('NOC')\par
+\par
+# Create Nsports\par
+Nsports = country_grouped['Sport'].nunique().sort_values(ascending=False)\par
+\par
+# Print Nsports\par
+print(Nsports)\par
+\par
+# Create the DataFrame: usa\par
+usa = medals[medals.NOC=='USA']\par
+\par
+# Group usa by ['Edition', 'Medal'] and aggregate over 'Athlete'\par
+usa_medals_by_year = usa.groupby(['Edition', 'Medal'])['Athlete'].count()\par
+\par
+# Reshape usa_medals_by_year by unstacking\par
+usa_medals_by_year = usa_medals_by_year.unstack(level='Medal')\par
+\par
+# Plot the DataFrame usa_medals_by_year\par
+usa_medals_by_year.plot()\par
+plt.show()\par
+\par
+# Create the DataFrame: usa\par
+usa = medals[medals.NOC == 'USA']\par
+\par
+# Group usa by 'Edition', 'Medal', and 'Athlete'\par
+usa_medals_by_year = usa.groupby(['Edition', 'Medal'])['Athlete'].count()\par
+\par
+# Reshape usa_medals_by_year by unstacking\par
+usa_medals_by_year = usa_medals_by_year.unstack(level='Medal')\par
+\par
+# Create an area plot of usa_medals_by_year\par
+usa_medals_by_year.plot.area()\par
+plt.show()\par
+\par
+# Redefine 'Medal' as an ordered categorical\par
+medals.Medal = pd.Categorical(values = medals.Medal,categories=['Bronze', 'Silver', 'Gold'],ordered=True)\par
+# Create the DataFrame: usa\par
+usa = medals[medals.NOC == 'USA']\par
+\par
+# Group usa by 'Edition', 'Medal', and 'Athlete'\par
+usa_medals_by_year = usa.groupby(['Edition', 'Medal'])['Athlete'].count()\par
+\par
+# Reshape usa_medals_by_year by unstacking\par
+usa_medals_by_year = usa_medals_by_year.unstack(level='Medal')\par
+\par
+# Create an area plot of usa_medals_by_year\par
+usa_medals_by_year.plot.area()\par
+plt.show()\par
+\par
+}
+ 

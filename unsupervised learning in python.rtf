@@ -1,0 +1,489 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 # Import KMeans\par
+from sklearn.cluster import KMeans\par
+\par
+# Create a KMeans instance with 3 clusters: model\par
+model = KMeans(n_clusters=3)\par
+\par
+# Fit model to points\par
+model.fit(points)\par
+\par
+# Determine the cluster labels of new_points: labels\par
+labels = model.predict(new_points)\par
+\par
+# Print cluster labels of new_points\par
+print(labels)\par
+----\par
+# Import pyplot\par
+import matplotlib.pyplot as plt\par
+\par
+# Assign the columns of new_points: xs and ys\par
+xs = new_points[:,0]\par
+ys = new_points[:,1]\par
+\par
+# Make a scatter plot of xs and ys, using labels to define the colors\par
+plt.scatter(xs, ys, alpha=0.5, c=labels)\par
+\par
+# Assign the cluster centers: centroids\par
+centroids = model.cluster_centers_\par
+\par
+# Assign the columns of centroids: centroids_x, centroids_y\par
+centroids_x = centroids[:,0]\par
+centroids_y = centroids[:,1]\par
+\par
+# Make a scatter plot of centroids_x and centroids_y\par
+plt.scatter(centroids_x, centroids_y, marker='D', s=50)\par
+plt.show()\par
+\par
+\par
+=====\par
+ks = range(1, 6)\par
+inertias = []\par
+\par
+for k in ks:\par
+    # Create a KMeans instance with k clusters: model\par
+    model = KMeans(n_clusters=k)\par
+    \par
+    # Fit model to samples\par
+    model.fit(samples)\par
+    \par
+    # Append the inertia to the list of inertias\par
+    inertias.append(model.inertia_)\par
+    \par
+# Plot ks vs inertias\par
+plt.plot(ks, inertias, '-o')\par
+plt.xlabel('number of clusters, k')\par
+plt.ylabel('inertia')\par
+plt.xticks(ks)\par
+plt.show()\par
+------\par
+# Create a KMeans model with 3 clusters: model\par
+model = KMeans(n_clusters=3)\par
+\par
+# Use fit_predict to fit model and obtain cluster labels: labels\par
+labels = model.fit_predict(samples)\par
+\par
+# Create a DataFrame with labels and varieties as columns: df\par
+df = pd.DataFrame(\{'labels': labels, 'varieties': varieties\})\par
+\par
+# Create crosstab: ct\par
+ct = pd.crosstab(df['labels'], df['varieties'])\par
+\par
+# Display ct\par
+print(ct)\par
+---\par
+\par
+# Perform the necessary imports\par
+from sklearn.pipeline import make_pipeline\par
+from sklearn.preprocessing import StandardScaler\par
+from sklearn.cluster import KMeans\par
+\par
+# Create scaler: scaler\par
+scaler = StandardScaler()\par
+\par
+# Create KMeans instance: kmeans\par
+kmeans = KMeans(n_clusters=4)\par
+\par
+# Create pipeline: pipeline\par
+pipeline = make_pipeline(scaler, kmeans)\par
+----\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Fit the pipeline to samples\par
+pipeline.fit(samples)\par
+\par
+# Calculate the cluster labels: labels\par
+labels = pipeline.predict(samples)\par
+\par
+# Create a DataFrame with labels and species as columns: df\par
+df = pd.DataFrame(\{'labels': labels, 'species': species\})\par
+\par
+# Create crosstab: ct\par
+ct = pd.crosstab(df['labels'], df['species'])\par
+\par
+# Display ct\par
+print(ct)\par
+----\par
+# Import Normalizer\par
+from sklearn.preprocessing import Normalizer\par
+\par
+# Create a normalizer: normalizer\par
+normalizer = Normalizer()\par
+\par
+# Create a KMeans model with 10 clusters: kmeans\par
+kmeans = KMeans(n_clusters=10)\par
+\par
+# Make a pipeline chaining normalizer and kmeans: pipeline\par
+pipeline = make_pipeline(normalizer, kmeans)\par
+\par
+# Fit pipeline to the daily price movements\par
+pipeline.fit(movements)\par
+----\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Predict the cluster labels: labels\par
+labels = pipeline.predict(movements)\par
+\par
+# Create a DataFrame aligning labels and companies: df\par
+df = pd.DataFrame(\{'labels': labels, 'companies': companies\})\par
+\par
+# Display df sorted by cluster label\par
+print(df.sort_values('labels'))\par
+-----\par
+# Perform the necessary imports\par
+from scipy.cluster.hierarchy import linkage, dendrogram\par
+import matplotlib.pyplot as plt\par
+\par
+# Calculate the linkage: mergings\par
+mergings = linkage(samples, method='complete')\par
+\par
+# Plot the dendrogram, using varieties as labels\par
+dendrogram(mergings,\par
+           labels=varieties,\par
+           leaf_rotation=90,\par
+           leaf_font_size=6,\par
+)\par
+plt.show()\par
+----\par
+# Import normalize\par
+from sklearn.preprocessing import normalize\par
+\par
+# Normalize the movements: normalized_movements\par
+normalized_movements = normalize(movements)\par
+\par
+# Calculate the linkage: mergings\par
+mergings = linkage(normalized_movements, method='complete')\par
+\par
+# Plot the dendrogram\par
+dendrogram(mergings, labels=companies, leaf_rotation=90, leaf_font_size=6)\par
+plt.show()\par
+------\par
+# Perform the necessary imports\par
+import matplotlib.pyplot as plt\par
+from scipy.cluster.hierarchy import linkage, dendrogram\par
+\par
+# Calculate the linkage: mergings\par
+mergings = linkage(samples, method='single')\par
+\par
+# Plot the dendrogram\par
+dendrogram(mergings, labels=country_names, leaf_rotation=90, leaf_font_size=6)\par
+plt.show()\par
+---\par
+# Perform the necessary imports\par
+import pandas as pd\par
+from scipy.cluster.hierarchy import fcluster\par
+\par
+# Use fcluster to extract labels: labels\par
+labels = fcluster(mergings, 6, criterion='distance')\par
+\par
+# Create a DataFrame with labels and varieties as columns: df\par
+df = pd.DataFrame(\{'labels': labels, 'varieties': varieties\})\par
+\par
+# Create crosstab: ct\par
+ct = pd.crosstab(df['labels'], df['varieties'])\par
+\par
+# Display ct\par
+print(ct)\par
+-----\par
+# Import TSNE\par
+from sklearn.manifold import TSNE\par
+\par
+# Create a TSNE instance: model\par
+model = TSNE(learning_rate=200)\par
+\par
+# Apply fit_transform to samples: tsne_features\par
+tsne_features = model.fit_transform(samples)\par
+\par
+# Select the 0th feature: xs\par
+xs = tsne_features[:,0]\par
+\par
+# Select the 1st feature: ys\par
+ys = tsne_features[:,1]\par
+\par
+# Scatter plot, coloring by variety_numbers\par
+plt.scatter(xs, ys, c=variety_numbers)\par
+plt.show()\par
+-----\par
+# Perform the necessary imports\par
+import matplotlib.pyplot as plt\par
+from scipy.stats import pearsonr\par
+\par
+# Assign the 0th column of grains: width\par
+width = grains[:,0]\par
+\par
+# Assign the 1st column of grains: length\par
+length = grains[:,1]\par
+\par
+# Scatter plot width vs length\par
+plt.scatter(width, length)\par
+plt.axis('equal')\par
+plt.show()\par
+\par
+# Calculate the Pearson correlation\par
+correlation, pvalue = pearsonr(width, length)\par
+\par
+# Display the correlation\par
+print(correlation)\par
+----\par
+# Import PCA\par
+from sklearn.decomposition import PCA\par
+\par
+# Create PCA instance: model\par
+model = PCA()\par
+\par
+# Apply the fit_transform method of model to grains: pca_features\par
+pca_features = model.fit_transform(grains)\par
+\par
+# Assign 0th column of pca_features: xs\par
+xs = pca_features[:,0]\par
+\par
+# Assign 1st column of pca_features: ys\par
+ys = pca_features[:,1]\par
+\par
+# Scatter plot xs vs ys\par
+plt.scatter(xs, ys)\par
+plt.axis('equal')\par
+plt.show()\par
+\par
+# Calculate the Pearson correlation of xs and ys\par
+correlation, pvalue = pearsonr(xs, ys)\par
+\par
+# Display the correlation\par
+print(correlation)\par
+----\par
+# Make a scatter plot of the untransformed points\par
+plt.scatter(grains[:,0], grains[:,1])\par
+\par
+# Create a PCA instance: model\par
+model = PCA()\par
+\par
+# Fit model to points\par
+model.fit(grains)\par
+\par
+# Get the mean of the grain samples: mean\par
+mean = model.mean_\par
+\par
+# Get the first principal component: first_pc\par
+first_pc = model.components_[0,:]\par
+\par
+# Plot first_pc as an arrow, starting at mean\par
+plt.arrow(mean[0], mean[1], first_pc[0], first_pc[1], color='red', width=0.01)\par
+\par
+# Keep axes on same scale\par
+plt.axis('equal')\par
+plt.show()\par
+----\par
+# Perform the necessary imports\par
+from sklearn.decomposition import PCA\par
+from sklearn.preprocessing import StandardScaler\par
+from sklearn.pipeline import make_pipeline\par
+import matplotlib.pyplot as plt\par
+\par
+# Create scaler: scaler\par
+scaler = StandardScaler()\par
+\par
+# Create a PCA instance: pca\par
+pca = PCA()\par
+\par
+# Create pipeline: pipeline\par
+pipeline = make_pipeline(scaler, pca)\par
+\par
+# Fit the pipeline to 'samples'\par
+pipeline.fit(samples)\par
+\par
+# Plot the explained variances\par
+features = range(pca.n_components_)\par
+plt.bar(features, pca.explained_variance_)\par
+plt.xlabel('PCA feature')\par
+plt.ylabel('variance')\par
+plt.xticks(features)\par
+plt.show()\par
+----\par
+# Import PCA\par
+from sklearn.decomposition import PCA\par
+\par
+# Create a PCA model with 2 components: pca\par
+pca = PCA(n_components=2)\par
+\par
+# Fit the PCA instance to the scaled samples\par
+pca.fit(scaled_samples)\par
+\par
+# Transform the scaled samples: pca_features\par
+pca_features = pca.transform(scaled_samples)\par
+\par
+# Print the shape of pca_features\par
+print(pca_features.shape)\par
+---\par
+# Import TfidfVectorizer\par
+from sklearn.feature_extraction.text import TfidfVectorizer\par
+\par
+# Import TfidfVectorizer\par
+from sklearn.feature_extraction.text import TfidfVectorizer\par
+\par
+# Create a TfidfVectorizer: tfidf\par
+tfidf = TfidfVectorizer()\par
+\par
+# Apply fit_transform to document: csr_mat\par
+csr_mat = tfidf.fit_transform(documents)\par
+\par
+# Print result of toarray() method\par
+print(csr_mat.toarray())\par
+\par
+# Get the words: words\par
+words = tfidf.get_feature_names()\par
+\par
+# Print words\par
+print(words)\par
+----\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Fit the pipeline to articles\par
+pipeline.fit(articles)\par
+\par
+# Calculate the cluster labels: labels\par
+labels = pipeline.predict(articles)\par
+\par
+# Create a DataFrame aligning labels and titles: df\par
+df = pd.DataFrame(\{'label': labels, 'article': titles\})\par
+\par
+# Display df sorted by cluster label\par
+print(df.sort_values('label'))\par
+----\par
+# Import NMF\par
+from sklearn.decomposition import NMF\par
+\par
+# Create an NMF instance: model\par
+model = NMF(n_components=6)\par
+\par
+# Fit the model to articles\par
+model.fit(articles)\par
+\par
+# Transform the articles: nmf_features\par
+nmf_features = model.transform(articles)\par
+\par
+# Print the NMF features\par
+print(nmf_features)\par
+-----\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Create a pandas DataFrame: df\par
+df = pd.DataFrame(nmf_features,index=titles)\par
+\par
+# Print the row for 'Anne Hathaway'\par
+print(df.loc['Anne Hathaway'])\par
+\par
+# Print the row for 'Denzel Washington'\par
+print(df.loc['Denzel Washington'])\par
+-----\par
+# Import pandas\par
+import pandas as pd\par
+\par
+# Create a DataFrame: components_df\par
+components_df = pd.DataFrame(model.components_, columns=words)\par
+\par
+# Print the shape of the DataFrame\par
+print(components_df.shape)\par
+\par
+# Select row 3: component\par
+component = components_df.iloc[3]\par
+\par
+# Print result of nlargest\par
+print(component.nlargest())\par
+----\par
+# Import pyplot\par
+from matplotlib import pyplot as plt\par
+\par
+# Select the 0th row: digit\par
+digit = samples[0,:]\par
+\par
+# Print digit\par
+print(digit)\par
+\par
+# Reshape digit to a 13x8 array: bitmap\par
+bitmap = digit.reshape(13, 8)\par
+\par
+# Print bitmap\par
+print(bitmap)\par
+\par
+# Use plt.imshow to display bitmap\par
+plt.imshow(bitmap, cmap='gray', interpolation='nearest')\par
+plt.colorbar()\par
+plt.show()\par
+----\par
+# Import NMF\par
+from sklearn.decomposition import NMF\par
+\par
+# Create an NMF model: model\par
+model = NMF(n_components=7)\par
+\par
+# Apply fit_transform to samples: features\par
+features = model.fit_transform(samples)\par
+\par
+# Call show_as_image on each component\par
+for component in model.components_:\par
+    show_as_image(component)\par
+\par
+# Assign the 0th row of features: digit_features\par
+digit_features = features[0,:]\par
+\par
+# Print digit_features\par
+print(digit_features)\par
+----\par
+# Import PCA\par
+from sklearn.decomposition import PCA\par
+\par
+# Create a PCA instance: model\par
+model = PCA(n_components=7)\par
+\par
+# Apply fit_transform to samples: features\par
+features = model.fit_transform(samples)\par
+\par
+# Call show_as_image on each component\par
+for component in model.components_:\par
+    show_as_image(component)\par
+----\par
+# Perform the necessary imports\par
+import pandas as pd\par
+from sklearn.preprocessing import normalize\par
+\par
+# Normalize the NMF features: norm_features\par
+norm_features = normalize(nmf_features)\par
+\par
+# Create a DataFrame: df\par
+df = pd.DataFrame(norm_features, index=titles)\par
+\par
+# Select the row corresponding to 'Cristiano Ronaldo': article\par
+article = df.loc['Cristiano Ronaldo']\par
+\par
+# Compute the dot products: similarities\par
+similarities = df.dot(article)\par
+\par
+# Display those with the largest cosine similarity\par
+print(similarities.nlargest())\par
+---\par
+# Perform the necessary imports\par
+from sklearn.decomposition import NMF\par
+from sklearn.preprocessing import Normalizer, MaxAbsScaler\par
+from sklearn.pipeline import make_pipeline\par
+\par
+# Create a MaxAbsScaler: scaler\par
+scaler = MaxAbsScaler()\par
+\par
+# Create an NMF model: nmf\par
+nmf = NMF(n_components=20)\par
+\par
+# Create a Normalizer: normalizer\par
+normalizer = Normalizer()\par
+\par
+# Create a pipeline: pipeline\par
+pipeline = make_pipeline(scaler, nmf, normalizer)\par
+\par
+# Apply fit_transform to artists: norm_features\par
+norm_features = pipeline.fit_transform(artists)\par
+}
+ 
